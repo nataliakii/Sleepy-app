@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-// import moment from 'moment-strftime';
 import { Button, Form } from 'react-bootstrap';
 import { signup } from '../../actions';
 
@@ -14,7 +13,7 @@ const userSchema = Yup.object().shape({
   password: Yup.string().required(),
   name: Yup.string().required(),
   nameKid: Yup.string().required(),
-  kidBD: Yup.date().nullable().required(),
+  kidBD: Yup.date().required(),
 });
 
 const Signup = () => {
@@ -31,9 +30,10 @@ const Signup = () => {
   const error = useSelector((state) => state.auth.errorMessage);
 
   const handleFormSubmit = (data) => {
+    console.log('pushed');
     dispatch(
       signup(data, () => {
-        history.push('/');
+        history.push('/personal');
       })
     );
   };
@@ -52,22 +52,12 @@ const Signup = () => {
         display: 'inline-block',
         width: '100%',
         marginTop: '5%',
-        float: 'left',
       }}
     >
-      <Form
-        style={{
-          position: 'relative',
-          marginLeft: '22%',
-          marginTop: '1%',
-          display: 'inline-block',
-          width: '33%',
-        }}
-        onSubmit={handleSubmit(handleFormSubmit)}
-      >
+      <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
         <h3 className="centered">Signup</h3>
         {errorRender()}
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -78,7 +68,7 @@ const Signup = () => {
             <p className="error-message">Email is a required field</p>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-2" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -90,10 +80,10 @@ const Signup = () => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Group className="mb-2" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type="name"
+            // type="name"
             placeholder="your name"
             {...register('name', { required: true })}
           />
@@ -102,10 +92,10 @@ const Signup = () => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicNameKid">
-          <Form.Label>Your child's name</Form.Label>
+        <Form.Group className="mb-2" controlId="formBasicNameKid">
+          <Form.Label>Your kid's name</Form.Label>
           <Form.Control
-            type="nameKid"
+            // type="nameKid"
             placeholder="kid's name"
             {...register('nameKid', { required: true })}
           />
@@ -113,9 +103,13 @@ const Signup = () => {
             <p className="error-message">Please, provide your kid's name</p>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formDate">
-          <Form.Label>Your kid's birthday DDMMYYYY</Form.Label>
-          <Form.Control type="date" {...register('date', { required: true })} />
+
+        <Form.Group className="mb-2" controlId="formBasicDate">
+          <Form.Label>Your kid's birthday</Form.Label>
+          <Form.Control
+            type="date"
+            {...register('kidBD', { required: true })}
+          />
           {errors.kidBD && (
             <p className="error-message">Please, provide your kid's birthday</p>
           )}

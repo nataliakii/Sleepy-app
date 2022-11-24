@@ -51,19 +51,9 @@ const Signin = () => {
         display: 'inline-block',
         width: '100%',
         marginTop: '5%',
-        float: 'left',
       }}
     >
-      <Form
-        style={{
-          position: 'relative',
-          marginLeft: '22%',
-          marginTop: '2%',
-          display: 'inline-block',
-          width: '33%',
-        }}
-        onSubmit={handleSubmit(handleFormSubmit)}
-      >
+      <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
         <h3 className="centered">Signin</h3>
         {errorRender()}
         <Form.Group className="mb-3" controlId="formBasicEmail">

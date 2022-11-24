@@ -192,3 +192,10 @@ button {
   font-size: 14px;
   font-weight: 200;
 }
+.form-signup {
+  position: relative;
+  margin-left: 22%;
+  margin-top: 1%;
+  display: inline-block;
+  width: 33%;
+}

@@ -28,43 +28,49 @@ const createStoreWithMiddleware = applyMiddleware(promise)(configureStore);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <Provider store={createStoreWithMiddleware({ reducer: reducers })}>
-    <Router>
-      <>
-        <Nav />
-        <App>
-          <Bar />
-          <Switch>
-            <Route exact path="/" component={(props) => <Main {...props} />} />
-            <Route
-              exact
-              path="/signup"
-              component={(props) => <Signup {...props} />}
-            />
-            <Route
-              exact
-              path="/signin"
-              component={(props) => <Signin {...props} />}
-            />
-            <Route
-              exact
-              path="/personal"
-              component={(props) => <Personal {...props} />}
-            />
-            <Route
-              exact
-              path="/sleepy-form-post"
-              component={(props) => <SleepyForm {...props} />}
-            />
-            <Route
-              exact
-              path="/sleepy-form-get"
-              component={(props) => <SleepyGet {...props} />}
-            />
-          </Switch>
-        </App>
-        <Footer />
-      </>
-    </Router>
-  </Provider>
+  <React.StrictMode>
+    <Provider store={createStoreWithMiddleware({ reducer: reducers })}>
+      <Router>
+        <>
+          <Nav />
+          <App>
+            <Bar />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={(props) => <Main {...props} />}
+              />
+              <Route
+                exact
+                path="/signup"
+                component={(props) => <Signup {...props} />}
+              />
+              <Route
+                exact
+                path="/signin"
+                component={(props) => <Signin {...props} />}
+              />
+              <Route
+                exact
+                path="/personal"
+                component={(props) => <Personal {...props} />}
+              />
+              <Route
+                exact
+                path="/sleepy-form-post"
+                component={(props) => <SleepyForm {...props} />}
+              />
+              <Route
+                exact
+                path="/sleepy-form-get"
+                component={(props) => <SleepyGet {...props} />}
+              />
+            </Switch>
+          </App>
+          <Footer />
+        </>
+      </Router>
+    </Provider>
+  </React.StrictMode>
 );

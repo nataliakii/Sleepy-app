@@ -11,5 +11,5 @@ module.exports = function (app) {
   app.post("/auth/signup", Authentication.signup);
   app.get("/auth/current_user", requireAuth, Authentication.currentUser);
   app.post("/api/sleepy_post", requireAuth, SleepyDocs.addSleepyDoc);
-  // app.get("/api/sleepyDocs", requireAuth, SleepyDocs.getDocs);
+  // app.get("/api/sleepy", requireAuth, SleepyDocs.getDocs);
 };

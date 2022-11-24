@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 function Bar() {
   return (
     <Nav
-      defaultActiveKey="/"
+      // defaultActiveKey="/"
       className="flex-column"
       style={{
         position: 'sticky',
@@ -13,14 +13,14 @@ function Bar() {
         heigh: '100%',
       }}
     >
-      <Nav.Link
+      {/* <Nav.Link
         style={{
           color: 'rgb(60,125,128)',
         }}
         href="/"
       >
         Home
-      </Nav.Link>
+      </Nav.Link> */}
       <Nav.Link
         style={{
           color: 'rgb(60,125,128)',

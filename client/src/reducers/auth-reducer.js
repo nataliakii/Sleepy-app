@@ -3,14 +3,13 @@
 const INITIAL_STATE = {
   authenticated: localStorage.getItem('token') || '',
   errorMessage: '',
-  name: null,
-  nameKid: null,
+  name: localStorage.getItem('name') || null,
+  nameKid: localStorage.getItem('nameKid') || null,
 };
 
 export default function AuthReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'AUTH_USER':
-      console.log(action.payload);
       return {
         authenticated: action.payload.token,
         name: action.payload.name,

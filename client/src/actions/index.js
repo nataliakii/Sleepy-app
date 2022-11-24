@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
+const authUrl = 'http://localhost:5000/auth/';
+
 export const signout = (callback) => {
   localStorage.removeItem('token');
   callback();
@@ -10,10 +12,7 @@ export const signout = (callback) => {
 
 export async function signin(formProps, callback) {
   try {
-    const response = await axios.post(
-      'http://localhost:5000/auth/signin',
-      formProps
-    );
+    const response = await axios.post(`${authUrl}signin`, formProps);
     localStorage.setItem('token', response.data.token);
     callback();
     return { type: 'AUTH_USER', payload: response.data };
@@ -27,10 +26,7 @@ export async function signin(formProps, callback) {
 
 export async function signup(formProps, callback) {
   try {
-    const response = await axios.post(
-      'http://localhost:5000/auth/signup',
-      formProps
-    );
+    const response = await axios.post(`${authUrl}signup`, formProps);
     localStorage.setItem('token', response.data.token);
     callback();
 
@@ -50,10 +46,7 @@ export async function fetchUser() {
     },
   };
   try {
-    const response = await axios.get(
-      'http://localhost:5000/auth/current_user',
-      config
-    );
+    const response = await axios.get(`${authUrl}current_user`, config);
     localStorage.setItem('token', response.data.token);
     return { type: 'AUTH_USER', payload: response.data };
   } catch (error) {
@@ -74,6 +67,7 @@ export async function postForm(sleepData, callback) {
       config
     );
     localStorage.setItem('token', response.data.token);
+    console.log(response.data)
 
     const responseObj = {
       date: response.data.date,

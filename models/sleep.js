@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const sleepySchema = new Schema({
   id: Number,
   date: Date,
-  age: Object,
+  // age: Object,
   wakeUp:String,
   // ww1:String,
   // nap1:Object({start: String, end: String}),
