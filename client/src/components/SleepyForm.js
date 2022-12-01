@@ -5,16 +5,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row } from 'react-bootstrap';
 import { postForm } from '../actions';
 
 const sleepySchema = Yup.object().shape({
   date: Yup.date().required(),
   wakeUp: Yup.string().required(),
-  // nap1: { start: Yup.string().required(), end: Yup.string().required() },
-  // nap2: { start: Yup.string(), end: Yup.string() },
-  // nap3: { start: Yup.string(), end: Yup.string() },
-  // nap4: { start: Yup.string(), end: Yup.string() },
+  nap1Start: Yup.string().required(),
+  nap1End: Yup.string().required(),
+  nap2Start: Yup.string(),
+  nap2End: Yup.string(),
+  nap3Start: Yup.string(),
+  nap3End: Yup.string(),
+  nap4Start: Yup.string(),
+  nap4End: Yup.string(),
   bedTime: Yup.string().required(),
 });
 
@@ -32,6 +36,7 @@ export default function SleepyForm() {
   const authenticated = useSelector((state) => state.auth.authenticated);
 
   const handleFormSubmit = (data) => {
+    console.log('pushed');
     dispatch(
       postForm(data, () => {
         history.push('/sleepy-form-get');
@@ -73,6 +78,75 @@ export default function SleepyForm() {
               <p className="error-message">Wake up time is a required field</p>
             )}
           </Form.Group>
+
+          <Form.Group className="mb-2" controlId="formNap1">
+            <Form.Label>Nap #1 Start-End</Form.Label>
+            <Row>
+              <Form.Control
+                className="form-nap-start"
+                type="time"
+                {...register('nap1Start', { required: true })}
+              />
+              <Form.Control
+                className="form-nap-end"
+                type="time"
+                {...register('nap1End', { required: true })}
+              />
+            </Row>
+            {errors.date && (
+              <p className="error-message">Nap#1 is a required field</p>
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="formNap2">
+            <Form.Label>Nap #2 Start-End</Form.Label>
+            <Row>
+              <Form.Control
+                className="form-nap-start"
+                type="time"
+                {...register('nap2Start')}
+              />
+              <Form.Control
+                className="form-nap-end"
+                type="time"
+                {...register('nap2End')}
+              />
+            </Row>
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="formNap3">
+            <Form.Label>Nap #3 Start-End</Form.Label>
+            <Row>
+              <Form.Control
+                className="form-nap-start"
+                type="time"
+                {...register('nap3Start')}
+              />
+              <Form.Control
+                className="form-nap-end"
+                type="time"
+                {...register('nap3End')}
+              />
+            </Row>
+          </Form.Group>
+
+
+          <Form.Group className="mb-2" controlId="formNap4">
+            <Form.Label>Nap #4 Start-End</Form.Label>
+            <Row>
+              <Form.Control
+                className="form-nap-start"
+                type="time"
+                {...register('nap4Start')}
+              />
+              <Form.Control
+                className="form-nap-end"
+                type="time"
+                {...register('nap4End')}
+              />
+            </Row>
+          </Form.Group>
+
           <Form.Group className="mb-2" controlId="formBedTime">
             <Form.Label>Bed time</Form.Label>
             <Form.Control
@@ -83,7 +157,11 @@ export default function SleepyForm() {
               <p className="error-message">Bed time is a required field</p>
             )}
           </Form.Group>
-          <Button variant="primary" type="submit" className="centered-button">
+          <Button
+            variant="primary"
+            type="submit"
+            className="centered-button-form"
+          >
             Send schedule
           </Button>
         </Form>

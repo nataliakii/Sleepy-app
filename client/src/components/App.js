@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
@@ -12,7 +13,7 @@ const App = (props) => {
     if (authenticated) {
       dispatch(fetchUser());
     }
-  }, [authenticated, dispatch]);
+  }, [authenticated]);
   return <div>{props.children}</div>;
 };
 

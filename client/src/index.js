@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-named-as-default-member */
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,10 +8,9 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { applyMiddleware } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import promise from 'redux-promise';
-// import thunk from 'redux-thunk';
+import thunk from 'redux-thunk';
 
-import reducers from './reducers';
+import rootReducer from './reducers/index';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import App from './components/App';
@@ -21,15 +21,20 @@ import Signup from './components/auth/Signup';
 import Signin from './components/auth/Signin';
 import SleepyForm from './components/SleepyForm';
 import SleepyGet from './components/SleepyGet';
+import AllDocsDisplay from './components/AllDocsDisplay';
 
-// const store = configureStore(reducers, {}, applyMiddleware(thunk));
+const store = configureStore(
+  { reducer: rootReducer },
+  {},
+  applyMiddleware(thunk)
+);
 
-const createStoreWithMiddleware = applyMiddleware(promise)(configureStore);
+// const createStoreWithMiddleware = applyMiddleware(promise)(configureStore);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Provider store={createStoreWithMiddleware({ reducer: reducers })}>
+    <Provider store={store}>
       <Router>
         <>
           <Nav />
@@ -65,6 +70,11 @@ root.render(
                 exact
                 path="/sleepy-form-get"
                 component={(props) => <SleepyGet {...props} />}
+              />
+              <Route
+                exact
+                path="/all-docs-display"
+                component={(props) => <AllDocsDisplay {...props} />}
               />
             </Switch>
           </App>

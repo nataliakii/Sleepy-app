@@ -3,43 +3,7 @@ import axios from 'axios';
 
 const authUrl = 'http://localhost:5000/auth/';
 
-export const signout = (callback) => {
-  localStorage.removeItem('token');
-  callback();
-
-  return { type: 'AUTH_USER', payload: '' };
-};
-
-export async function signin(formProps, callback) {
-  try {
-    const response = await axios.post(`${authUrl}signin`, formProps);
-    localStorage.setItem('token', response.data.token);
-    callback();
-    return { type: 'AUTH_USER', payload: response.data };
-  } catch (error) {
-    return {
-      type: 'AUTH_ERROR',
-      payload: error.message,
-    };
-  }
-}
-
-export async function signup(formProps, callback) {
-  try {
-    const response = await axios.post(`${authUrl}signup`, formProps);
-    localStorage.setItem('token', response.data.token);
-    callback();
-
-    return { type: 'AUTH_USER', payload: response.data };
-  } catch (error) {
-    return {
-      type: 'AUTH_ERROR',
-      payload: error.response.data.error,
-    };
-  }
-}
-
-export async function fetchUser() {
+export const fetchUser = () => async (dispatch) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -47,14 +11,49 @@ export async function fetchUser() {
   };
   try {
     const response = await axios.get(`${authUrl}current_user`, config);
-    localStorage.setItem('token', response.data.token);
-    return { type: 'AUTH_USER', payload: response.data };
+    dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-export async function postForm(sleepData, callback) {
+export const signout = (callback) => (dispatch) => {
+  localStorage.removeItem('token');
+
+  dispatch({ type: 'AUTH_USER', payload: '' });
+  callback();
+};
+
+export const signin = (formProps, callback) => (dispatch) => {
+  axios
+    .post(`${authUrl}signin`, formProps)
+    .then((response) => {
+      dispatch({ type: 'AUTH_USER', payload: response.data });
+      localStorage.setItem('token', response.data.token);
+      callback();
+    })
+    .catch((error) => {
+      dispatch({ type: 'AUTH_ERROR', payload: error });
+    });
+};
+
+export const signup = (formProps, callback) => (dispatch) => {
+  axios
+    .post(`${authUrl}signup`, formProps)
+    .then((response) => {
+      dispatch({ type: 'AUTH_USER', payload: response.data });
+      localStorage.setItem('token', response.data.token);
+      callback();
+    })
+    .catch((error) => {
+      dispatch({
+        type: 'AUTH_ERROR',
+        payload: error.response.data.error,
+      });
+    });
+};
+
+export const postForm = (sleepData, callback) => async (dispatch) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -66,32 +65,53 @@ export async function postForm(sleepData, callback) {
       { sleepData },
       config
     );
-    localStorage.setItem('token', response.data.token);
-    console.log(response.data)
-
+    console.log(response);
     const responseObj = {
-      date: response.data.date,
-      age: response.data.age.months,
-      wakeUp: response.data.wakeUp,
-      // ww1: response.data.ww1,
-      // nap1: response.data.nap1,
-      // ww2: response.data.ww2,
-      // nap2: response.data.nap2 || '-',
-      // ww3: response.data.ww3 || '-',
-      // nap3: response.data.nap3 || '-',
-      // ww4: response.data.ww4 || '-',
-      // nap4: response.data.nap4 || '-',
-      bedTime: response.data.wakeUp,
-      // sumAwake: response.data.sumAwake,
-      // lastNap: response.data.lastNap,
+      date: response.data.sleepyDoc.date,
+      age: {
+        years: response.data.sleepyDoc.age.years,
+        months: response.data.sleepyDoc.age.months,
+        days: response.data.sleepyDoc.age.days,
+      },
+      wakeUp: response.data.sleepyDoc.wakeUp,
+      ww1: response.data.sleepyDoc.ww1,
+      ww2: response.data.sleepyDoc.ww2,
+      ww3: response.data.sleepyDoc.ww3,
+      ww4: response.data.sleepyDoc.ww4,
+      ww5: response.data.sleepyDoc.ww5,
+      bedTime: response.data.sleepyDoc.bedTime,
+      sumNap: response.data.sleepyDoc.sumNap,
+      result: {
+        ww1R: response.data.sleepyDoc.result.ww1R,
+        ww2R: response.data.sleepyDoc.result.ww2R,
+        ww3R: response.data.sleepyDoc.result.ww3R,
+        ww4R: response.data.sleepyDoc.result.ww4R,
+        ww5R: response.data.sleepyDoc.result.ww5R,
+        sumNapR: response.data.sleepyDoc.result.sumNapR,
+      },
     };
     console.log(responseObj);
+    dispatch({ type: 'POST_SLEEP', payload: responseObj });
     callback();
-    return { type: 'POST_SLEEP', payload: responseObj };
   } catch (error) {
-    return {
-      type: 'POST_SLEEP_ERROR',
-      payload: error.message,
-    };
+    console.log(error);
   }
-}
+};
+
+export const fetchAllDocs = () => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  };
+  try {
+    const response = await axios.get(
+      'http://localhost:5000/api/sleepy_get_all',
+      config
+    );
+    console.log(response);
+    dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
+  } catch (error) {
+    console.log(error);
+  }
+};

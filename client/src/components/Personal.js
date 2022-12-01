@@ -37,8 +37,12 @@ export default function Main() {
           In order to get your personal recommendations, please, provide some
           info about {kidName}'s sleeping schedule.{' '}
         </p>
+        <Link className="white" to="/all-docs-display">
+          Check all sleepy docs with recommendations
+        </Link>
 
         <Link className="white" to="/sleepy-form-post">
+          <br />
           Check if {kidName} sleeps enough (so you do!)
         </Link>
       </div>

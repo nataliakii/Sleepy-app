@@ -40,14 +40,21 @@
 .centered {
   text-align: center;
   text-transform: uppercase;
-  text-align: center;
   letter-spacing: 5px;
 }
 .centered-button {
-  margin-left: 30%;
+  margin: 3% 0 0 34%;
+  padding: 0 20% 0 20%;
   background-color: rgb(60, 125, 128) !important;
   border-color: rgb(60, 125, 128) !important;
 }
+
+.centered-button-form {
+  margin: 3% 0 0 20%;
+  background-color: rgb(60, 125, 128) !important;
+  border-color: rgb(60, 125, 128) !important;
+}
+
 .main-button {
   background-color: rgb(60, 125, 128) !important;
   border-color: rgb(60, 125, 128) !important;
@@ -56,11 +63,10 @@
   position: fixed;
   width: 100% !important;
   z-index: 999;
-  background: rgb(112, 128, 144);
+  background: rgb(76, 125, 128);
   color: whitesmoke;
   margin: 0;
-  width: 100%;
-  height: 12%;
+  height: 15%;
   padding: 1.5em;
 }
 
@@ -184,13 +190,17 @@ button {
   font-weight: 100;
 }
 .sleepy-table {
-  /* line-height: 2;
-  text-align: left;
-  display: block;
-  margin-bottom: 3px; */
-  color: white;
-  font-size: 14px;
-  font-weight: 200;
+  font-size: 9px;
+  color: white !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  width: 60rem !important;
+  font-weight: 10 !important;
+  text-transform: uppercase;
+}
+td {
+  font-size: 10px;
+  color: #ebf2f2;
 }
 .form-signup {
   position: relative;
@@ -198,4 +208,33 @@ button {
   margin-top: 1%;
   display: inline-block;
   width: 33%;
+}
+
+.form-nap-start {
+  width: 41% !important;
+  margin-left: 3%;
+  margin-right: 7%;
+}
+.form-nap-end {
+  width: 41% !important;
+  display: inline;
+  margin-left: 5%;
+}
+.table-result {
+  text-transform: none;
+}
+.table-comments {
+  text-transform: uppercase;
+  background-color: rgb(128, 60, 125);
+  vertical-align: middle !important;
+  font-size: 11px;
+}
+.table-head {
+  background-color: rgb(76, 125, 128);
+}
+.ok-cell {
+  background-color: rgb(128, 60, 125);
+}
+.no-ok-cell {
+  background-color: rgb(125, 128, 60);
 }
