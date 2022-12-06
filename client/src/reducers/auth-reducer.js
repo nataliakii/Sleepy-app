@@ -5,6 +5,8 @@ const INITIAL_STATE = {
   errorMessage: '',
   name: null,
   nameKid: null,
+  kidBD: null,
+  email: null,
 };
 
 export default function AuthReducer(state = INITIAL_STATE, action) {

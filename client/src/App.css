@@ -74,18 +74,13 @@
   background: rgb(76, 125, 128);
   color: whitesmoke;
   margin: 0;
-  height: 15%;
+  max-height: 12% !important;
+  min-height: 11% !important;
   padding: 1.5em;
+  font-weight: 200;
 }
 
-.nav-container-inner {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  align-items: flex-start;
-  align-content: space-evenly;
-  margin-top: -2em;
+.none-list {
   list-style: none;
   color: whitesmoke;
 }
@@ -96,6 +91,7 @@ li {
 }
 .white {
   color: whitesmoke !important;
+  font-size: 17px !important;
 }
 .error-message {
   color: #cb4587;
@@ -105,7 +101,7 @@ li {
   content: "⚠ ";
 }
 .h-100 {
-  height: auto important!;
+  height: auto !important;
 }
 
 input {

@@ -26,6 +26,7 @@ function Bar() {
           color: 'rgb(60,125,128)',
         }}
         eventKey="link-1"
+        href="/tipsSleep"
       >
         Sleeping tips
       </Nav.Link>
@@ -34,6 +35,7 @@ function Bar() {
           color: 'rgb(60,125,128)',
         }}
         eventKey="link-2"
+        href="/tipsPlay"
       >
         Playing tips
       </Nav.Link>
