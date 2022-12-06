@@ -66,32 +66,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
       config
     );
     console.log(response);
-    const responseObj = {
-      date: response.data.sleepyDoc.date,
-      age: {
-        years: response.data.sleepyDoc.age.years,
-        months: response.data.sleepyDoc.age.months,
-        days: response.data.sleepyDoc.age.days,
-      },
-      wakeUp: response.data.sleepyDoc.wakeUp,
-      ww1: response.data.sleepyDoc.ww1,
-      ww2: response.data.sleepyDoc.ww2,
-      ww3: response.data.sleepyDoc.ww3,
-      ww4: response.data.sleepyDoc.ww4,
-      ww5: response.data.sleepyDoc.ww5,
-      bedTime: response.data.sleepyDoc.bedTime,
-      sumNap: response.data.sleepyDoc.sumNap,
-      result: {
-        ww1R: response.data.sleepyDoc.result.ww1R,
-        ww2R: response.data.sleepyDoc.result.ww2R,
-        ww3R: response.data.sleepyDoc.result.ww3R,
-        ww4R: response.data.sleepyDoc.result.ww4R,
-        ww5R: response.data.sleepyDoc.result.ww5R,
-        sumNapR: response.data.sleepyDoc.result.sumNapR,
-      },
-    };
-    console.log(responseObj);
-    dispatch({ type: 'POST_SLEEP', payload: responseObj });
+    dispatch({ type: 'POST_SLEEP', payload: response.data.sleepyDoc });
     callback();
   } catch (error) {
     console.log(error);
@@ -111,6 +86,23 @@ export const fetchAllDocs = () => async (dispatch) => {
     );
     console.log(response);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const submitEditProfile = (data) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  };
+  console.log(data);
+  try {
+    const response = await axios.post(`${authUrl}edit`, { data }, config);
+
+    console.log(response.data);
+    dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
     console.log(error);
   }

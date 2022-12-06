@@ -83,7 +83,6 @@ const Signup = () => {
         <Form.Group className="mb-2" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            // type="name"
             placeholder="your name"
             {...register('name', { required: true })}
           />
@@ -95,7 +94,6 @@ const Signup = () => {
         <Form.Group className="mb-2" controlId="formBasicNameKid">
           <Form.Label>Your kid's name</Form.Label>
           <Form.Control
-            // type="nameKid"
             placeholder="kid's name"
             {...register('nameKid', { required: true })}
           />

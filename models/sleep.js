@@ -19,7 +19,6 @@ const sleepySchema = new Schema({
   bedTime: String,
   sumNap: String,
   result: Object
-  // lastNap: String,
 });
 
 const SleepyModel = mongoose.model("sleep", sleepySchema);

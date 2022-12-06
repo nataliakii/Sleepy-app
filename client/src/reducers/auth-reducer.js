@@ -14,7 +14,9 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
         ...state,
         authenticated: action.payload.token,
         name: action.payload.name,
+        email: action.payload.email,
         nameKid: action.payload.nameKid,
+        kidBD: action.payload.kidBD,
       };
     case 'AUTH_ERROR':
       return { ...state, errorMessage: action.payload };

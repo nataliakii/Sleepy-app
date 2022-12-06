@@ -22,6 +22,7 @@ import Signin from './components/auth/Signin';
 import SleepyForm from './components/SleepyForm';
 import SleepyGet from './components/SleepyGet';
 import AllDocsDisplay from './components/AllDocsDisplay';
+import EditProfile from './components/EditProfile';
 
 const store = configureStore(
   { reducer: rootReducer },
@@ -75,6 +76,11 @@ root.render(
                 exact
                 path="/all-docs-display"
                 component={(props) => <AllDocsDisplay {...props} />}
+              />
+              <Route
+                exact
+                path="/edit"
+                component={(props) => <EditProfile {...props} />}
               />
             </Switch>
           </App>

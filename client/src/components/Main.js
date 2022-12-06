@@ -37,11 +37,16 @@ export default function Main() {
         <h1 className="display-5 fw-bold">Hello, {renderStringName()}</h1>
         <p className="col-md-7 fs-4">
           We are here to help mothers to sleep more. Is it possible? Yes, you
-          just need to know how to organize sleep of your baby.
+          just need to know how to organize sleep for your baby.
         </p>
         <p className="col-md-7 fs-4">Btw, you're the best mom.</p>
         <p>
-          <Button variant="primary" className="main-button" type="button">
+          <Button
+            variant="primary"
+            className="main-button personal main"
+            type="link"
+            href="/sleepy-form-post"
+          >
             I want to sleep more!
           </Button>
         </p>

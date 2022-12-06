@@ -1,8 +1,8 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { signout } from '../actions';
 
@@ -11,6 +11,7 @@ const Nav = () => {
   const history = useHistory();
   const authenticated = useSelector((state) => state.auth.authenticated);
   const name = useSelector((state) => state.auth.name);
+  const error = useSelector((state) => state.auth.errorMessage);
 
   const handleSignOutClick = () => {
     dispatch(
@@ -31,12 +32,20 @@ const Nav = () => {
             </Link>
           </li>
           <li>
-            <LinkButton href="#" onClick={handleSignOutClick}>
+            <Link
+              className="nav-linkbutton"
+              type="button"
+              to="#"
+              onClick={handleSignOutClick}
+            >
               Sign Out
-            </LinkButton>
+            </Link>
           </li>
         </>
       );
+    }
+    if (error) {
+      return <p>There was an error while auth {error}</p>;
     }
     return (
       <>
@@ -62,19 +71,9 @@ const Nav = () => {
         </NavLink>
       </div>
 
-      <div className="nav-container-right">{renderLinks()}</div>
+      <div className="nav-container-inner">{renderLinks()}</div>
     </Container>
   );
 };
 
 export default Nav;
-
-const LinkButton = styled.button`
-  margin-top: -1em;
-  background: none;
-  border: none;
-  // cursor: pointer;
-  color: whitesmoke;
-  // font-family: Oswald, sans-serif;
-  // font-size: 20px;
-`;

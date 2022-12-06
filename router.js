@@ -10,6 +10,7 @@ module.exports = function (app) {
   app.post("/auth/signin", requireSignin, Authentication.signin);
   app.post("/auth/signup", Authentication.signup);
   app.get("/auth/current_user", requireAuth, Authentication.currentUser);
+  app.post("/auth/edit", requireAuth, SleepyDocs.editProfile);
   app.post("/api/sleepy_post", requireAuth, SleepyDocs.addSleepyDoc);
   app.get("/api/sleepy_get_all", requireAuth, SleepyDocs.getAllDocs);
 };

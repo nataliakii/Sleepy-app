@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import { Container, Row } from 'react-bootstrap';
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -24,27 +24,36 @@ export default function Main() {
         <h1 className="display-5 fw-bold">
           {name}'s and {kidName}'s personal page
         </h1>
-
-        <Button
-          variant="primary"
-          className="main-button personal"
-          type="button"
-        >
-          Edit personal info
-        </Button>
-        <p className="col-ms-4 fs">
+        <Row>
+          <Button
+            variant="primary"
+            className="main-button personal"
+            type="link"
+            href="/edit"
+          >
+            Edit personal info
+          </Button>
+          <Button
+            variant="primary"
+            href="/all-docs-display"
+            type="link"
+            className="main-button personal"
+          >
+            All your sleepy docs
+          </Button>
+        </Row>
+        <p className="col-ms-1 fs">
           {' '}
           In order to get your personal recommendations, please, provide some
           info about {kidName}'s sleeping schedule.{' '}
         </p>
-        <Link className="white" to="/all-docs-display">
-          Check all sleepy docs with recommendations
-        </Link>
-
-        <Link className="white" to="/sleepy-form-post">
-          <br />
+        <Button
+          type="link"
+          className="main-button personal right"
+          href="/sleepy-form-post"
+        >
           Check if {kidName} sleeps enough (so you do!)
-        </Link>
+        </Button>
       </div>
     </Container>
   );

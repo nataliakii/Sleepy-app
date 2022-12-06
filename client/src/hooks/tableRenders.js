@@ -42,28 +42,27 @@ export const conditionalTableHead = (ww3, ww4, ww5) => {
     </>
   );
 };
-
 export const conditionalTableRow1 = (ww1, ww2, ww3, ww4, ww5, sumNap) => {
   if (ww5) {
     return (
       <>
-        <td>{ww1}mins</td>
-        <td>{ww2}mins</td>
-        <td>{ww3}mins </td>
-        <td>{ww4}mins</td>
-        <td>{ww5}mins</td>
-        <td>{sumNap}mins</td>
+        <td>{ww1}</td>
+        <td>{ww2}</td>
+        <td>{ww3} </td>
+        <td>{ww4}</td>
+        <td>{ww5}</td>
+        <td>{sumNap}</td>
       </>
     );
   }
   if (ww4) {
     return (
       <>
-        <td>{ww1}mins</td>
-        <td>{ww2}mins</td>
-        <td>{ww3}mins </td>
-        <td>{ww4}mins</td>
-        <td>{sumNap}mins</td>
+        <td>{ww1}</td>
+        <td>{ww2}</td>
+        <td>{ww3} </td>
+        <td>{ww4}</td>
+        <td>{sumNap}</td>
       </>
     );
   }
@@ -71,41 +70,33 @@ export const conditionalTableRow1 = (ww1, ww2, ww3, ww4, ww5, sumNap) => {
   if (ww3) {
     return (
       <>
-        <td>{ww1}mins</td>
-        <td>{ww2}mins</td>
-        <td>{ww3}mins </td>
-        <td>{sumNap}mins</td>
+        <td>{ww1}</td>
+        <td>{ww2}</td>
+        <td>{ww3} </td>
+        <td>{sumNap}</td>
       </>
     );
   }
 
   return (
     <>
-      <td>{ww1}mins</td>
-      <td>{ww2}mins</td>
-      <td>{sumNap}mins</td>
+      <td>{ww1}</td>
+      <td>{ww2}</td>
+      <td>{sumNap}</td>
     </>
   );
 };
 export const conditionalCellColor = (string) => {
+  if (!string) {
+    return '';
+  }
   if (string.length === 2) {
     return 'ok-cell';
   }
   return 'no-ok-cell';
 };
-
-export const conditionalTableRow2 = (
-  ww3,
-  ww4,
-  ww5,
-  ww1R,
-  ww2R,
-  ww3R,
-  ww4R,
-  ww5R,
-  sumNapR
-) => {
-  if (ww5) {
+export const conditionalTableRow2 = (ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR) => {
+  if (ww5R) {
     return (
       <>
         <td className={conditionalCellColor(ww1R)}>{ww1R}</td>
@@ -117,7 +108,7 @@ export const conditionalTableRow2 = (
       </>
     );
   }
-  if (ww4) {
+  if (ww4R) {
     return (
       <>
         <td className={conditionalCellColor(ww1R)}>{ww1R}</td>
@@ -129,7 +120,7 @@ export const conditionalTableRow2 = (
     );
   }
 
-  if (ww3) {
+  if (ww3R) {
     return (
       <>
         <td className={conditionalCellColor(ww1R)}>{ww1R}</td>

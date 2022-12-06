@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import displayAge from '../hooks/displayAge';
 import {
@@ -9,12 +8,11 @@ import {
   conditionalTableRow1,
   conditionalTableRow2,
 } from '../hooks/tableRenders';
+import displayTime from '../hooks/displayTime';
 
 export default function SleepyGet() {
-  const dispatch = useDispatch();
   const sleepy = useSelector((state) => state.sleepy);
   const convDate = (d) => new Date(d).toDateString();
-  const generateId = () => Math.round(Math.random() * 100000000);
   const { ww1R } = sleepy.result;
   const { ww2R } = sleepy.result;
   const { ww3R } = sleepy.result;
@@ -50,27 +48,24 @@ export default function SleepyGet() {
         </thead>
         <tbody>
           <tr>
-            <td>{convDate(sleepy.date)}</td>
-            <td>{displayAge(sleepy.age)}</td>
-            <td>{sleepy.wakeUp}</td>
-            <td>{sleepy.bedTime}</td>
-            {conditionalTableRow1(ww1, ww2, ww3, ww4, ww5, sumNap)}
+            <td className="table-head">{convDate(sleepy.date)}</td>
+            <td className="table-head">{displayAge(sleepy.age)}</td>
+            <td className="table-head">{sleepy.wakeUp}</td>
+            <td className="table-head">{sleepy.bedTime}</td>
+            {conditionalTableRow1(
+              displayTime(ww1),
+              displayTime(ww2),
+              displayTime(ww3),
+              displayTime(ww4),
+              displayTime(ww5),
+              displayTime(sumNap)
+            )}
           </tr>
           <tr className="table-result">
             <td colSpan={4} className="table-comments">
               Comments
             </td>
-            {conditionalTableRow2(
-              ww3,
-              ww4,
-              ww5,
-              ww1R,
-              ww2R,
-              ww3R,
-              ww4R,
-              ww5R,
-              sumNapR
-            )}
+            {conditionalTableRow2(ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR)}
           </tr>
         </tbody>
       </Table>

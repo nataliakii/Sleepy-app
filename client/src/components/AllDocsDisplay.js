@@ -15,7 +15,6 @@ export default function AllDocsDisplay() {
   }, []);
   const allDocs = useSelector((state) => state.allDocs);
   const convDate = (d) => new Date(d).toDateString();
-  const generateId = () => Math.round(Math.random() * 100000000);
   const allDocsMap = allDocs.map((doc) => {
     const { ww1R } = doc.result;
     const { ww2R } = doc.result;
@@ -30,12 +29,12 @@ export default function AllDocsDisplay() {
     const { ww5 } = doc;
     const { sumNap } = doc;
     return (
-      <tbody key={generateId}>
+      <tbody key={doc._id}>
         <tr>
-          <td>{convDate(doc.date)}</td>
-          <td>{displayAge(doc.age)}</td>
-          <td>{doc.wakeUp}</td>
-          <td>{doc.bedTime}</td>
+          <td className="table-head">{convDate(doc.date)}</td>
+          <td className="table-head">{displayAge(doc.age)}</td>
+          <td className="table-head">{doc.wakeUp}</td>
+          <td className="table-head">{doc.bedTime}</td>
           <td>{ww1}mins</td>
           <td>{ww2}mins</td>
           <td>{ww3}mins </td>
