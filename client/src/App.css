@@ -60,13 +60,6 @@
   border-color: rgb(60, 125, 128) !important;
 }
 
-.nav-linkbutton {
-  margin-top: -1em;
-  background: none;
-  border: none;
-  color: whitesmoke;
-}
-
 .nav-container {
   position: fixed !important;
   width: 100% !important;
@@ -74,7 +67,7 @@
   background: rgb(76, 125, 128);
   color: whitesmoke;
   margin: 0;
-  max-height: 12% !important;
+  max-height: 11% !important;
   min-height: 11% !important;
   padding: 1.5em;
   font-weight: 200;
@@ -91,7 +84,7 @@ li {
 }
 .white {
   color: whitesmoke !important;
-  font-size: 17px !important;
+  font-size: 16px !important;
 }
 .error-message {
   color: #cb4587;
@@ -99,9 +92,6 @@ li {
 .error-message::before {
   display: inline;
   content: "⚠ ";
-}
-.h-100 {
-  height: auto !important;
 }
 
 input {
@@ -124,6 +114,7 @@ label {
 }
 
 button[type="submit"],
+button[type="button"],
 input[type="submit"] {
   background: #ec5990;
   color: white;
@@ -137,11 +128,11 @@ input[type="submit"] {
 
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-  background: #bf1650;
+  background: #bf1650 !important;
 }
 
 button[type="submit"]:active,
-input[type="button"]:active,
+button[type="button"]:active,
 input[type="submit"]:active {
   transition: 0.3s all;
   transform: translateY(3px);
@@ -173,17 +164,6 @@ button[type="button"] {
   padding: 20px;
   border-radius: 4px;
   font-weight: 100;
-}
-
-button {
-  display: block;
-  appearance: none;
-  margin-top: 40px;
-  text-align: center;
-  color: white;
-  padding: 20px;
-  font-size: 13px;
-  font-weight: 10px;
 }
 
 .personal {
@@ -241,23 +221,49 @@ td {
   margin-left: 5%;
 }
 .table-result {
-  text-transform: none;
+  text-transform: none !important;
 }
 .table-comments {
-  text-transform: uppercase;
-  background-color: rgb(128, 60, 125);
+  text-transform: uppercase !important;
+  background-color: rgb(128, 60, 125) !important;
   vertical-align: middle !important;
-  font-size: 11px;
+  font-size: 11px !important;
 }
 .table-head {
   background-color: rgb(76, 125, 128);
 }
 .ok-cell {
-  background-color: rgb(128, 60, 125);
+  background-color: rgb(128, 60, 125) !important;
 }
 .no-ok-cell {
-  background-color: rgb(125, 128, 60);
+  background-color: rgb(125, 128, 60) !important;
 }
 .margin-top {
   margin-top: 5%;
+}
+.color-text {
+  color: rgb(60, 125, 128);
+}
+
+.nav-link {
+  color: rgb(60, 125, 128) !important;
+}
+
+.nav-link:focus,
+.nav-link:active,
+.nav-link:hover,
+.white:hover {
+  color: #e83e8c !important;
+  text-decoration: none !important;
+}
+h6,
+h5 {
+  color: #e83e8c;
+  font-weight: 300;
+}
+.row > * {
+  width: auto !important;
+}
+a {
+  text-decoration: none !important;
 }

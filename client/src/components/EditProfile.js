@@ -15,7 +15,7 @@ const userSchema = Yup.object().shape({
   kidBD: Yup.date(),
 });
 
-const EditProfile = () => {
+export default function EditProfile() {
   const {
     register,
     handleSubmit,
@@ -52,7 +52,7 @@ const EditProfile = () => {
 
   return (
     <div
-      className="h-auto p-5 text-white bg-dark"
+      className="h-100 p-5 text-white bg-dark main-container-center"
       style={{
         position: 'absolute',
         display: 'inline-block',
@@ -111,6 +111,4 @@ const EditProfile = () => {
       </Form>
     </div>
   );
-};
-
-export default EditProfile;
+}

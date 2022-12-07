@@ -32,7 +32,7 @@ const Nav = () => {
           </li>
           <li>
             <Link
-              className="nav-linkbutton"
+              className="white"
               type="button"
               to="#"
               onClick={handleSignOutClick}
@@ -63,7 +63,7 @@ const Nav = () => {
     <Navbar className="nav-container">
       <Container>
         <Navbar.Brand className="white" href="/">
-          SleepyAppt
+          SleepyApp
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end none-list">

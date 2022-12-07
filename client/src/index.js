@@ -24,6 +24,7 @@ import SleepyGet from './components/SleepyGet';
 import AllDocsDisplay from './components/AllDocsDisplay';
 import EditProfile from './components/EditProfile';
 import TipsSleep from './components/TipsSleep';
+import FindPlayground from './components/FindPlayground';
 
 const store = configureStore(
   { reducer: rootReducer },
@@ -83,7 +84,8 @@ root.render(
                 path="/edit"
                 component={(props) => <EditProfile {...props} />}
               />
-              <Route exact path="/tipsSleep" component={TipsSleep} />
+              <Route exact path="/tips-sleep" component={TipsSleep} />
+              <Route exact path="/find-playground" component={FindPlayground} />
             </Switch>
           </App>
           <Footer />

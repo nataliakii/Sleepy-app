@@ -31,6 +31,7 @@ export default function Main() {
         display: 'inline-block',
         marginTop: '5%',
         float: 'left',
+        fontWeight: '200',
       }}
     >
       <div className="container-fluid py-4">

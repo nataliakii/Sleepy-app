@@ -1,16 +1,17 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 
-function Bar() {
+export default function Bar() {
   return (
     <Nav
       // defaultActiveKey="/"
-      className="flex-column"
+      className="bar flex-column "
       style={{
         position: 'sticky',
         marginTop: '11%',
         display: 'inline-block',
-        heigh: '100%',
+        height: '100%',
+        fontWeight: '300',
       }}
     >
       {/* <Nav.Link
@@ -21,42 +22,19 @@ function Bar() {
       >
         Home
       </Nav.Link> */}
-      <Nav.Link
-        style={{
-          color: 'rgb(60,125,128)',
-        }}
-        eventKey="link-1"
-        href="/tipsSleep"
-      >
+      <Nav.Link className="color-text" eventKey="link-1" href="/tips-sleep">
         Sleeping tips
       </Nav.Link>
       <Nav.Link
-        style={{
-          color: 'rgb(60,125,128)',
-        }}
-        eventKey="link-2"
-        href="/tipsPlay"
-      >
-        Playing tips
-      </Nav.Link>
-      <Nav.Link
-        style={{
-          color: 'rgb(60,125,128)',
-        }}
+        className="color-text"
         eventKey="link-3"
+        href="/find-playground"
       >
         Find playground
       </Nav.Link>
-      <Nav.Link
-        style={{
-          color: 'rgb(60,125,128)',
-        }}
-        eventKey="link-4"
-      >
+      <Nav.Link className="color-text" eventKey="link-4">
         Find restaurant with kidsroom
       </Nav.Link>
     </Nav>
   );
 }
-
-export default Bar;
