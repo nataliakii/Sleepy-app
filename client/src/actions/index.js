@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
-const authUrl = 'auth/';
+const authUrl = 'http://localhost:5000/auth/';
 
 export const fetchUser = () => async (dispatch) => {
   const config = {
@@ -60,7 +60,11 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.post('api/sleepy_post', { sleepData }, config);
+    const response = await axios.post(
+      'http://localhost:5000/api/sleepy_post',
+      { sleepData },
+      config
+    );
     console.log(response);
     dispatch({ type: 'POST_SLEEP', payload: response.data.sleepyDoc });
     callback();
@@ -76,7 +80,10 @@ export const fetchAllDocs = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get('api/sleepy_get_all', config);
+    const response = await axios.get(
+      'http://localhost:5000/api/sleepy_get_all',
+      config
+    );
     console.log(response);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
