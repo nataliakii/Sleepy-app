@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
-const authUrl = 'http://localhost:5000/auth/';
+const url = 'http://localhost:5000/';
 
 export const fetchUser = () => async (dispatch) => {
   const config = {
@@ -10,7 +10,7 @@ export const fetchUser = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`${authUrl}current_user`, config);
+    const response = await axios.get(`${url}auth/current_user`, config);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
     console.log(error);
@@ -26,7 +26,7 @@ export const signout = (callback) => (dispatch) => {
 
 export const signin = (formProps, callback) => (dispatch) => {
   axios
-    .post(`${authUrl}signin`, formProps)
+    .post(`${url}auth/signin`, formProps)
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
@@ -39,7 +39,7 @@ export const signin = (formProps, callback) => (dispatch) => {
 
 export const signup = (formProps, callback) => (dispatch) => {
   axios
-    .post(`${authUrl}signup`, formProps)
+    .post(`${url}auth/signup`, formProps)
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
@@ -61,7 +61,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
   };
   try {
     const response = await axios.post(
-      'http://localhost:5000/api/sleepy_post',
+      `${url}api/sleepy_post`,
       { sleepData },
       config
     );
@@ -80,10 +80,7 @@ export const fetchAllDocs = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(
-      'http://localhost:5000/api/sleepy_get_all',
-      config
-    );
+    const response = await axios.get(`${url}/api/sleepy_get_all`, config);
     console.log(response);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
@@ -99,7 +96,7 @@ export const submitEditProfile = (data) => async (dispatch) => {
   };
   console.log(data);
   try {
-    const response = await axios.post(`${authUrl}edit`, { data }, config);
+    const response = await axios.post(`${url}auth/edit`, { data }, config);
 
     console.log(response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
