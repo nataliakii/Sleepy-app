@@ -80,7 +80,7 @@ export const fetchAllDocs = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`${url}/api/sleepy_get_all`, config);
+    const response = await axios.get(`${url}api/sleepy_get_all`, config);
     console.log(response);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
