@@ -90,14 +90,18 @@ const helpingFuncs = {
       ww3 = getTimeDiff(sleepData.nap2End, sleepData.bedTime);
       lastNap = sleepData.nap2End;
     } else if (!sleepData.nap4Start) {
+      ww2 = getTimeDiff(sleepData.nap1End, sleepData.nap2Start);
       ww3 = getTimeDiff(sleepData.nap2End, sleepData.nap3Start);
       ww4 = getTimeDiff(sleepData.nap3End, sleepData.bedTime);
       lastNap = sleepData.nap3End;
     } else {
+      ww2 = getTimeDiff(sleepData.nap1End, sleepData.nap2Start);
+      ww3 = getTimeDiff(sleepData.nap2End, sleepData.nap3Start);
       ww4 = getTimeDiff(sleepData.nap3End, sleepData.nap4Start);
       ww5 = getTimeDiff(sleepData.nap4End, sleepData.bedTime);
       lastNap = sleepData.nap4End;
     }
+    console.log(sleepData, ww1,ww2,ww3,ww4,ww5)
 
     return {
       ww1,
