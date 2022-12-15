@@ -1,10 +1,11 @@
 const _ = require('lodash');
+const norms = require('../initialData/norms');
 
 const helpingFuncs = {
-  calculateAge: (calculateAge=(kidBD, date) => {
+  calculateAge: (calculateAge = (kidBD, date) => {
     let monthAge = 0;
     let dateAge = 0;
-    let yearAge = 0
+    let yearAge = 0;
     const dob = new Date(kidBD);
     const dobYear = dob.getYear();
     const dobMonth = dob.getMonth();
@@ -41,14 +42,14 @@ const helpingFuncs = {
     };
   }),
 
-  convMins: (convMins=(mins) => {
+  convMins: (convMins = (mins) => {
     let str = '';
     const fullHours = Math.floor(mins / 60);
     const time = {
       hours: fullHours,
       mins: mins - fullHours * 60,
     };
-  
+
     if (fullHours === 1 && time.mins === 0) str = `${time.hours} hour`;
     else if (fullHours === 1 && time.mins > 0)
       str = `${time.hours} hour, ${time.mins} mins`;
@@ -59,7 +60,7 @@ const helpingFuncs = {
     return str;
   }),
 
-  getTimeDiff: (getTimeDiff=(start, end) => {
+  getTimeDiff: (getTimeDiff = (start, end) => {
     const [startHour, startMins] = start.split(':');
     const [endHour, endMins] = end.split(':');
 
@@ -73,7 +74,7 @@ const helpingFuncs = {
     return diffHourIntoMins + diffMins;
   }),
 
-  calculateWw: (calculateWw =(sleepData) => {
+  calculateWw: (calculateWw = (sleepData) => {
     const ww1 = getTimeDiff(sleepData.wakeUp, sleepData.nap1Start);
 
     let ww2;
@@ -85,23 +86,26 @@ const helpingFuncs = {
     if (!sleepData.nap2Start) {
       ww2 = getTimeDiff(sleepData.nap1End, sleepData.bedTime);
       lastNap = sleepData.nap1End;
+      numberOfNaps = 1;
     } else if (!sleepData.nap3Start) {
       ww2 = getTimeDiff(sleepData.nap1End, sleepData.nap2Start);
       ww3 = getTimeDiff(sleepData.nap2End, sleepData.bedTime);
       lastNap = sleepData.nap2End;
+      numberOfNaps = 2;
     } else if (!sleepData.nap4Start) {
       ww2 = getTimeDiff(sleepData.nap1End, sleepData.nap2Start);
       ww3 = getTimeDiff(sleepData.nap2End, sleepData.nap3Start);
       ww4 = getTimeDiff(sleepData.nap3End, sleepData.bedTime);
       lastNap = sleepData.nap3End;
+      numberOfNaps = 3;
     } else {
       ww2 = getTimeDiff(sleepData.nap1End, sleepData.nap2Start);
       ww3 = getTimeDiff(sleepData.nap2End, sleepData.nap3Start);
       ww4 = getTimeDiff(sleepData.nap3End, sleepData.nap4Start);
       ww5 = getTimeDiff(sleepData.nap4End, sleepData.bedTime);
       lastNap = sleepData.nap4End;
+      numberOfNaps = 4;
     }
-    console.log(sleepData, ww1,ww2,ww3,ww4,ww5)
 
     return {
       ww1,
@@ -110,10 +114,11 @@ const helpingFuncs = {
       ww4: ww4 || null,
       ww5: ww5 || null,
       lastNap,
+      numberOfNaps,
     };
   }),
 
-  calculateSumNap: (calculateSumNap=(sleepData) => {
+  calculateSumNap: (calculateSumNap = (sleepData) => {
     const nap1Dur = getTimeDiff(sleepData.nap1Start, sleepData.nap1End);
     let nap2Dur = 0;
     let nap3Dur = 0;
@@ -138,7 +143,7 @@ const helpingFuncs = {
     return _.sum(arr);
   }),
 
-  createResultObject: (createResultObject=(sleep) => {
+  createResultObject: (createResultObject = (sleep) => {
     const { norms } = sleep;
     const { ww1 } = sleep;
     const { ww2 } = sleep;
@@ -146,6 +151,8 @@ const helpingFuncs = {
     const { ww4 } = sleep;
     const { ww5 } = sleep;
     const { sumNap } = sleep;
+    const { numberOfNaps } = sleep;
+    const { lastNap } = sleep;
 
     const compareData = (normMax, normMin, input) => {
       if (input > normMin && input < normMax) {
@@ -159,6 +166,23 @@ const helpingFuncs = {
       }
       return `Should last at least ${convMins(normMin)} `;
     };
+    const compareLastNap = (normLastNap,input) => {
+      if (input<=normLastNap){
+        return 'Ok'
+      }
+      else return `Last nap should end up by ${normLastNap}`
+    };
+    const compareNumberNaps = (normMax, normMin, input) => {
+      if (input > normMin && input < normMax) {
+        return 'Ok';
+      }
+      if (input > normMax) {
+        return `There should be less than ${normMax} naps `;
+      }
+      else return `There should be at least ${normMin} naps `
+
+
+    }
 
     return {
       ww1R: compareData(norms.wwMax, norms.wwMin, ww1),
@@ -167,12 +191,38 @@ const helpingFuncs = {
       ww4R: compareData(norms.wwMax, norms.wwMin, ww4),
       ww5R: compareData(norms.wwMax, norms.wwMin, ww5),
       sumNapR: compareData(norms.napSumMax, norms.napSumMin, sumNap),
+      numberOfNapsR: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps),
+      lastNapR: compareLastNap(norms.lastNap, lastNap)
     };
   }),
 
+  findNorm: (findNorm = (age) => {
+    const ages = norms.agesNorms;
+    const schedules = norms.schedulesNorms;
+    const findAge = _.findKey(ages, (a) => age > a.from && age < a.till);
+    return schedules[findAge];
+  }),
 
+  loopContent: (loopContent = (arr) => {
+    const loopText=(text)=>{
+      let arrToReturn=[]
+      if (text.length>1){
+        for(let i = 0; i < text.length; i++){
+          for(let prop in text[i])
+          arrToReturn.push(text[i][prop])
+        }
+        return arrToReturn
+      }
+      else return text
+    }
+
+    let arrayToReturn=[]
+    for (let i = 0; i < arr.length; i++){
+      const content = { title : arr[i].title || '', text: loopText(arr[i].text), expertTip: arr[i].expertTip || null}
+      arrayToReturn.push(content)
+    }
+    return arrayToReturn
+  })
 };
 
-
-
-module.exports = helpingFuncs
+module.exports = helpingFuncs;

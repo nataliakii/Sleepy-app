@@ -18,6 +18,8 @@ const sleepySchema = new Schema({
   ww5: String,
   bedTime: String,
   sumNap: String,
+  lastNap: String,
+  numberOfNaps:Number,
   result: Object
 });
 

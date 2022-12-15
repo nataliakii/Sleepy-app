@@ -25,6 +25,7 @@ import AllDocsDisplay from './components/AllDocsDisplay';
 import EditProfile from './components/EditProfile';
 import TipsSleep from './components/TipsSleep';
 import FindPlayground from './components/FindPlayground';
+import FindRestaurant from './components/FindRestaurant';
 
 const store = configureStore(
   { reducer: rootReducer },
@@ -86,6 +87,7 @@ root.render(
               />
               <Route exact path="/tips-sleep" component={TipsSleep} />
               <Route exact path="/find-playground" component={FindPlayground} />
+              <Route exact path="/find-restaurant" component={FindRestaurant} />
             </Switch>
           </App>
           <Footer />

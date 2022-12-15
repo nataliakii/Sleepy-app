@@ -32,7 +32,11 @@ export default function Bar() {
       >
         Find playground
       </Nav.Link>
-      <Nav.Link className="color-text" eventKey="link-4">
+      <Nav.Link
+        className="color-text"
+        eventKey="link-4"
+        href="/find-restaurant"
+      >
         Find restaurant with kidsroom
       </Nav.Link>
     </Nav>

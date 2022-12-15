@@ -56,6 +56,7 @@ export default function SleepyForm() {
             marginTop: '5%',
             float: 'left',
             fontWeight: '200',
+            minWidth: '80%',
           }}
         >
           <Form

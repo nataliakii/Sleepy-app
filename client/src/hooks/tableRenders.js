@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 export const conditionalTableHead = (ww3, ww4, ww5) => {
   if (ww5) {
     return (
@@ -95,7 +96,16 @@ export const conditionalCellColor = (string) => {
   }
   return 'no-ok-cell';
 };
-export const conditionalTableRow2 = (ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR) => {
+export const conditionalTableRow2 = (
+  ww1R,
+  ww2R,
+  ww3R,
+  ww4R,
+  ww5R,
+  sumNapR,
+  lastNapR,
+  numberOfNapsR
+) => {
   if (ww5R) {
     return (
       <>
@@ -104,7 +114,8 @@ export const conditionalTableRow2 = (ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR) => {
         <td className={conditionalCellColor(ww3R)}>{ww3R} </td>
         <td className={conditionalCellColor(ww4R)}>{ww4R}</td>
         <td className={conditionalCellColor(ww5R)}>{ww5R}</td>
-        <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
+        <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
+        <td className={conditionalCellColor(numberOfNapsR)}>{numberOfNapsR}</td>
       </>
     );
   }
@@ -116,6 +127,8 @@ export const conditionalTableRow2 = (ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR) => {
         <td className={conditionalCellColor(ww3R)}>{ww3R} </td>
         <td className={conditionalCellColor(ww4R)}>{ww4R}</td>
         <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
+        <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
+        <td className={conditionalCellColor(numberOfNapsR)}>{numberOfNapsR}</td>
       </>
     );
   }
@@ -127,6 +140,8 @@ export const conditionalTableRow2 = (ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR) => {
         <td className={conditionalCellColor(ww2R)}>{ww2R}</td>
         <td className={conditionalCellColor(ww3R)}>{ww3R} </td>
         <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
+        <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
+        <td className={conditionalCellColor(numberOfNapsR)}>{numberOfNapsR}</td>
       </>
     );
   }
@@ -135,6 +150,8 @@ export const conditionalTableRow2 = (ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR) => {
       <td className={conditionalCellColor(ww1R)}>{ww1R}</td>
       <td className={conditionalCellColor(ww2R)}>{ww2R}</td>
       <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
+      <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
+      <td className={conditionalCellColor(numberOfNapsR)}>{numberOfNapsR}</td>
     </>
   );
 };

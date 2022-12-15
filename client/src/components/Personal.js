@@ -19,6 +19,7 @@ export default function Main() {
         marginTop: '5%',
         float: 'left',
         fontWeight: '200',
+        maxWidth: '81%',
       }}
     >
       <div className="container-fluid py-4">

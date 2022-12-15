@@ -1,7 +1,8 @@
 const _ = require('lodash');
 const Sleepy = require('../models/sleep');
 const User = require('../models/user');
-const findNorm=require('./normsData');
+const Article = require('../models/article');
+const articles=require ('../initialData/articles')
 const helpingFuncs =require('./helpingFuncs')
 
 
@@ -12,6 +13,7 @@ exports.addSleepyDoc = function (req, res) {
     const { calculateWw } = helpingFuncs;
     const { calculateSumNap } = helpingFuncs;
     const { createResultObject } = helpingFuncs;
+    const { findNorm } = helpingFuncs;
 
     const sleep = {
       date: sleepData.date,
@@ -40,13 +42,15 @@ exports.addSleepyDoc = function (req, res) {
       ww4: calculateWw(sleepData).ww4,
       ww5: calculateWw(sleepData).ww5,
       sumNap: calculateSumNap(sleepData),
+      lastNap: calculateWw(sleepData).lastNap,
+      numberOfNaps:calculateWw(sleepData).numberOfNaps,
       norms: findNorm(
         calculateAge(req.user.kidBD, sleepData.date).ageInWeeks
       ),
     };
     sleep.result = createResultObject(sleep);
+    console.log(sleep.result)
     const sleepyDoc = new Sleepy.SleepyModel(sleep);
-    console.log(sleepyDoc);
 
     sleepyDoc.save((err, sleep) => {
       user.SleepyDocs.push(sleepyDoc);
@@ -80,3 +84,26 @@ exports.editProfile = function (req, res) {
     });
   });
 };
+
+exports.addArticlesToDB = function (req,res) {
+  const { loopContent } = helpingFuncs
+  articles.articles.forEach(el => {
+    const article=new Article({
+      name:el.name,
+      tags: el.tags.toString().split(",") || ['Other'],
+      content: loopContent(el.content)
+    })
+    Article.findOne({name: article.name}, function(err,findArticle){
+      if(!findArticle){
+        article.save((err, article) => {
+          res.send(article);
+        })
+      }
+  })
+})}
+
+exports.getArticles = function (req,res) {
+  Article.find({}).exec((err, articles)=>{
+    res.send(articles)
+  })
+}

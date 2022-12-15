@@ -19,6 +19,10 @@ export default function SleepyGet() {
   const { ww4R } = sleepy.result;
   const { ww5R } = sleepy.result;
   const { sumNapR } = sleepy.result;
+  const { lastNapR } = sleepy.result;
+  const { numberOfNapsR } = sleepy.result;
+  const { lastNap } = sleepy;
+  const { numberOfNaps } = sleepy;
   const { ww1 } = sleepy;
   const { ww2 } = sleepy;
   const { ww3 } = sleepy;
@@ -34,6 +38,7 @@ export default function SleepyGet() {
         display: 'inline-block',
         width: 'auto',
         marginTop: '5%',
+        minWidth: '81%',
       }}
     >
       <Table bordered className="sleepy-table">
@@ -44,6 +49,8 @@ export default function SleepyGet() {
             <th>Wake-up</th>
             <th>Bed-time</th>
             {conditionalTableHead(ww3, ww4, ww5)}
+            <th>Last nap</th>
+            <th>Number of naps</th>
           </tr>
         </thead>
         <tbody>
@@ -60,12 +67,23 @@ export default function SleepyGet() {
               displayTime(ww5),
               displayTime(sumNap)
             )}
+            <td className="table-head">{sleepy.lastNap}</td>
+            <td className="table-head">{sleepy.numberOfNaps}</td>
           </tr>
           <tr className="table-result">
             <td colSpan={4} className="table-comments">
               Comments
             </td>
-            {conditionalTableRow2(ww1R, ww2R, ww3R, ww4R, ww5R, sumNapR)}
+            {conditionalTableRow2(
+              ww1R,
+              ww2R,
+              ww3R,
+              ww4R,
+              ww5R,
+              sumNapR,
+              lastNapR,
+              numberOfNapsR
+            )}
           </tr>
         </tbody>
       </Table>

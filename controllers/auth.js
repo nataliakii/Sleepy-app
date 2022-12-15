@@ -35,8 +35,6 @@ exports.signup = function(req, res, next) {
   const nameKid = req.body.nameKid;
   const kidBD = req.body.kidBD;
 
-  console.log(nameKid, kidBD);
-
   if (!email || !password || !name || !nameKid || !kidBD) {
     return res.status(422).send({ error: 'You must provide all necessary fields'});
   }

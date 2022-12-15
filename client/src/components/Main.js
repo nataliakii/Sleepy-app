@@ -32,15 +32,16 @@ export default function Main() {
         marginTop: '5%',
         float: 'left',
         fontWeight: '200',
+        maxWidth: '81%',
       }}
     >
       <div className="container-fluid py-4">
         <h1 className="display-5 fw-bold">Hello, {renderStringName()}</h1>
-        <p className="col-md-7 fs-4">
+        <p className="col-md-7 fs-5">
           We are here to help mothers to sleep more. Is it possible? Yes, you
           just need to know how to organize sleep for your baby.
         </p>
-        <p className="col-md-7 fs-4">Btw, you're the best mom.</p>
+        <p className="col-md-7 fs-5">Btw, you're the best mom.</p>
         <p>
           <Button
             variant="primary"
