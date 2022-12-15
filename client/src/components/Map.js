@@ -1,18 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useRef, useState, useEffect } from 'react';
 
-export default function Map({ loc }) {
-  const ref = useRef(null);
+export default function Map({ loc, zoom }) {
+  const ref = useRef({ loc, zoom });
   const [map, setMap] = useState();
+  console.log(ref);
 
   useEffect(() => {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, {}));
     }
-  }, [ref, map]);
+  }, []);
   return (
     <div
       style={{
