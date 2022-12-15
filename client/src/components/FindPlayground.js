@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
@@ -12,6 +13,7 @@ export default function FindPlayground() {
   const history = useHistory();
   const loc = useSelector((state) => state.loc.location);
   const err = useSelector((state) => state.loc.error);
+  const [zoom, setZoom] = useState(3);
   const handleClick = () => {
     dispatch(fetchLocation(() => history.push('/find-playground')));
   };
@@ -48,12 +50,8 @@ export default function FindPlayground() {
       </Button>
       {LocErrorDisplay()}
 
-      <Wrapper
-        apiKey="YOUR_API_KEY"
-        render={render}
-        style={{ width: '100%', height: '400px' }}
-      >
-        <Map loc={loc} />
+      <Wrapper apiKey="AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4" render={render}>
+        <Map center={loc} zoom={zoom} />
       </Wrapper>
     </div>
   );

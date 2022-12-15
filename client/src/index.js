@@ -41,8 +41,8 @@ root.render(
     <Provider store={store}>
       <Router>
         <>
-          <Nav />
           <App>
+            <Nav />
             <Bar />
             <Switch>
               <Route
@@ -85,9 +85,21 @@ root.render(
                 path="/edit"
                 component={(props) => <EditProfile {...props} />}
               />
-              <Route exact path="/tips-sleep" component={TipsSleep} />
-              <Route exact path="/find-playground" component={FindPlayground} />
-              <Route exact path="/find-restaurant" component={FindRestaurant} />
+              <Route
+                exact
+                path="/tips-sleep"
+                component={(props) => <TipsSleep {...props} />}
+              />
+              <Route
+                exact
+                path="/find-playground"
+                component={(props) => <FindPlayground {...props} />}
+              />
+              <Route
+                exact
+                path="/find-restaurant"
+                component={(props) => <FindRestaurant {...props} />}
+              />
             </Switch>
           </App>
           <Footer />

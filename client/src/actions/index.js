@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
-// const url = 'http://localhost:5000';
-const url = '';
+const url = 'http://localhost:5000';
+// const url = '';
 
 export const fetchUser = () => async (dispatch) => {
   const config = {
