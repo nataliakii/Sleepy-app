@@ -48,11 +48,7 @@ export default function FindPlayground() {
       </Button>
       {LocErrorDisplay()}
 
-      <Wrapper
-        apiKey="YOUR_API_KEY"
-        render={render}
-        style={{ width: '100%', height: '400px' }}
-      >
+      <Wrapper apiKey="AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4" render={render}>
         <Map loc={loc} />
       </Wrapper>
     </div>

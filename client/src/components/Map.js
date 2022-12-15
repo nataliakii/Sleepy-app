@@ -17,7 +17,7 @@ export default function Map({ loc }) {
     <div
       style={{
         color: 'white',
-        background: 'grey',
+        marginTop: '3%',
         padding: '15px 10px',
         display: 'inline-flex',
         textAlign: 'center',
