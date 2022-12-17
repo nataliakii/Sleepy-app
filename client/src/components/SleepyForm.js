@@ -37,11 +37,8 @@ export default function SleepyForm() {
   const nameKid = useSelector((state) => state.auth.nameKid);
 
   const handleFormSubmit = (data) => {
-    dispatch(
-      postForm(data, () => {
-        history.push('/sleepy-form-get');
-      })
-    );
+    console.log('dispatched');
+    dispatch(postForm(data, () => history.push('/personal/sleepy-form-get')));
   };
 
   const renderFormDisplay = () => {

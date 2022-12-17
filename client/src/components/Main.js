@@ -1,23 +1,26 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Button } from 'react-bootstrap';
 import { fetchUser } from '../actions';
 
-export default function Main() {
-  const dispatch = useDispatch();
-  const name = useSelector((state) => state.auth.name);
-  const authenticated = useSelector((state) => state.auth.authenticated);
+export default function Main({ user }) {
+  // const dispatch = useDispatch();
+  // const name = useSelector((state) => state.auth.name);
+  // const authenticated = useSelector((state) => state.auth.authenticated);
 
-  useEffect(() => {
-    if (authenticated) {
-      dispatch(fetchUser());
-    }
-  }, [authenticated, dispatch]);
+  // useEffect(() => {
+  //   if (authenticated) {
+  //     dispatch(fetchUser());
+  //   }
+  // }, [authenticated, dispatch]);
+  console.log(user);
+  const { name } = user;
 
   let str = '';
   const renderStringName = () => {
-    if (authenticated) {
+    if (name) {
       return (str = name);
     }
     return (str = 'this is SleepyApp');

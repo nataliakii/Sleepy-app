@@ -5,7 +5,9 @@ const displayAge = (ageObj) => {
     ageString = `${ageObj.years} years and ${ageObj.months} months`;
   else if (ageObj.years > 1 && ageObj.months <= 6)
     ageString = `${ageObj.years} years`;
-  else if (ageObj.years == 1 && ageObj.months > 0)
+  else if (ageObj.years == 1 && ageObj.months == 1)
+    ageString = `${ageObj.years} year and ${ageObj.months} month`;
+  else if (ageObj.years == 1 && ageObj.months > 1)
     ageString = `${ageObj.years} year and ${ageObj.months} months`;
   else if (ageObj.years == 1 && ageObj.months == 0)
     ageString = `${ageObj.years} year`;

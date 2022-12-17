@@ -173,13 +173,13 @@ const helpingFuncs = {
       else return `Last nap should end up by ${normLastNap}`
     };
     const compareNumberNaps = (normMax, normMin, input) => {
-      if (input > normMin && input < normMax) {
+      if (input == normMin || input == normMax) {
         return 'Ok';
       }
       if (input > normMax) {
-        return `There should be less than ${normMax} naps `;
+        return `There should be less than ${normMax+1} naps `;
       }
-      else return `There should be at least ${normMin} naps `
+      else return `There should be at least ${normMin} nap(s) `
 
 
     }

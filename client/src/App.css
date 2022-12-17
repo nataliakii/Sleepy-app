@@ -115,29 +115,36 @@ label {
 
 button[type="submit"],
 button[type="button"],
+button[type="link"],
 input[type="submit"] {
-  background: #ec5990;
   color: white;
   text-transform: uppercase;
   border: none;
   padding: 20px;
   font-size: 16px;
-  font-weight: 100;
   letter-spacing: 5px;
+  display: block;
+  appearance: none;
+  background: rgb(112, 128, 144);
+  border-radius: 4px;
+  font-weight: 100;
 }
 
 button[type="submit"]:hover,
+button[type="button"]:hover,
+button[type="link"]:hover,
 input[type="submit"]:hover {
   background: #bf1650 !important;
 }
 
 button[type="submit"]:active,
 button[type="button"]:active,
+button[type="link"]:active,
 input[type="submit"]:active {
-  transition: 0.3s all;
-  transform: translateY(3px);
-  border: 1px solid transparent;
-  opacity: 0.8;
+  transition: 0.3s all !important;
+  transform: translateY(3px) !important;
+  border: 1px solid transparent !important;
+  opacity: 0.8 !important;
 }
 
 input:disabled {
@@ -148,23 +155,11 @@ input[type="button"]:hover {
   transition: 0.3s all;
 }
 
-button[type="submit"],
+/* button[type="submit"],
 input[type="button"],
 input[type="submit"] {
   appearance: none;
-}
-
-button[type="button"] {
-  display: block;
-  appearance: none;
-  background: rgb(112, 128, 144);
-  color: white;
-  border: none;
-  text-transform: uppercase;
-  padding: 20px;
-  border-radius: 4px;
-  font-weight: 100;
-}
+} */
 
 .personal {
   padding: 10px 15px;
@@ -266,4 +261,21 @@ h5 {
 }
 a {
   text-decoration: none !important;
+}
+.display-block {
+  display: block !important;
+  width: 31%;
+}
+.delete-btn {
+  background-color: #bf1650 !important;
+}
+.footer {
+  font-weight: 400;
+  color: rgb(76, 125, 128);
+  font-size: 12px;
+  text-align: end;
+  margin-bottom: -35px;
+}
+span .footer {
+  margin-bottom: -10px !important;
 }

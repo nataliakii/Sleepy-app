@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { UseState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
-import { submitEditProfile } from '../actions';
+import { updateProfile } from '../actions';
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email(),
@@ -25,20 +25,23 @@ export default function EditProfile() {
   });
   const dispatch = useDispatch();
   const history = useHistory();
-
   const error = useSelector((state) => state.auth.errorMessage);
+
   const email = useSelector((state) => state.auth.email);
   const name = useSelector((state) => state.auth.name);
   const nameKid = useSelector((state) => state.auth.nameKid);
-  const kidBD = useSelector((state) => state.auth.nameKid);
-  // const [email1, setEmail] = UseState(email);
-  // const [name1, setName] = UseState(name);
-  // const [nameKid1, setNameKid] = UseState(nameKid);
-  // const [kidBD1, setKidBD] = UseState(kidBD);
+  const kidBD = useSelector((state) => state.auth.kidBD);
+  console.log(kidBD);
+  const [email1, setEmail] = useState(null);
+  const [name1, setName] = useState(null);
+  const [nameKid1, setNameKid] = useState(null);
+  const [kidBD1, setKidBD] = useState(null);
 
-  const handleFormSubmit = (data) => {
+  const data = { email1, name1, nameKid1, kidBD1 };
+
+  const handleFormSubmit = (e) => {
     dispatch(
-      submitEditProfile(data, () => {
+      updateProfile(data, () => {
         history.push('/personal');
       })
     );
@@ -67,30 +70,32 @@ export default function EditProfile() {
           <Form.Label>Update email</Form.Label>
           <Form.Control
             type="email"
-            // value={email1}
+            value={email1}
             placeholder={email}
-            // onChange={(event) => setEmail(event.target.value)}
-            {...register('email')}
+            onChange={(e) => setEmail(e.target.value)}
+            // {...register('email')}
           />
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="formBasicName">
           <Form.Label>Update name</Form.Label>
           <Form.Control
-            // value={name1}
+            type="text"
+            value={name1}
             placeholder={name}
-            // onChange={(event) => setName(event.target.value)}
-            {...register('name')}
+            onChange={(e) => setName(e.target.value)}
+            // {...register('name')}
           />
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="formBasicNameKid">
           <Form.Label>Update kid's name</Form.Label>
           <Form.Control
-            // value={nameKid1}
+            type="text"
+            value={nameKid1}
             placeholder={nameKid}
-            // onChange={(event) => setNameKid(event.target.value)}
-            {...register('nameKid')}
+            onChange={(e) => setNameKid(e.target.value)}
+            // {...register('nameKid')}
           />
         </Form.Group>
 
@@ -98,15 +103,15 @@ export default function EditProfile() {
           <Form.Label>Update kid's birthday</Form.Label>
           <Form.Control
             type="date"
-            // value={kidBD1}
+            value={kidBD1}
             placeholder={kidBD}
-            // onChange={(event) => setKidBD(event.target.value)}
-            {...register('kidBD')}
+            onChange={(e) => setKidBD(e.target.value)}
+            // {...register('kidBD')}
           />
         </Form.Group>
 
         <Button variant="primary" type="submit" className="centered-button">
-          Submit
+          Update
         </Button>
       </Form>
     </div>

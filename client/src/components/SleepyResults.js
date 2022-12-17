@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import displayAge from '../hooks/displayAge';
 import {
@@ -10,8 +10,9 @@ import {
 } from '../hooks/tableRenders';
 import displayTime from '../hooks/displayTime';
 
-export default function SleepyGet() {
+export default function SleepyResults() {
   const sleepy = useSelector((state) => state.sleepy);
+  console.log(sleepy);
   const convDate = (d) => new Date(d).toDateString();
   const { ww1R } = sleepy.result;
   const { ww2R } = sleepy.result;
@@ -67,8 +68,8 @@ export default function SleepyGet() {
               displayTime(ww5),
               displayTime(sumNap)
             )}
-            <td className="table-head">{sleepy.lastNap}</td>
-            <td className="table-head">{sleepy.numberOfNaps}</td>
+            <td className="table-head">{lastNap}</td>
+            <td className="table-head">{numberOfNaps}</td>
           </tr>
           <tr className="table-result">
             <td colSpan={4} className="table-comments">

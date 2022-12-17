@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
-const url = 'http://localhost:5000';
-// const url = '';
+// const url = 'http://localhost:5000';
+const url = '';
 
 export const fetchUser = () => async (dispatch) => {
   const config = {
@@ -83,13 +83,14 @@ export const fetchAllDocs = () => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/api/sleepy_get_all`, config);
+    console.log(response.data);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const submitEditProfile = (data) => async (dispatch) => {
+export const updateProfile = (data, callback) => async (dispatch) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -97,10 +98,27 @@ export const submitEditProfile = (data) => async (dispatch) => {
   };
   console.log(data);
   try {
-    const response = await axios.post(`${url}/auth/edit`, { data }, config);
+    const response = await axios.put(`${url}/auth/edit`, { data }, config);
 
     console.log(response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
+    callback();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteProfile = (callback) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  };
+  try {
+    const response = await axios.delete(`${url}/auth/delete`, config);
+    console.log(response.data);
+    dispatch({ type: 'AUTH_USER', payload: response.data });
+    callback();
   } catch (error) {
     console.log(error);
   }

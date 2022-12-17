@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import displayAge from '../hooks/displayAge';
 import { conditionalCellColor } from '../hooks/tableRenders';
 import { fetchAllDocs } from '../actions';
+import displayTime from '../hooks/displayTime';
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();
@@ -22,12 +23,17 @@ export default function AllDocsDisplay() {
     const { ww4R } = doc.result;
     const { ww5R } = doc.result;
     const { sumNapR } = doc.result;
+    const { lastNapR } = doc.result;
+    const { numberOfNapsR } = doc.result;
     const { ww1 } = doc;
     const { ww2 } = doc;
     const { ww3 } = doc;
     const { ww4 } = doc;
     const { ww5 } = doc;
     const { sumNap } = doc;
+    const { lastNap } = doc;
+    const { numberOfNaps } = doc;
+
     return (
       <tbody key={doc._id}>
         <tr>
@@ -35,12 +41,14 @@ export default function AllDocsDisplay() {
           <td className="table-head">{displayAge(doc.age)}</td>
           <td className="table-head">{doc.wakeUp}</td>
           <td className="table-head">{doc.bedTime}</td>
-          <td>{ww1}mins</td>
-          <td>{ww2}mins</td>
-          <td>{ww3}mins </td>
-          <td>{ww4}mins</td>
-          <td>{ww5}mins</td>
-          <td>{sumNap}mins</td>
+          <td>{displayTime(ww1)}</td>
+          <td>{displayTime(ww2)}</td>
+          <td>{displayTime(ww3)} </td>
+          <td>{displayTime(ww4)}</td>
+          <td>{displayTime(ww5)}</td>
+          <td> {displayTime(sumNap)}</td>
+          <td>{lastNap}</td>
+          <td>{numberOfNaps}</td>
         </tr>
         <tr className="table-result">
           <td colSpan={4} className="table-comments">
@@ -52,6 +60,10 @@ export default function AllDocsDisplay() {
           <td className={conditionalCellColor(ww4R)}>{ww4R}</td>
           <td className={conditionalCellColor(ww5R)}>{ww5R}</td>
           <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
+          <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
+          <td className={conditionalCellColor(numberOfNapsR)}>
+            {numberOfNapsR}
+          </td>
         </tr>
       </tbody>
     );
@@ -80,6 +92,8 @@ export default function AllDocsDisplay() {
             <th>Wake window 4</th>
             <th>Wake window 5</th>
             <th>Sum Nap</th>
+            <th>Last Nap</th>
+            <th>Number of naps</th>
           </tr>
         </thead>
         {allDocsMap}

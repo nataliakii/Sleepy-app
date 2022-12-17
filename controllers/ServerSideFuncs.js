@@ -71,19 +71,35 @@ exports.getAllDocs = function (req, res) {
   });
 };
 
-exports.editProfile = function (req, res) {
-  User.findOne({ _id: req.user._id }, (err, user) => {
-    user.name = req.body.data.name || user.name;
-    user.email = req.body.data.email || user.email;
-    user.nameKid = req.body.data.nameKid || user.nameKid;
-    user.kidBD = req.body.data.kidBD || user.kidBD;
-
-    user.save((err, user) => {
-      res.send(user);
-      console.log(err);
-    });
-  });
+exports.editProfile = async function (req, res) {
+  const name1 = req.body.data.name1|| req.user.name
+  const email1 = req.body.data.email1 || req.user.email
+  const nameKid1= req.body.data.nameKid1|| req.user.nameKid
+  const kidBD1 = req.body.data.kidBD1 || req.user.kidBD
+  const update = {
+    name: name1,
+    email: email1,
+    nameKid: nameKid1,
+    kidBD: kidBD1,
+  };
+  console.log(update.name)
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    update,
+    {
+      new: true,
+    }
+  );
+  return res.status(200).send(updatedUser);
 };
+
+exports.deleteProfile = async function (req, res) {
+  const deletedUser = await User.findOneAndDelete(
+    { _id: req.user._id },
+  );
+  return res.status(200).send(`User ${deletedUser.name} was deleted successfully`);
+};
+
 
 exports.addArticlesToDB = function (req,res) {
   const { loopContent } = helpingFuncs

@@ -30,7 +30,6 @@ const Signup = () => {
   const error = useSelector((state) => state.auth.errorMessage);
 
   const handleFormSubmit = (data) => {
-    console.log('pushed');
     dispatch(
       signup(data, () => {
         history.push('/personal');

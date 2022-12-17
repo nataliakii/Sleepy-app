@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -6,11 +7,12 @@ import { Container, Navbar } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { signout } from '../actions';
 
-const Nav = () => {
+const Nav = ({ user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const authenticated = useSelector((state) => state.auth.authenticated);
-  const name = useSelector((state) => state.auth.name);
+  // const authenticated = useSelector((state) => state.auth.authenticated);
+  const { name } = user;
+  console.log(user);
 
   const handleSignOutClick = () => {
     dispatch(
@@ -21,7 +23,7 @@ const Nav = () => {
   };
 
   const renderLinks = () => {
-    if (authenticated) {
+    if (name) {
       return (
         <>
           {' '}

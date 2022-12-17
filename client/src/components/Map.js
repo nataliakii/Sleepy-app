@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useRef, useState, useEffect } from 'react';
+import GoogleMapReact from 'google-map-react';
 
 export default function Map({ loc, zoom }) {
   const ref = useRef({ loc, zoom });

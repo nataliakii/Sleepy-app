@@ -13,12 +13,11 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'AUTH_USER':
       return {
-        ...state,
         authenticated: action.payload.token,
         name: action.payload.name,
         email: action.payload.email,
         nameKid: action.payload.nameKid,
-        kidBD: action.payload.kidBD,
+        kidBD: new Date(action.payload.kidBD).toLocaleDateString(),
       };
     case 'AUTH_ERROR':
       return { ...state, errorMessage: action.payload };
