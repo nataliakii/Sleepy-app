@@ -4,16 +4,17 @@ import axios from 'axios';
 // const url = 'http://localhost:5000';
 const url = '';
 
-export const fetchUser = () => async (dispatch) => {
+export const fetchUser = (token) => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${token}`,
     },
   };
   try {
     const response = await axios.get(`${url}/auth/current_user`, config);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
+    localStorage.clear();
     console.log(error);
   }
 };
