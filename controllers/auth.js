@@ -16,6 +16,7 @@ function tokenForUser(user) {
 exports.signin = function(req, res, next) {
   res.send({
     token: tokenForUser(req.user),
+    userId: req.user._id,
     name: req.user.name,
     nameKid: req.user.nameKid,
     email:req.user.email,
@@ -23,16 +24,17 @@ exports.signin = function(req, res, next) {
   });
 };
 
-exports.currentUser = function(req, res) {
-  const user = {
-    token: tokenForUser(req.user),
-    name: req.user.name,
-    nameKid: req.user.nameKid,
-    email:req.user.email,
-    kidBD: req.user.kidBD
-  };
-
-  res.send(user);
+exports.currentUser = function(req, res, next) {
+    const id = req.params.userId;
+    User.findById(id)
+      .exec((err, user) => {
+        if (err) {
+          res.status(400).send(err);
+          return next(err);
+        } else {
+          res.status(200).send(user).end();
+        }
+      })
 };
 
 exports.signup = function(req, res, next) {
@@ -66,7 +68,7 @@ exports.signup = function(req, res, next) {
     user.save(function(err, user) {
       if (err) { return next(err); }
 
-      res.send({ token: tokenForUser(user),name : user.name, nameKid: user.nameKid, kidBD: user.kidBD, email:user.email });
+      res.send({ token: tokenForUser(user),name : user.name, nameKid: user.nameKid, kidBD: user.kidBD, email:user.email, userId: user._id,});
     });
   });
 };

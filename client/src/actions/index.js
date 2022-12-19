@@ -5,24 +5,25 @@ import axios from 'axios';
 const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
+  const { userId } = localStorage;
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   try {
-    const response = await axios.get(`${url}/auth/current_user`, config);
+    const response = await axios.get(`${url}/auth/${userId}`, config);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
     localStorage.clear();
     console.log(error);
+    window.location.href = '/signin';
   }
 };
 
 export const signout = (callback) => (dispatch) => {
   localStorage.removeItem('token');
-
-  dispatch({ type: 'AUTH_USER', payload: '' });
+  dispatch({ type: 'LOG_OUT' });
   callback();
 };
 
@@ -32,11 +33,12 @@ export const signin = (formProps, callback) => (dispatch) => {
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
       callback();
     })
     .catch((error) => {
       console.log(error);
-      // dispatch({ type: 'AUTH_ERROR', payload: error });
+      dispatch({ type: 'AUTH_ERROR', payload: error });
     });
 };
 
@@ -46,6 +48,7 @@ export const signup = (formProps, callback) => (dispatch) => {
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
       callback();
     })
     .catch((error) => {
@@ -68,7 +71,6 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
       { sleepData },
       config
     );
-    console.log(response.data.sleepyDoc);
     dispatch({ type: 'POST_SLEEP', payload: response.data.sleepyDoc });
     callback();
   } catch (error) {
@@ -84,7 +86,6 @@ export const fetchAllDocs = () => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/api/sleepy_get_all`, config);
-    console.log(response.data);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
@@ -97,7 +98,7 @@ export const updateProfile = (data, callback) => async (dispatch) => {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   };
-  console.log(data);
+  console.log('action update profile', data);
   try {
     const response = await axios.put(`${url}/auth/edit`, { data }, config);
 
@@ -118,7 +119,7 @@ export const deleteProfile = (callback) => async (dispatch) => {
   try {
     const response = await axios.delete(`${url}/auth/delete`, config);
     console.log(response.data);
-    dispatch({ type: 'AUTH_USER', payload: response.data });
+    dispatch({ type: 'LOG_OUT' });
     callback();
   } catch (error) {
     console.log(error);

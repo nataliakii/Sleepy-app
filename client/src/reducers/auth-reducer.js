@@ -19,6 +19,8 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
         nameKid: action.payload.nameKid,
         kidBD: new Date(action.payload.kidBD).toLocaleDateString(),
       };
+    case 'LOG_OUT':
+      return INITIAL_STATE;
     case 'AUTH_ERROR':
       return { ...state, errorMessage: action.payload };
     default:

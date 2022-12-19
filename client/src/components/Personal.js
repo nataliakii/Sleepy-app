@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
-import { deleteProfile } from '../actions';
+import { deleteProfile, signout } from '../actions';
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -13,11 +13,13 @@ export default function Main() {
   const kidName = useSelector((state) => state.auth.nameKid);
 
   const handleDeleteButton = () => {
+    localStorage.removeItem('userID');
     dispatch(
       deleteProfile(() => {
         navigate('/');
       })
     );
+    dispatch(signout());
   };
 
   return (

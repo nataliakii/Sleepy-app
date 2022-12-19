@@ -14,7 +14,7 @@ module.exports = function (app) {
     res.status(401).send("Unauthorized");
   })
   app.post("/auth/signup", Auth.signup);
-  app.get("/auth/current_user", requireAuth, Auth.currentUser);
+  app.get("/auth/:userId", requireAuth, Auth.currentUser);
   app.put("/auth/edit", requireAuth, ServerSideFuncs.editProfile);
   app.delete("/auth/delete", requireAuth, ServerSideFuncs.deleteProfile);
   app.post("/api/sleepy_post", requireAuth, ServerSideFuncs.addSleepyDoc);
