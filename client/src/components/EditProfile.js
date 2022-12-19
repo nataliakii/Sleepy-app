@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
@@ -15,7 +16,7 @@ const userSchema = Yup.object().shape({
   kidBD: Yup.date(),
 });
 
-export default function EditProfile() {
+export default function EditProfile({ user }) {
   const {
     register,
     handleSubmit,
@@ -24,14 +25,13 @@ export default function EditProfile() {
     resolver: yupResolver(userSchema),
   });
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const error = useSelector((state) => state.auth.errorMessage);
 
-  const email = useSelector((state) => state.auth.email);
-  const name = useSelector((state) => state.auth.name);
-  const nameKid = useSelector((state) => state.auth.nameKid);
-  const kidBD = useSelector((state) => state.auth.kidBD);
-  console.log(kidBD);
+  const { email } = user;
+  const { name } = user;
+  const { nameKid } = user;
+  const { kidBD } = user;
   const [email1, setEmail] = useState(null);
   const [name1, setName] = useState(null);
   const [nameKid1, setNameKid] = useState(null);
@@ -42,7 +42,7 @@ export default function EditProfile() {
   const handleFormSubmit = (e) => {
     dispatch(
       updateProfile(data, () => {
-        history.push('/personal');
+        navigate('/personal');
       })
     );
   };

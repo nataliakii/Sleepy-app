@@ -2,14 +2,14 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { NavLink, Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Navbar } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { signout } from '../actions';
 
 const Nav = ({ user }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   // const authenticated = useSelector((state) => state.auth.authenticated);
   const { name } = user;
   console.log(user);
@@ -17,7 +17,7 @@ const Nav = ({ user }) => {
   const handleSignOutClick = () => {
     dispatch(
       signout(() => {
-        history.push('/');
+        navigate('/');
       })
     );
   };

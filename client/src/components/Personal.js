@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import { deleteProfile } from '../actions';
 
 export default function Main() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const name = useSelector((state) => state.auth.name);
   const kidName = useSelector((state) => state.auth.nameKid);
 
   const handleDeleteButton = () => {
     dispatch(
       deleteProfile(() => {
-        history.push('/');
+        navigate('/');
       })
     );
   };

@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { fetchUser } from '../actions';
 import Main from './Main';
 import Nav from './Nav';
@@ -34,25 +34,19 @@ const App = () => {
     <div>
       <Nav user={user} />
       <Bar />
-      <Switch>
-        <Route exact path="/" render={() => <Main user={user} />} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={Signin} />
-        <Route exact path="/personal" render={() => <Personal user={user} />} />
-        <Route
-          path="/sleepy-form-post"
-          render={() => <SleepyForm user={user} />}
-        />
-        <Route path="/personal/sleepy-form-get" component={SleepyResults} />
-        <Route path="/personal/all-docs-display" component={AllDocsDisplay} />
-        <Route
-          path="/personal/edit"
-          render={() => <EditProfile user={user} />}
-        />
-        <Route path="/tips-sleep" component={TipsSleep} />
-        <Route path="/find-playground" component={FindPlayground} />
-        <Route path="/find-restaurant" component={FindRestaurant} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<Main user={user} />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route exact path="/personal" element={<Personal user={user} />} />
+        <Route path="/sleepy-form-post" element={<SleepyForm user={user} />} />
+        <Route path="/personal/sleepy-form-get" element={<SleepyResults />} />
+        <Route path="/personal/all-docs-display" element={<AllDocsDisplay />} />
+        <Route path="/personal/edit" element={<EditProfile user={user} />} />
+        <Route path="/tips-sleep" element={<TipsSleep />} />
+        <Route path="/find-playground" element={<FindPlayground />} />
+        <Route path="/find-restaurant" element={<FindRestaurant />} />
+      </Routes>
     </div>
   );
 };

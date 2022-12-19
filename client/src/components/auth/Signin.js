@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
@@ -21,13 +21,13 @@ const Signin = () => {
     resolver: yupResolver(userSchema),
   });
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const error = useSelector((state) => state.auth.errorMessage);
 
   const handleFormSubmit = (data) => {
     dispatch(
       signin(data, () => {
-        history.push('/personal');
+        navigate('/personal');
       })
     );
   };

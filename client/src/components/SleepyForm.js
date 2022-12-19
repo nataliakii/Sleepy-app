@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Button, Form, Row } from 'react-bootstrap';
@@ -22,7 +23,7 @@ const sleepySchema = Yup.object().shape({
   bedTime: Yup.string().required(),
 });
 
-export default function SleepyForm() {
+export default function SleepyForm({ user }) {
   const {
     register,
     handleSubmit,
@@ -32,17 +33,15 @@ export default function SleepyForm() {
   });
 
   const dispatch = useDispatch();
-  const history = useHistory();
-  const authenticated = useSelector((state) => state.auth.authenticated);
-  const nameKid = useSelector((state) => state.auth.nameKid);
+  const navigate = useNavigate();
+  const { nameKid } = user;
 
   const handleFormSubmit = (data) => {
-    console.log('dispatched');
-    dispatch(postForm(data, () => history.push('/personal/sleepy-form-get')));
+    dispatch(postForm(data, () => navigate('/personal/sleepy-form-get')));
   };
 
   const renderFormDisplay = () => {
-    if (authenticated) {
+    if (nameKid) {
       return (
         <div
           className="h-auto p-5 text-white bg-dark"

@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLocation } from '../actions';
@@ -10,12 +11,12 @@ import Map from './Map';
 
 export default function FindPlayground() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const loc = useSelector((state) => state.loc.location);
   const err = useSelector((state) => state.loc.error);
   const [zoom, setZoom] = useState(3);
   const handleClick = () => {
-    dispatch(fetchLocation(() => history.push('/find-playground')));
+    dispatch(fetchLocation(() => navigate('/find-playground')));
   };
   const LocErrorDisplay = () => {
     if (loc?.lat) {
@@ -26,6 +27,7 @@ export default function FindPlayground() {
       );
     }
     if (err) return <div className="error-message centered">{err}</div>;
+    return <CircularProgress color="secondary" className="centered" />;
   };
 
   const render = (status = Status) => <h1>{status}</h1>;
