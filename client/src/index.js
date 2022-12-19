@@ -42,7 +42,7 @@ root.render(
       <Router>
         <>
           <App />
-          <Footer />
+          {/* <Footer /> */}
         </>
       </Router>
     </Provider>

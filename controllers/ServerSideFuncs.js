@@ -100,7 +100,6 @@ exports.deleteProfile = async function (req, res) {
   return res.status(200).send(`User ${deletedUser.name} was deleted successfully`);
 };
 
-
 exports.addArticlesToDB = function (req,res) {
   const { loopContent } = helpingFuncs
   articles.articles.forEach(el => {

@@ -10,9 +10,8 @@ import { signout } from '../actions';
 const Nav = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const authenticated = useSelector((state) => state.auth.authenticated);
   const { name } = user;
-  console.log(user);
+  console.log('user from Nav', user);
 
   const handleSignOutClick = () => {
     dispatch(

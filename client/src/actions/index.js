@@ -13,11 +13,10 @@ export const fetchUser = (token) => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/auth/${userId}`, config);
+    console.log('action payload fetchUser', response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
-    localStorage.clear();
     console.log(error);
-    window.location.href = '/signin';
   }
 };
 
@@ -119,6 +118,8 @@ export const deleteProfile = (callback) => async (dispatch) => {
   try {
     const response = await axios.delete(`${url}/auth/delete`, config);
     console.log(response.data);
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     dispatch({ type: 'LOG_OUT' });
     callback();
   } catch (error) {
