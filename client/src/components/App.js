@@ -28,7 +28,7 @@ const App = () => {
       dispatch(fetchUser(token));
     }
   }, []);
-  const user = useSelector((state) => state.auth || null);
+  const user = useSelector((state) => state.auth);
 
   return (
     <div>

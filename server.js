@@ -10,6 +10,7 @@ const connectDB = require("./config/db");
 
 // DB Setup
 connectDB()
+app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -20,7 +21,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

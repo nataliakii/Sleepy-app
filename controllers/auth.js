@@ -26,8 +26,8 @@ exports.signin = function(req, res, next) {
 };
 
 exports.currentUser = function(req, res, next) {
-    const id = req.params.userId;
-    User.findById(id)
+    const { userId } = req.params;
+    User.findById(userId)
       .exec((err, user) => {
         if (err) {
           res.status(400).send(err);
