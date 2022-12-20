@@ -12,7 +12,7 @@ export const fetchUser = (token) => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`${url}/auth/${userId}`, config);
+    const response = await axios.get(`/auth/${userId}`, config);
     console.log('action payload fetchUser', response);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
@@ -28,7 +28,7 @@ export const signout = () => async (dispatch) => {
 
 export const signin = (formProps, callback) => async (dispatch) => {
   axios
-    .post(`${url}/auth/signin`, formProps)
+    .post(`/auth/signin`, formProps)
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
@@ -43,7 +43,7 @@ export const signin = (formProps, callback) => async (dispatch) => {
 
 export const signup = (formProps, callback) => async (dispatch) => {
   axios
-    .post(`${url}/auth/signup`, formProps)
+    .post(`/auth/signup`, formProps)
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
@@ -66,7 +66,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
   };
   try {
     const response = await axios.post(
-      `${url}/api/sleepy_post`,
+      `/api/sleepy_post`,
       { sleepData },
       config
     );
@@ -84,7 +84,7 @@ export const fetchAllDocs = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`${url}/api/sleepy_get_all`, config);
+    const response = await axios.get(`/api/sleepy_get_all`, config);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
@@ -99,7 +99,7 @@ export const updateProfile = (data, callback) => async (dispatch) => {
   };
   console.log('action update profile', data);
   try {
-    const response = await axios.put(`${url}/auth/edit`, { data }, config);
+    const response = await axios.put(`/auth/edit`, { data }, config);
 
     console.log(response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
@@ -116,7 +116,7 @@ export const deleteProfile = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.delete(`${url}/auth/delete`, config);
+    const response = await axios.delete(`/auth/delete`, config);
     localStorage.clear();
     dispatch({ type: 'LOG_OUT' });
   } catch (error) {
@@ -126,7 +126,7 @@ export const deleteProfile = () => async (dispatch) => {
 
 export const fetchTips = () => async (dispatch) => {
   try {
-    const response = await axios.get(`${url}/api/getTipsArticles`);
+    const response = await axios.get(`/api/getTipsArticles`);
     dispatch({ type: 'DISPLAY_TIPS', payload: response.data });
   } catch (error) {
     console.log(error);
