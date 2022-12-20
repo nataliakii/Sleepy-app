@@ -9,16 +9,12 @@ import { signout } from '../actions';
 
 const Nav = ({ user }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { name } = user;
   console.log('user from Nav', user);
 
   const handleSignOutClick = () => {
-    dispatch(
-      signout(() => {
-        navigate('/');
-      })
-    );
+    dispatch(signout());
+    window.location.href = '/';
   };
 
   const renderLinks = () => {

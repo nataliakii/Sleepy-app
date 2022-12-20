@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
-const url = 'http://localhost:5000';
-// const url = '';
+// const url = 'http://localhost:5000';
+const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
   const { userId } = localStorage;
@@ -21,7 +21,7 @@ export const fetchUser = (token) => async (dispatch) => {
   }
 };
 
-export const signout = () => (dispatch) => {
+export const signout = () => async (dispatch) => {
   localStorage.clear();
   dispatch({ type: 'LOG_OUT' });
 };
@@ -109,7 +109,7 @@ export const updateProfile = (data, callback) => async (dispatch) => {
   }
 };
 
-export const deleteProfile = (callback) => async (dispatch) => {
+export const deleteProfile = () => async (dispatch) => {
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -117,11 +117,8 @@ export const deleteProfile = (callback) => async (dispatch) => {
   };
   try {
     const response = await axios.delete(`${url}/auth/delete`, config);
-    console.log(response.data);
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
+    localStorage.clear();
     dispatch({ type: 'LOG_OUT' });
-    callback();
   } catch (error) {
     console.log(error);
   }

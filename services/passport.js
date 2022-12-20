@@ -40,7 +40,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
     if (err) { return done(err, false) }
 
     if (user) {
-      console.log('User is ', user);
+      console.log('coming from jwt')
       done(null, user)
     } else {
       done(null, false)

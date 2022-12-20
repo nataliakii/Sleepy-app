@@ -13,13 +13,8 @@ export default function Main() {
   const kidName = useSelector((state) => state.auth.nameKid);
 
   const handleDeleteButton = () => {
-    localStorage.removeItem('userID');
-    dispatch(
-      deleteProfile(() => {
-        navigate('/');
-      })
-    );
-    dispatch(signout());
+    dispatch(deleteProfile());
+    window.location.href = '/';
   };
 
   return (
