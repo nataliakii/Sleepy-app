@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Auth = require("./controllers/auth");
 const ServerSideFuncs = require("./controllers/ServerSideFuncs");
 const getLocation=require("./controllers/googleMap")
