@@ -5,15 +5,11 @@ const getLocation=require("./controllers/googleMap")
 const passportService = require("./services/passport");
 const passport = require("passport");
 
-const requireAuth = passport.authenticate("jwt", { session: false, failureRedirect: "/auth/unauth", });
+const requireAuth = passport.authenticate("jwt", { session: false});
 const requireSignin = passport.authenticate("local", { session: false });
-
 
 module.exports = function (app) {
   app.post("/auth/signin", requireSignin, Auth.signin);
-  app.get("/auth/unauth", function (req, res, next) {
-    res.status(401).send("Unauthorized");
-  })
   app.post("/auth/signup", Auth.signup);
   app.get("/auth/:userId", requireAuth, Auth.currentUser);
   app.put("/auth/edit", requireAuth, ServerSideFuncs.editProfile);

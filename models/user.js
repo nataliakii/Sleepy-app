@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 var crypto = require("crypto");
 const Sleepy = require("../models/sleep");
 
-// Define our model
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   name: String,
