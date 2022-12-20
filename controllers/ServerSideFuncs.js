@@ -2,8 +2,8 @@ const _ = require('lodash');
 const Sleepy = require('../models/sleep');
 const User = require('../models/user');
 const Article = require('../models/article');
-const articles=require ('../initialData/articles')
-const helpingFuncs =require('./helpingFuncs')
+const articles=require ('../utils/articles')
+const helpingFuncs =require('../utils/helpingFuncs')
 
 
 exports.addSleepyDoc = function (req, res) {

@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const norms = require('../initialData/norms');
+const norms = require('./norms');
 
 const helpingFuncs = {
   calculateAge: (calculateAge = (kidBD, date) => {
