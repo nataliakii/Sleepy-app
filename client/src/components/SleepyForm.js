@@ -10,7 +10,9 @@ import { Button, Form, Row } from 'react-bootstrap';
 import { postForm } from '../actions';
 
 const sleepySchema = Yup.object().shape({
-  date: Yup.date().required(),
+  date: Yup.date()
+    .required()
+    .default(() => new Date()),
   wakeUp: Yup.string().required(),
   nap1Start: Yup.string().required(),
   nap1End: Yup.string().required(),

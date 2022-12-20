@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Table from 'react-bootstrap/Table';
+import { Table, Button } from 'react-bootstrap';
 import displayAge from '../hooks/displayAge';
 import {
   conditionalTableHead,
@@ -12,7 +12,6 @@ import displayTime from '../hooks/displayTime';
 
 export default function SleepyResults() {
   const sleepy = useSelector((state) => state.sleepy);
-  console.log(sleepy);
   const convDate = (d) => new Date(d).toDateString();
   const { ww1R } = sleepy.result;
   const { ww2R } = sleepy.result;
@@ -33,7 +32,7 @@ export default function SleepyResults() {
 
   return (
     <div
-      className="h-auto p-5 text-white bg-dark"
+      className="h-100 p-5 text-white bg-dark"
       style={{
         position: 'absolute',
         display: 'inline-block',
@@ -88,6 +87,14 @@ export default function SleepyResults() {
           </tr>
         </tbody>
       </Table>
+      <Button
+        type="link"
+        variant="primary"
+        className="main-button personal display-block"
+        href="/personal/all-docs-display"
+      >
+        All your sleepy docs
+      </Button>
     </div>
   );
 }
