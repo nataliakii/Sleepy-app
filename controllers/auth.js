@@ -1,3 +1,4 @@
+require('dotenv').config()
 const jwt = require('jwt-simple');
 const User = require('../models/user');
 const keys = require('../config/dev');
