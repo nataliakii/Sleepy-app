@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
-// const url = 'http://localhost:5000';
-const url = '';
+const url = 'http://localhost:5000';
+// const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
   const { userId } = localStorage;
@@ -13,20 +13,20 @@ export const fetchUser = (token) => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/auth/${userId}`, config);
-    console.log('action payload fetchUser', response.data);
+    console.log('action payload fetchUser', response);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
+    localStorage.clear();
     console.log(error);
   }
 };
 
-export const signout = (callback) => (dispatch) => {
-  localStorage.removeItem('token');
+export const signout = () => (dispatch) => {
+  localStorage.clear();
   dispatch({ type: 'LOG_OUT' });
-  callback();
 };
 
-export const signin = (formProps, callback) => (dispatch) => {
+export const signin = (formProps, callback) => async (dispatch) => {
   axios
     .post(`${url}/auth/signin`, formProps)
     .then((response) => {
@@ -41,7 +41,7 @@ export const signin = (formProps, callback) => (dispatch) => {
     });
 };
 
-export const signup = (formProps, callback) => (dispatch) => {
+export const signup = (formProps, callback) => async (dispatch) => {
   axios
     .post(`${url}/auth/signup`, formProps)
     .then((response) => {
