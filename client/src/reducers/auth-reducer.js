@@ -2,7 +2,7 @@
 
 const INITIAL_STATE = {
   authenticated: localStorage.getItem('token') || '',
-  errorMessage: '',
+  // errorMessage: '',
   name: null,
   nameKid: null,
   kidBD: null,
@@ -23,9 +23,9 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
     case 'LOG_OUT':
       console.log('this comes from LOG OUT', action.payload);
       return INITIAL_STATE;
-    case 'AUTH_ERROR':
-      console.log('this comes from AUTH ERROR,action.payload');
-      return { ...state, errorMessage: action.payload };
+    // case 'AUTH_ERROR':
+    //   console.log('this comes from AUTH ERROR,action.payload');
+    //   return { ...state, errorMessage: action.payload };
     default:
       return state;
   }

@@ -72,17 +72,17 @@ exports.getAllDocs = function (req, res) {
 };
 
 exports.editProfile = async function (req, res) {
-  const name1 = req.body.data.name1|| req.user.name
-  const email1 = req.body.data.email1 || req.user.email
-  const nameKid1= req.body.data.nameKid1|| req.user.nameKid
-  const kidBD1 = req.body.data.kidBD1 || req.user.kidBD
+  const name1 = req.body.name1|| req.user.name
+  const email1 = req.body.email1 || req.user.email
+  const nameKid1= req.body.nameKid1|| req.user.nameKid
+  const kidBD1 = req.body.kidBD1 || req.user.kidBD
   const update = {
     name: name1,
     email: email1,
     nameKid: nameKid1,
     kidBD: kidBD1,
   };
-  console.log(update.name)
+  console.log(update.name, "was updated")
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
     update,

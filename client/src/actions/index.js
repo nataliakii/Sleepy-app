@@ -66,7 +66,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
   };
   try {
     const response = await axios.post(
-      `/api/sleepy_post`,
+      `/user/sleepy_post`,
       { sleepData },
       config
     );
@@ -84,7 +84,7 @@ export const fetchAllDocs = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`/api/sleepy_get_all`, config);
+    const response = await axios.get(`/user/sleepy_get_all`, config);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
@@ -99,7 +99,7 @@ export const updateProfile = (data, callback) => async (dispatch) => {
   };
   console.log('action update profile', data);
   try {
-    const response = await axios.put(`/auth/edit`, { data }, config);
+    const response = await axios.put(`/user/edit`, { data }, config);
 
     console.log(response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
@@ -116,7 +116,7 @@ export const deleteProfile = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.delete(`/auth/delete`, config);
+    const response = await axios.delete(`/user/delete`, config);
     localStorage.clear();
     dispatch({ type: 'LOG_OUT' });
   } catch (error) {
