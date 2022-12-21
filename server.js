@@ -8,7 +8,6 @@ const cors = require('cors');
 const connectDB = require("./config/db");
 const router = require('./router');
 
-
 // DB Setup
 connectDB()
 app.use(cors());
@@ -19,6 +18,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -31,4 +31,4 @@ router(app);
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 server.listen(port);
-console.log('Server listening on:', port);
+// console.log('Server listening on:', port)
