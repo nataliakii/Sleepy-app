@@ -28,7 +28,7 @@ exports.signin = function(req, res, next) {
 exports.currentUser = function(req, res, next) {
     console.log({req})
     const { userId } = req.params;
-    console.log({userID})
+    console.log({userId})
     User.findById(userId)
       .exec((err, user) => {
         console.log({err, user})
