@@ -202,7 +202,6 @@ export const fetchLocation = () => (dispatch) => {
 //     const artworkData = transformData(request);
 //     artworkData.imageURL = `https://www.artic.edu/iiif/2/${artworkData.imageId}/full/843,/0/default.jpg`;
 
-
 //       type: 'FETCH_ARTWORK',
 //       payload: artworkData,
 
