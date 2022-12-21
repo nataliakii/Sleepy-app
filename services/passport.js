@@ -18,7 +18,7 @@ const localLogin = new LocalStrategy(localOptions,function(email, password, done
     if (!user.validPassword(password)) {
       return done(null, false, { message: 'Incorrect password.' })
     }
-
+    console.log('coming from LocalLogin, sign in')
     return done(null, user);
   });
 });
@@ -34,7 +34,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
     if (err) { return done(err, false) }
 
     if (user) {
-      console.log('coming from jwt')
+      console.log('coming from jwt, authorisation')
       done(null, user)
     } else {
       done(null, false)
