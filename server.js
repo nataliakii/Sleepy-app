@@ -12,29 +12,7 @@ const connectDB = require("./config/db");
 
 
 // DB Setup
-// connectDB()
-
-// Mongoose connection
-const db = mongoose.connection;
-
-//mongoose connect
-mongoose.connect(process.env.MONGODB_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-});
-// Check connection
-db.once('open', function () {
-  console.log('Connected to MongoDB');
-});
-
-// Check for db errors
-db.on('error', function (err) {
-  console.error(err);
-});
-
-
+connectDB()
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
@@ -43,13 +21,9 @@ if (process.env.NODE_ENV === "production") {
   app.get("/*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
-}
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-
 app.use('/user', require('./routes/user'));
 app.use('/api', require('./routes/all'));
 authRouter(app);
