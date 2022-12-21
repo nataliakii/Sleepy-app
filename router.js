@@ -12,10 +12,10 @@ module.exports = function (app) {
   app.post("/auth/signin", requireSignin, Auth.signin);
   app.post("/auth/signup", Auth.signup);
   app.get("/auth/:userId", requireAuth, Auth.currentUser);
-  app.put("/api/edit", requireAuth, ServerSideFuncs.editProfile);
-  app.delete("/api/delete", requireAuth, ServerSideFuncs.deleteProfile);
-  app.post("/api/sleepy_post", requireAuth, ServerSideFuncs.addSleepyDoc);
-  app.get("/api/sleepy_get_all", requireAuth, ServerSideFuncs.getAllDocs);
+  app.put("/user/edit", requireAuth, ServerSideFuncs.editProfile);
+  app.delete("/user/delete", requireAuth, ServerSideFuncs.deleteProfile);
+  app.post("/user/sleepy_post", requireAuth, ServerSideFuncs.addSleepyDoc);
+  app.get("/user/sleepy_get_all", requireAuth, ServerSideFuncs.getAllDocs);
   app.get("/api/addArticlesToDB", ServerSideFuncs.addArticlesToDB);
   app.get("/api/getTipsArticles", ServerSideFuncs.getArticles)
   app.get("/api/getLocation", getLocation.getLocation);

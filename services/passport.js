@@ -8,7 +8,6 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 
 
-// Create local strategy
 const localOptions = { usernameField: 'email' };
 
 const localLogin = new LocalStrategy(localOptions,function(email, password, done) {
@@ -24,17 +23,13 @@ const localLogin = new LocalStrategy(localOptions,function(email, password, done
   });
 });
 
-// Setup options for JWT Strategy
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: keys.TOKEN_SECRET
 };
 
-// Create JWT strategy
+
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
-  // See if the user ID in the payload exists in our database
-  // If it does, call 'done' with that other
-  // otherwise, call done without a user object
   User.findById(payload.sub, function(err, user) {
     if (err) { return done(err, false) }
 
