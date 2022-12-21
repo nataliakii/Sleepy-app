@@ -15,39 +15,16 @@ app.use(cors());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   const path = require("path");
-  app.get("/auth/signin", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
-  app.get("/auth/signup", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-  app.get("/auth/:userId", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-  app.get("/user/edit", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-  app.get("/user/sleepy_post", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-  app.get("/user/sleepy_get_all", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-  app.get("/api/addArticlesToDB", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-  app.get("/api/getTipsArticles", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// app.use('/user', require('./routes/user'));
-// app.use('/api', require('./routes/all'));
-router(app);
+app.use('/user', require('./routes/user'));
+app.use('/api', require('./routes/all'));
+authRouter(app);
 
 
 // Server Setup
