@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // const url = 'http://localhost:5000';
-const url = '';
+// const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
   const { userId } = localStorage;
