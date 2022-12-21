@@ -45,9 +45,9 @@ if (process.env.NODE_ENV === "production") {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/user', require('./routes/user'));
-app.use('/api', require('./routes/all'));
-authRouter(app);
+// app.use('/user', require('./routes/user'));
+// app.use('/api', require('./routes/all'));
+router(app);
 
 
 // Server Setup
