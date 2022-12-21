@@ -24,6 +24,15 @@ mongoose.connect(process.env.MONGODB_URI, {
     useFindAndModify: false,
     useCreateIndex: true
 });
+// Check connection
+db.once('open', function () {
+  console.log('Connected to MongoDB');
+});
+
+// Check for db errors
+db.on('error', function (err) {
+  console.error(err);
+});
 
 
 app.use(cors());
