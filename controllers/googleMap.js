@@ -1,6 +1,8 @@
-const {Client} = require("@googlemaps/google-maps-services-js");
+const { Client } = require("@googlemaps/google-maps-services-js");
 
-exports.getLocation=function(req,res){
+exports.getLocation = function (req, res) {
+  console.log("/getLocation route hit")
+
   const client = new Client({});
 
   client

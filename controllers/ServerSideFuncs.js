@@ -2,11 +2,13 @@ const _ = require('lodash');
 const Sleepy = require('../models/sleep');
 const User = require('../models/user');
 const Article = require('../models/article');
-const articles=require ('../utils/articles')
-const helpingFuncs =require('../utils/helpingFuncs')
+const articles = require('../utils/articles')
+const helpingFuncs = require('../utils/helpingFuncs')
 
 
 exports.addSleepyDoc = function (req, res) {
+  console.log("/addSleepyDoc route hit")
+
   User.findOne({ _id: req.user._id }, (err, user) => {
     const { sleepData } = req.body
     const { calculateAge } = helpingFuncs;
@@ -36,14 +38,14 @@ exports.addSleepyDoc = function (req, res) {
         start: sleepData.nap4Start,
         end: sleepData.nap4End,
       },
-      ww1:  calculateWw(sleepData).ww1,
+      ww1: calculateWw(sleepData).ww1,
       ww2: calculateWw(sleepData).ww2,
       ww3: calculateWw(sleepData).ww3,
       ww4: calculateWw(sleepData).ww4,
       ww5: calculateWw(sleepData).ww5,
       sumNap: calculateSumNap(sleepData),
       lastNap: calculateWw(sleepData).lastNap,
-      numberOfNaps:calculateWw(sleepData).numberOfNaps,
+      numberOfNaps: calculateWw(sleepData).numberOfNaps,
       norms: findNorm(
         calculateAge(req.user.kidBD, sleepData.date).ageInWeeks
       ),
@@ -65,6 +67,8 @@ exports.addSleepyDoc = function (req, res) {
 };
 
 exports.getAllDocs = function (req, res) {
+  console.log("/getAllDocs route hit")
+
   User.findOne({ _id: req.user._id }, (err, user) => {
     res.send({ allDocs: user.SleepyDocs, docsCount: user.SleepyDocs.length });
     console.log(err);
@@ -72,9 +76,11 @@ exports.getAllDocs = function (req, res) {
 };
 
 exports.editProfile = async function (req, res) {
-  const name1 = req.body.name1|| req.user.name
+  console.log("/editProfile route hit")
+
+  const name1 = req.body.name1 || req.user.name
   const email1 = req.body.email1 || req.user.email
-  const nameKid1= req.body.nameKid1|| req.user.nameKid
+  const nameKid1 = req.body.nameKid1 || req.user.nameKid
   const kidBD1 = req.body.kidBD1 || req.user.kidBD
   const update = {
     name: name1,
@@ -94,31 +100,35 @@ exports.editProfile = async function (req, res) {
 };
 
 exports.deleteProfile = async function (req, res) {
+  console.log("/deleteProfile route hit")
   const deletedUser = await User.findOneAndDelete(
     { _id: req.user._id },
   );
   return res.status(200).send(`User ${deletedUser.name} was deleted successfully`);
 };
 
-exports.addArticlesToDB = function (req,res) {
+exports.addArticlesToDB = function (req, res) {
+  console.log("/addArticlesToDB route hit")
   const { loopContent } = helpingFuncs
   articles.articles.forEach(el => {
-    const article=new Article({
-      name:el.name,
+    const article = new Article({
+      name: el.name,
       tags: el.tags.toString().split(",") || ['Other'],
       content: loopContent(el.content)
     })
-    Article.findOne({name: article.name}, function(err,findArticle){
-      if(!findArticle){
+    Article.findOne({ name: article.name }, function (err, findArticle) {
+      if (!findArticle) {
         article.save((err, article) => {
           res.send(article);
         })
       }
+    })
   })
-})}
+}
 
-exports.getArticles = function (req,res) {
-  Article.find({}).exec((err, articles)=>{
+exports.getArticles = function (req, res) {
+  console.log("/getArticles route hit")
+  Article.find({}).exec((err, articles) => {
     res.send(articles)
   })
 }
