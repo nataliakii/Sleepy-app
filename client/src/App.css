@@ -279,3 +279,31 @@ a {
 span .footer {
   margin-bottom: -10px !important;
 }
+.modal-title {
+  border-radius: 4px 4px 0 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #bf1650;
+  background-color: white;
+  margin: 10px;
+}
+.modal-button {
+  margin-right: 20px !important;
+  padding: 10px !important;
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+}
+.art-text {
+  font-weight: 100 !important;
+  font-size: 14px !important;
+}
+.art-text-strong {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.art-centered {
+  margin-left: 33%;
+}

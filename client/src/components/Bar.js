@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 
 export default function Bar() {
+  const navigate = useNavigate();
   return (
     <Nav
       // defaultActiveKey="/"
@@ -22,22 +24,26 @@ export default function Bar() {
       >
         Home
       </Nav.Link> */}
-      <Nav.Link className="color-text" eventKey="link-1" href="/tips-sleep">
+      <Nav.Link
+        className="color-text"
+        eventKey="link-1"
+        onClick={() => navigate('/tips-sleep')}
+      >
         Sleeping tips
       </Nav.Link>
       <Nav.Link
         className="color-text"
         eventKey="link-3"
-        href="/find-playground"
+        onClick={() => navigate('/find-playground')}
       >
         Find playground
       </Nav.Link>
       <Nav.Link
         className="color-text"
         eventKey="link-4"
-        href="/find-restaurant"
+        onClick={() => navigate('/find-restaurant')}
       >
-        Find restaurant with kidsroom
+        Some art-entertainment
       </Nav.Link>
     </Nav>
   );

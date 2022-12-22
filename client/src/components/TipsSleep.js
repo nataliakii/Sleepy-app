@@ -29,7 +29,7 @@ export default function TipsSleep() {
         display: 'inline-block',
         marginTop: '5%',
         float: 'left',
-        minWidth: '82%',
+        minWidth: '89%',
         minHeight: '100%',
       }}
     >

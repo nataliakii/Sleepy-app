@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import { Container } from 'react-bootstrap';
+import { Button, Modal, Container } from 'react-bootstrap';
 import { deleteProfile, signout } from '../actions';
 
-export default function Main() {
+export default function Personal() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const name = useSelector((state) => state.auth.name);
   const kidName = useSelector((state) => state.auth.nameKid);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleDeleteButton = () => {
     dispatch(deleteProfile());
@@ -26,7 +26,7 @@ export default function Main() {
         marginTop: '5%',
         float: 'left',
         fontWeight: '200',
-        maxWidth: '81%',
+        maxWidth: '89%',
       }}
     >
       <div className="container-fluid py-4">
@@ -66,11 +66,38 @@ export default function Main() {
           type="button"
           variant="primary"
           className="main-button personal display-block delete-btn"
-          onClick={handleDeleteButton}
+          onClick={handleShow}
         >
           Delete Profile
         </Button>
+
+        <Modal show={show} onHide={handleClose} centered>
+          <Modal.Body className="modal-title">
+            {name}, do you really want to delete your profile?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              className="modal-button"
+              variant="primary"
+              onClick={handleClose}
+            >
+              No, I just want to sleep more.
+            </Button>
+            <Button
+              className="modal-button"
+              variant="primary"
+              onClick={handleDeleteButton}
+            >
+              Yes, delete it.
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </Container>
   );
 }
+
+// type = 'button';
+// variant = 'primary';
+// className = 'main-button personal display-block delete-btn';
+// onClick = { handleDeleteButton };

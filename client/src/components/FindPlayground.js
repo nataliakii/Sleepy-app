@@ -38,7 +38,7 @@ export default function FindPlayground() {
       style={{
         position: 'absolute',
         display: 'inline-block',
-        width: '81%',
+        width: '89%',
         marginTop: '5%',
       }}
     >

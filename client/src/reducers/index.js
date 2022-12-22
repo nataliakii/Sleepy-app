@@ -4,6 +4,7 @@ import SleepyReducer from './sleepy-reducer';
 import AllDocsReducer from './allDocs-reducer';
 import TipsReducer from './tips-reducer';
 import LocationReducer from './loc-reducer';
+import ArtReducer from './art-reducer';
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -11,5 +12,6 @@ const rootReducer = combineReducers({
   allDocs: AllDocsReducer,
   tips: TipsReducer,
   loc: LocationReducer,
+  art: ArtReducer,
 });
 export default rootReducer;
