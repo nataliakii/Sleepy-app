@@ -26,9 +26,9 @@ exports.signin = function(req, res, next) {
 };
 
 exports.currentUser = function(req, res, next) {
-    console.log({req})
+    // console.log({req})
     const { userId } = req.params;
-    console.log({userId})
+    console.log('Kalimera! this is coming from currentUser',{userId})
     User.findById(userId)
       .exec((err, user) => {
         console.log({err, user})
