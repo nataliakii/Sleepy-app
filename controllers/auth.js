@@ -14,34 +14,37 @@ function tokenForUser(user) {
   );
 }
 
-exports.signin = function(req, res, next) {
+exports.signin = function (req, res, next) {
+  console.log("/signin route hit")
   res.send({
     token: tokenForUser(req.user),
     userId: req.user._id,
     name: req.user.name,
     nameKid: req.user.nameKid,
-    email:req.user.email,
-    kidBD: req.user.kidBD 
+    email: req.user.email,
+    kidBD: req.user.kidBD
   });
 };
 
-exports.currentUser = function(req, res, next) {
-    // console.log({req})
-    const { userId } = req.params;
-    console.log('Kalimera! this is coming from currentUser',{userId})
-    User.findById(userId)
-      .exec((err, user) => {
-        console.log("also from currentUser", {err, user})
-        if (err) {
-          res.status(400).send(err);
-          return next(err);
-        } else {
-          res.status(200).send(user).end();
-        }
-      })
+exports.currentUser = function (req, res, next) {
+  console.log("/currentUser route hit")
+  // console.log({req})
+  const { userId } = req.params;
+  console.log('Kalimera! this is coming from currentUser', { userId })
+  User.findById(userId)
+    .exec((err, user) => {
+      console.log("also from currentUser", { err, user })
+      if (err) {
+        res.status(400).send(err);
+        return next(err);
+      } else {
+        res.status(200).send(user).end();
+      }
+    })
 };
 
-exports.signup = function(req, res, next) {
+exports.signup = function (req, res, next) {
+  console.log("/signup route hit")
   const email = req.body.email;
   const password = req.body.password;
   const name = req.body.name;
@@ -49,11 +52,11 @@ exports.signup = function(req, res, next) {
   const kidBD = req.body.kidBD;
 
   if (!email || !password || !name || !nameKid || !kidBD) {
-    return res.status(422).send({ error: 'You must provide all necessary fields'});
+    return res.status(422).send({ error: 'You must provide all necessary fields' });
   }
 
 
-  User.findOne({ email: email }, function(err, existingUser) {
+  User.findOne({ email: email }, function (err, existingUser) {
     if (err) { return next(err); }
 
     if (existingUser) {
@@ -64,15 +67,15 @@ exports.signup = function(req, res, next) {
 
     user.email = email;
     user.name = name
-    user.nameKid= nameKid
-    user.kidBD=kidBD
+    user.nameKid = nameKid
+    user.kidBD = kidBD
 
     user.setPassword(password);
 
-    user.save(function(err, user) {
+    user.save(function (err, user) {
       if (err) { return next(err); }
 
-      res.send({ token: tokenForUser(user),name : user.name, nameKid: user.nameKid, kidBD: user.kidBD, email:user.email, userId: user._id,});
+      res.send({ token: tokenForUser(user), name: user.name, nameKid: user.nameKid, kidBD: user.kidBD, email: user.email, userId: user._id, });
     });
   });
 };
