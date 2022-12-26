@@ -14,7 +14,6 @@ const Nav = ({ user }) => {
 
   const handleSignOutClick = () => {
     dispatch(signout());
-    window.location.href = '/';
   };
 
   const renderLinks = () => {
@@ -31,7 +30,7 @@ const Nav = ({ user }) => {
             <Link
               className="white"
               type="button"
-              to="#"
+              to="/"
               onClick={handleSignOutClick}
             >
               Sign Out
@@ -59,8 +58,10 @@ const Nav = ({ user }) => {
   return (
     <Navbar className="nav-container">
       <Container>
-        <Navbar.Brand className="white" href="/">
-          SleepyApp
+        <Navbar.Brand>
+          <Link className="white" to="/">
+            SleepyApp
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end none-list">

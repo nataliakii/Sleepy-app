@@ -38,8 +38,8 @@ export default function EditProfile({ user }) {
   const [kidBD1, setKidBD] = useState(null);
 
   const data = { email1, name1, nameKid1, kidBD1 };
-
-  const handleFormSubmit = (e) => {
+  console.log('data', data);
+  const handleFormSubmit = () => {
     dispatch(
       updateProfile(data, () => {
         navigate('/personal');

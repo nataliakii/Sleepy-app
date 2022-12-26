@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { artRandomURL, payloadToReturn } from '../hooks/artFuncs';
 
-// const url = 'http://localhost:5000';
+const url = 'http://localhost:5000';
 // const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
@@ -14,8 +14,7 @@ export const fetchUser = (token) => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`/auth/${userId}`, config);
-    console.log('action payload fetchUser', response);
+    const response = await axios.get(`${url}/auth/${userId}`, config);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
     localStorage.clear();
@@ -30,7 +29,7 @@ export const signout = () => async (dispatch) => {
 
 export const signin = (formProps, callback) => async (dispatch) => {
   axios
-    .post(`/auth/signin`, formProps)
+    .post(`${url}/auth/signin`, formProps)
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
@@ -45,7 +44,7 @@ export const signin = (formProps, callback) => async (dispatch) => {
 
 export const signup = (formProps, callback) => async (dispatch) => {
   axios
-    .post(`/auth/signup`, formProps)
+    .post(`${url}/auth/signup`, formProps)
     .then((response) => {
       dispatch({ type: 'AUTH_USER', payload: response.data });
       localStorage.setItem('token', response.data.token);
@@ -69,7 +68,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
   };
   try {
     const response = await axios.post(
-      `/user/sleepy_post`,
+      `${url}/user/sleepy_post`,
       { sleepData },
       config
     );
@@ -87,7 +86,8 @@ export const fetchAllDocs = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.get(`/user/sleepy_get_all`, config);
+    const response = await axios.get(`${url}/user/sleepy_get_all`, config);
+    console.log('action fetchAllDocs', response);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
@@ -102,7 +102,7 @@ export const updateProfile = (data, callback) => async (dispatch) => {
   };
   console.log('action update profile', data);
   try {
-    const response = await axios.put(`/user/edit`, { data }, config);
+    const response = await axios.put(`${url}/user/edit`, { data }, config);
     console.log(response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
     callback();
@@ -118,7 +118,7 @@ export const deleteProfile = () => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.delete(`/user/delete`, config);
+    const response = await axios.delete(`${url}/user/delete`, config);
     console.log(response.data);
     localStorage.clear();
     dispatch({ type: 'LOG_OUT' });
@@ -129,7 +129,7 @@ export const deleteProfile = () => async (dispatch) => {
 
 export const fetchTips = () => async (dispatch) => {
   try {
-    const response = await axios.get(`/api/getTipsArticles`);
+    const response = await axios.get(`${url}/api/getTipsArticles`);
     dispatch({ type: 'DISPLAY_TIPS', payload: response.data });
   } catch (error) {
     console.log(error);
@@ -159,7 +159,7 @@ export const fetchLocation = () => (dispatch) => {
   }
 
   function success(pos) {
-    const coordinates = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+    const coordinates = { lat: pos.coords.latitude, lng: pos.coords.longitude };
     dispatch({ type: 'DISPLAY_LOCATION', payload: coordinates });
   }
 
@@ -170,20 +170,46 @@ export const fetchLocation = () => (dispatch) => {
       payload: showError(err),
     });
   }
-
   navigator.geolocation.getCurrentPosition(success, error, options);
 };
 
-export const fetchArtwork = () => async (dispatch) => {
+export const fetchArtwork = (callback) => async (dispatch) => {
   try {
-    console.log(artRandomURL());
     const request = await axios.get(`${artRandomURL()}`);
     const artworkData = payloadToReturn(request);
-    console.log(artworkData);
     dispatch({
       type: 'FETCH_ARTWORK',
       payload: artworkData,
     });
+    callback();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteDoc = (docId) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  };
+  try {
+    const response = await axios.delete(`${url}/user/${docId}`, config);
+    dispatch({ type: 'DELETE_DOC', payload: response });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getOneDoc = (docId) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  };
+  try {
+    const response = await axios.delete(`${url}/user/${docId}`, config);
+    dispatch({ type: 'GET_DOC', payload: response });
   } catch (error) {
     console.log(error);
   }

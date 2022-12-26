@@ -1,36 +1,42 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unstable-nested-components */
-import React, { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import { Wrapper, Status } from '@googlemaps/react-wrapper';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchLocation } from '../actions';
+import { GoogleMap, LoadScript, useLoadScript } from '@react-google-maps/api';
+import { ThreeCircles } from 'react-loader-spinner';
 import Map from './Map';
+import { fetchLocation } from '../actions';
+
+const containerStyle = {
+  width: '900px',
+  height: '400px',
+  marginLeft: '4%',
+};
 
 export default function FindPlayground() {
-  const dispatch = useDispatch();
+  // const { isLoaded } = useLoadScript();
   const navigate = useNavigate();
-  const loc = useSelector((state) => state.loc.location);
-  const err = useSelector((state) => state.loc.error);
-  const [zoom, setZoom] = useState(3);
+  const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(fetchLocation(() => navigate('/find-playground')));
+    dispatch(fetchLocation());
   };
-  const LocErrorDisplay = () => {
-    if (loc?.lat) {
-      return (
-        <div className="centered">
-          Your location is: lat: {loc.lat} and lon: {loc.lon}{' '}
-        </div>
-      );
-    }
-    if (err) return <div className="error-message centered">{err}</div>;
-    return <CircularProgress color="secondary" className="centered" />;
-  };
+  const loc = useSelector((state) => state.loc.location);
 
-  const render = (status = Status) => <h1>{status}</h1>;
+  // if (!isLoaded)
+  //   return (
+  //     <ThreeCircles
+  //       height="100"
+  //       width="100"
+  //       color="#cb4587"
+  //       wrapperStyle={{}}
+  //       wrapperClass="loading__center"
+  //       visible
+  //       ariaLabel="three-circles-rotating"
+  //       outerCircleColor=""
+  //       innerCircleColor=""
+  //       middleCircleColor=""
+  //     />
+  //   );
 
   return (
     <div
@@ -38,23 +44,23 @@ export default function FindPlayground() {
       style={{
         position: 'absolute',
         display: 'inline-block',
-        width: '89%',
+        width: '84%',
         marginTop: '5%',
       }}
     >
       <Button
         variant="primary"
         type="button"
-        className="centered-button"
+        className="main-button personal display-block art-centered"
         onClick={handleClick}
       >
         Get Your Location
       </Button>
-      {LocErrorDisplay()}
-
-      <Wrapper apiKey="AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4" render={render}>
-        <Map center={loc} zoom={zoom} />
-      </Wrapper>
+      <LoadScript googleMapsApiKey="AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4">
+        <GoogleMap mapContainerStyle={containerStyle} center={loc} zoom={15}>
+          {/* Child components, such as markers, info windows, etc. */}
+        </GoogleMap>
+      </LoadScript>
     </div>
   );
 }

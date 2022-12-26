@@ -1,21 +1,35 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-plusplus */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
+import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import displayAge from '../hooks/displayAge';
 import { conditionalCellColor } from '../hooks/tableRenders';
-import { fetchAllDocs } from '../actions';
 import displayTime from '../hooks/displayTime';
+import checkColForRender from '../hooks/checkColForRender';
+import { fetchAllDocs } from '../actions';
+// import { deleteDoc } from '../actions';
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const convDate = (d) => new Date(d).toDateString();
   useEffect(() => {
     dispatch(fetchAllDocs());
   }, []);
+  const deleteDoc = () => {
+    console.log('deleted was pressed');
+  };
+  const handleDeleteDoc = () => {
+    dispatch(deleteDoc(() => navigate('/personal/all-docs-display')));
+  };
   const allDocs = useSelector((state) => state.allDocs);
-  const convDate = (d) => new Date(d).toDateString();
+
   const allDocsMap = allDocs.map((doc) => {
     const { ww1R } = doc.result;
     const { ww2R } = doc.result;
@@ -37,28 +51,61 @@ export default function AllDocsDisplay() {
     return (
       <tbody key={doc._id}>
         <tr>
+          <td className="table-head">
+            {' '}
+            <Button
+              id="hover-color"
+              variant="primary"
+              className="main-button sm-btn"
+              type="button"
+              onClick={() => navigate(`/personal/${doc._id}`)}
+            >
+              Details
+            </Button>
+            <Button
+              id="hover-delete"
+              variant="primary"
+              className="main-button sm-btn"
+              type="button"
+              onClick={() => handleDeleteDoc()}
+            >
+              Delete
+            </Button>
+          </td>
           <td className="table-head">{convDate(doc.date)}</td>
           <td className="table-head">{displayAge(doc.age)}</td>
           <td className="table-head">{doc.wakeUp}</td>
           <td className="table-head">{doc.bedTime}</td>
           <td>{displayTime(ww1)}</td>
           <td>{displayTime(ww2)}</td>
-          <td>{displayTime(ww3)} </td>
-          <td>{displayTime(ww4)}</td>
-          <td>{displayTime(ww5)}</td>
+          {checkColForRender(allDocs).w3.length !== 0 ? (
+            <td>{displayTime(ww3)} </td>
+          ) : null}
+          {checkColForRender(allDocs).w4.length !== 0 ? (
+            <td>{displayTime(ww4)} </td>
+          ) : null}
+          {checkColForRender(allDocs).w5.length !== 0 ? (
+            <td>{displayTime(ww5)} </td>
+          ) : null}
           <td> {displayTime(sumNap)}</td>
           <td>{lastNap}</td>
           <td>{numberOfNaps}</td>
         </tr>
         <tr className="table-result">
-          <td colSpan={4} className="table-comments">
+          <td colSpan={5} className="table-comments">
             Comments
           </td>
           <td className={conditionalCellColor(ww1R)}>{ww1R}</td>
           <td className={conditionalCellColor(ww2R)}>{ww2R}</td>
-          <td className={conditionalCellColor(ww3R)}>{ww3R} </td>
-          <td className={conditionalCellColor(ww4R)}>{ww4R}</td>
-          <td className={conditionalCellColor(ww5R)}>{ww5R}</td>
+          {checkColForRender(allDocs).w3.length !== 0 ? (
+            <td className={conditionalCellColor(ww3R)}>{ww3R} </td>
+          ) : null}
+          {checkColForRender(allDocs).w4.length !== 0 ? (
+            <td className={conditionalCellColor(ww4R)}>{ww4R}</td>
+          ) : null}
+          {checkColForRender(allDocs).w5.length !== 0 ? (
+            <td className={conditionalCellColor(ww5R)}>{ww5R}</td>
+          ) : null}
           <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
           <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
           <td className={conditionalCellColor(numberOfNapsR)}>
@@ -68,36 +115,70 @@ export default function AllDocsDisplay() {
       </tbody>
     );
   });
+  const conditionalDisplay = () => {
+    if (allDocs.length > 1) {
+      return (
+        <Table bordered className="sleepy-table">
+          <thead>
+            <tr className="table-head">
+              <th>Actions</th>
+              <th>Date</th>
+              <th>Age</th>
+              <th>Wake-up</th>
+              <th>Bed-time</th>
+              <th>Ww 1</th>
+              <th>Ww 2</th>
+              {checkColForRender(allDocs).w3.length !== 0 ? (
+                <th>Ww 3</th>
+              ) : null}
+              {checkColForRender(allDocs).w4.length !== 0 ? (
+                <th>Ww 4</th>
+              ) : null}
+              {checkColForRender(allDocs).w5.length !== 0 ? (
+                <th>Ww 5</th>
+              ) : null}
+              <th>Sum Nap</th>
+              <th>Last Nap</th>
+              <th>Number of naps</th>
+            </tr>
+          </thead>
+          {allDocsMap}
+        </Table>
+      );
+    }
+    return (
+      <p className="error-message">You don't have any sleepy docs so far</p>
+    );
+  };
 
   return (
     <div
-      className="h-auto p-5 text-white bg-dark"
+      className="h-auto  p-5 text-white bg-dark"
       style={{
         position: 'absolute',
         display: 'inline-block',
-        width: 'auto',
+        minHeight: '100%',
+        minWidth: '85%',
         marginTop: '5%',
       }}
     >
-      <Table bordered className="sleepy-table">
-        <thead>
-          <tr className="table-head">
-            <th>Date</th>
-            <th>Age</th>
-            <th>Wake-up</th>
-            <th>Bed-time</th>
-            <th>Wake window 1</th>
-            <th>Wake window 2</th>
-            <th>Wake window 3</th>
-            <th>Wake window 4</th>
-            <th>Wake window 5</th>
-            <th>Sum Nap</th>
-            <th>Last Nap</th>
-            <th>Number of naps</th>
-          </tr>
-        </thead>
-        {allDocsMap}
-      </Table>
+      {conditionalDisplay()}
+      <Button
+        variant="primary"
+        className="main-button personal"
+        type="button"
+        onClick={() => navigate('/sleepy-form-post')}
+      >
+        Fill in sleepy form
+      </Button>
+      <Button
+        variant="primary"
+        className="main-button personal"
+        type="button"
+        onClick={() => navigate('/personal')}
+      >
+        Back to profile
+      </Button>
     </div>
   );
 }

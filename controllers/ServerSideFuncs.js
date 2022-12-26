@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Sleepy = require('../models/sleep');
+const {SleepyModel} = require('../models/sleep');
 const User = require('../models/user');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
@@ -76,12 +76,10 @@ exports.getAllDocs = function (req, res) {
 };
 
 exports.editProfile = async function (req, res) {
-  console.log("/editProfile route hit")
-
-  const name1 = req.body.name1 || req.user.name
-  const email1 = req.body.email1 || req.user.email
-  const nameKid1 = req.body.nameKid1 || req.user.nameKid
-  const kidBD1 = req.body.kidBD1 || req.user.kidBD
+  const name1 = req.body.data.name1 || req.user.name
+  const email1 = req.body.data.email1 || req.user.email
+  const nameKid1 = req.body.data.nameKid1 || req.user.nameKid
+  const kidBD1 = req.body.data.kidBD1 || req.user.kidBD
   const update = {
     name: name1,
     email: email1,
@@ -130,5 +128,31 @@ exports.getArticles = function (req, res) {
   console.log("/getArticles route hit")
   Article.find({}).exec((err, articles) => {
     res.send(articles)
+  })
+}
+
+exports.getDoc = function (req, res,next) {
+  const { docId } = req.params
+  SleepyModel.findById(docId).exec((err, doc) => {
+      if (err) {
+        res.status(400).send(err);
+        return next(err);
+      } else {
+        console.log(doc)
+        res.status(200).send(doc).end();
+      }
+  })
+}
+
+exports.deleteDoc = function (req, res,next) {
+  const { docId } = req.params
+  User.SleepyDocs.findAndDelete({_id:docId}).exec((err, doc) => {
+      if (err) {
+        res.status(400).send(err);
+        return next(err);
+      } else {
+        console.log(doc)
+        res.status(200).send(doc).end();
+      }
   })
 }

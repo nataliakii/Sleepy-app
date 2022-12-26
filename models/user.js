@@ -10,7 +10,7 @@ const UserSchema = new Schema({
   kidBD: Date,
   hash: String,
   salt: String,
-  SleepyDocs: [{ type: Sleepy.SleepySchema }],
+  SleepyDocs: [{ type: Sleepy.SleepySchema}],
 });
 
 UserSchema.methods.setPassword = function (password) {
@@ -30,4 +30,4 @@ UserSchema.methods.validPassword = function (password) {
 
 const UserModel = mongoose.model("user", UserSchema);
 
-module.exports = UserModel;
+module.exports = UserModel

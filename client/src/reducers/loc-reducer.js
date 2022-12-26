@@ -2,7 +2,7 @@
 /* eslint-disable default-param-last */
 const INITIAL_STATE = {
   error: null,
-  location: { lat: 24, lon: 19 },
+  location: { lat: 24, lng: 19 },
 };
 
 export default function LocationReducer(state = {}, action) {

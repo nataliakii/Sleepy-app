@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Modal, Container } from 'react-bootstrap';
 import { deleteProfile, signout } from '../actions';
@@ -11,6 +12,7 @@ export default function Personal() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   const handleDeleteButton = () => {
     dispatch(deleteProfile());
@@ -26,7 +28,7 @@ export default function Personal() {
         marginTop: '5%',
         float: 'left',
         fontWeight: '200',
-        maxWidth: '89%',
+        minWidth: '89%',
       }}
     >
       <div className="container-fluid py-4">
@@ -39,26 +41,26 @@ export default function Personal() {
           info about {kidName}'s sleeping schedule.{' '}
         </p>
         <Button
-          type="link"
+          type="button"
           variant="primary"
-          className="main-button personal display-block"
-          href="/sleepy-form-post"
+          className="main-button personal display-block padding-button"
+          onClick={() => navigate('/sleepy-form-post')}
         >
           Check if {kidName} sleeps enough (so you do!)
         </Button>
         <Button
-          type="link"
+          type="button"
           variant="primary"
-          className="main-button personal display-block"
-          href="/personal/all-docs-display"
+          className="main-button personal display-block padding-button"
+          onClick={() => navigate('/personal/all-docs-display')}
         >
           All your sleepy docs
         </Button>
         <Button
-          type="link"
+          type="button"
           variant="primary"
-          className="main-button personal display-block"
-          href="/personal/edit"
+          className="main-button personal display-block padding-button"
+          onClick={() => navigate('/personal/edit')}
         >
           Edit personal info
         </Button>
@@ -96,8 +98,3 @@ export default function Personal() {
     </Container>
   );
 }
-
-// type = 'button';
-// variant = 'primary';
-// className = 'main-button personal display-block delete-btn';
-// onClick = { handleDeleteButton };

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { Container, Button } from 'react-bootstrap';
 
 export default function Main({ user }) {
+  const navigate = useNavigate();
   const { name } = user;
 
   let str = '';
@@ -38,8 +39,8 @@ export default function Main({ user }) {
           <Button
             variant="primary"
             className="main-button personal main"
-            type="link"
-            href="/sleepy-form-post"
+            type="button"
+            onClick={() => navigate('/sleepy-form-post')}
           >
             I want to sleep more!
           </Button>

@@ -50,11 +50,10 @@ export default function SleepyForm({ user }) {
           style={{
             position: 'absolute',
             display: 'inline-block',
-            width: '100%',
+            width: '89%',
             marginTop: '5%',
             float: 'left',
             fontWeight: '200',
-            minWidth: '80%',
           }}
         >
           <Form

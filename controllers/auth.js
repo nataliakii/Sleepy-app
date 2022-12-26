@@ -28,12 +28,9 @@ exports.signin = function (req, res, next) {
 
 exports.currentUser = function (req, res, next) {
   console.log("/currentUser route hit")
-  // console.log({req})
   const { userId } = req.params;
-  console.log('Kalimera! this is coming from currentUser', { userId })
   User.findById(userId)
     .exec((err, user) => {
-      console.log("also from currentUser", { err, user })
       if (err) {
         res.status(400).send(err);
         return next(err);

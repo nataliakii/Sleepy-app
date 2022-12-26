@@ -1,52 +1,71 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
+import { ThreeCircles } from 'react-loader-spinner';
 import { fetchArtwork } from '../actions';
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
-  const handleArtButton = () => {
-    dispatch(fetchArtwork());
+  const [loading, setLoading] = useState(false);
+  const switchLoad = () => setLoading(!loading);
+  const handleArtButton = (e) => {
+    e.preventDefault();
+    switchLoad();
+    dispatch(fetchArtwork(() => switchLoad()));
   };
-
   const artwork = useSelector((state) => state.art);
-
-  const artRender = () => {
-    if (!artwork.title) {
-      return <Skeleton variant="circular" width={210} height={210} />;
+  const conditional = () => {
+    if (loading) {
+      return (
+        <ThreeCircles
+          height="100"
+          width="940"
+          color="#bf1650"
+          wrapperStyle={{}}
+          wrapperClass="loading__center"
+          visible
+          ariaLabel="three-circles-rotating"
+        />
+      );
     }
-    return (
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col>
-            <p className="art-text">
-              <strong className="art-text-strong">Title </strong>:{' '}
-              {artwork.title}.
-            </p>
-            <p className="art-text">
-              <strong className="art-text-strong">Description</strong>:{' '}
-              {artwork.description}
-            </p>
-            <p className="art-text">
-              <strong className="art-text-strong">Artist</strong>:{' '}
-              {artwork.artist}.
-            </p>
-            <p className="art-text">
-              <strong className="art-text-strong">Date</strong>: {artwork.date}{' '}
-              y.
-            </p>
-          </Col>
-          <Col>
-            <img
-              style={{ height: '420px' }}
-              src={artwork.imageURL}
-              alt="artwork"
-            />
-          </Col>
-        </Row>
-      </Container>
-    );
+    if (artwork.title) {
+      return (
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col>
+              <img
+                style={{
+                  height: '420px',
+                  maxWidth: '420px',
+                  alignSelf: 'center',
+                }}
+                src={artwork.imageURL}
+                alt="artwork"
+              />
+            </Col>
+            <Col>
+              <p className="art-text">
+                <strong className="art-text-strong">Title </strong>:{' '}
+                {artwork.title}.
+              </p>
+              <p className="art-text">
+                <strong className="art-text-strong">Description</strong>:{' '}
+                {artwork.description}
+              </p>
+              <p className="art-text">
+                <strong className="art-text-strong">Artist</strong>:{' '}
+                {artwork.artist}.
+              </p>
+              <p className="art-text">
+                <strong className="art-text-strong">Date</strong>:{' '}
+                {artwork.date} y.
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      );
+    }
   };
 
   return (
@@ -55,7 +74,7 @@ export default function FindRestaurant() {
       style={{
         position: 'absolute',
         display: 'inline-block',
-        minWidth: '89%',
+        minWidth: '84%',
         minHeight: '99%',
         marginTop: '5%',
       }}
@@ -69,9 +88,8 @@ export default function FindRestaurant() {
         >
           Show me artwork
         </Button>
-
-        {artRender()}
       </Container>
+      {conditional()}
     </div>
   );
 }
