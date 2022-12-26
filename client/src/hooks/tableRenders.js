@@ -114,6 +114,7 @@ export const conditionalTableRow2 = (
         <td className={conditionalCellColor(ww3R)}>{ww3R} </td>
         <td className={conditionalCellColor(ww4R)}>{ww4R}</td>
         <td className={conditionalCellColor(ww5R)}>{ww5R}</td>
+        <td className={conditionalCellColor(sumNapR)}>{sumNapR}</td>
         <td className={conditionalCellColor(lastNapR)}>{lastNapR}</td>
         <td className={conditionalCellColor(numberOfNapsR)}>{numberOfNapsR}</td>
       </>

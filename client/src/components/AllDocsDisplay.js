@@ -6,14 +6,13 @@ import React, { useEffect } from 'react';
 import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import displayAge from '../hooks/displayAge';
 import { conditionalCellColor } from '../hooks/tableRenders';
 import displayTime from '../hooks/displayTime';
 import checkColForRender from '../hooks/checkColForRender';
-import { fetchAllDocs } from '../actions';
-// import { deleteDoc } from '../actions';
+import { fetchAllDocs, deleteDoc } from '../actions';
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();
@@ -22,11 +21,10 @@ export default function AllDocsDisplay() {
   useEffect(() => {
     dispatch(fetchAllDocs());
   }, []);
-  const deleteDoc = () => {
-    console.log('deleted was pressed');
-  };
-  const handleDeleteDoc = () => {
-    dispatch(deleteDoc(() => navigate('/personal/all-docs-display')));
+  const handleDeleteDoc = (docId) => {
+    dispatch(deleteDoc(docId));
+    // dispatch(fetchAllDocs());
+    navigate('/personal/all-docs-display');
   };
   const allDocs = useSelector((state) => state.allDocs);
 
@@ -65,9 +63,9 @@ export default function AllDocsDisplay() {
             <Button
               id="hover-delete"
               variant="primary"
-              className="main-button sm-btn"
+              className="main-button sm-btn "
               type="button"
-              onClick={() => handleDeleteDoc()}
+              onClick={() => handleDeleteDoc(`${doc._id}`)}
             >
               Delete
             </Button>
@@ -116,7 +114,7 @@ export default function AllDocsDisplay() {
     );
   });
   const conditionalDisplay = () => {
-    if (allDocs.length > 1) {
+    if (allDocs.length > 0) {
       return (
         <Table bordered className="sleepy-table">
           <thead>
@@ -165,7 +163,7 @@ export default function AllDocsDisplay() {
       {conditionalDisplay()}
       <Button
         variant="primary"
-        className="main-button personal"
+        className="main-button personal padding-button"
         type="button"
         onClick={() => navigate('/sleepy-form-post')}
       >
@@ -173,7 +171,7 @@ export default function AllDocsDisplay() {
       </Button>
       <Button
         variant="primary"
-        className="main-button personal"
+        className="main-button personal padding-button"
         type="button"
         onClick={() => navigate('/personal')}
       >

@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const {SleepyModel} = require('../models/sleep');
 const User = require('../models/user');
-const Sleepy = require('../models/sleep');
+// const Sleepy = require('../models/sleep');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
@@ -53,7 +53,7 @@ exports.addSleepyDoc = function (req, res) {
     };
     sleep.result = createResultObject(sleep);
     console.log(sleep.result)
-    const sleepyDoc = new Sleepy.SleepyModel(sleep);
+    const sleepyDoc = new SleepyModel(sleep);
 
     sleepyDoc.save((err, sleep) => {
       user.SleepyDocs.push(sleepyDoc);
@@ -145,15 +145,20 @@ exports.getDoc = function (req, res,next) {
   })
 }
 
-exports.deleteDoc = function (req, res,next) {
-  const { docId } = req.params
-  User.SleepyDocs.findAndDelete({_id:docId}).exec((err, doc) => {
-      if (err) {
-        res.status(400).send(err);
-        return next(err);
-      } else {
-        console.log(doc)
-        res.status(200).send(doc).end();
-      }
-  })
-}
+exports.deleteDoc = async function (req, res) {
+  const { docId } = req.params;
+  console.log('docId', docId);
+  SleepyModel.findOneAndDelete({ _id: docId }).exec((err, doc) => {
+    if (err) console.log(err);
+    console.log('doc',doc);
+  });
+  const updateDocs = _.remove(req.user.SleepyDocs, (doc) => doc._id != docId);
+  const updateUser = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { SleepyDocs: updateDocs },
+    {
+      new: true,
+    }
+  );
+  return res.status(200).send(updateUser).end();
+};

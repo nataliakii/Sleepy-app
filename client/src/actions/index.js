@@ -15,9 +15,9 @@ export const fetchUser = (token) => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/auth/${userId}`, config);
+    console.log('current USer', response.data);
     dispatch({ type: 'AUTH_USER', payload: response.data });
   } catch (error) {
-    localStorage.clear();
     console.log(error);
   }
 };
@@ -88,7 +88,7 @@ export const fetchAllDocs = () => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/user/sleepy_get_all`, config);
-    console.log('action fetchAllDocs', response);
+    console.log('action fetchAllDocs', response.data.allDocs);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
@@ -196,7 +196,8 @@ export const deleteDoc = (docId) => async (dispatch) => {
   };
   try {
     const response = await axios.delete(`${url}/user/${docId}`, config);
-    dispatch({ type: 'DELETE_DOC', payload: response });
+    console.log(response.data.SleepyDocs);
+    dispatch({ type: 'DELETE_DOC', payload: response.data.SleepyDocs });
   } catch (error) {
     console.log(error);
   }
@@ -209,8 +210,8 @@ export const getOneDoc = (docId) => async (dispatch) => {
     },
   };
   try {
-    const response = await axios.delete(`${url}/user/${docId}`, config);
-    dispatch({ type: 'GET_DOC', payload: response });
+    const response = await axios.get(`${url}/user/${docId}`, config);
+    dispatch({ type: 'GET_DOC' });
   } catch (error) {
     console.log(error);
   }

@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { signout } from '../actions';
 
 const Nav = ({ user }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { name } = user;
-  console.log('user from Nav', user);
 
   const handleSignOutClick = () => {
     dispatch(signout());
@@ -59,7 +59,10 @@ const Nav = ({ user }) => {
     <Navbar className="nav-container">
       <Container>
         <Navbar.Brand>
-          <Link className="white" to="/">
+          <Link
+            className="white"
+            onClick={() => navigate('/personal/all-docs-display')}
+          >
             SleepyApp
           </Link>
         </Navbar.Brand>

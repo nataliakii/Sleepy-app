@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import _ from 'lodash';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import displayAge from '../hooks/displayAge';
@@ -14,6 +14,7 @@ import {
 } from '../hooks/tableRenders';
 
 export default function OneDocDisplay() {
+  const navigate = useNavigate();
   const convDate = (d) => new Date(d).toDateString();
   const docs = useSelector((state) => state.allDocs);
   const { docId } = useParams();
@@ -158,10 +159,10 @@ export default function OneDocDisplay() {
         </tbody>
       </Table>
       <Button
-        type="link"
+        type="button"
         variant="primary"
-        className="main-button personal display-block"
-        href="/personal/all-docs-display"
+        className="main-button personal padding-button"
+        onClick={() => navigate('/personal/all-docs-display')}
       >
         Back to all your sleepy docs
       </Button>

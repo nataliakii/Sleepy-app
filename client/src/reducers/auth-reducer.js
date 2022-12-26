@@ -2,7 +2,7 @@
 
 const INITIAL_STATE = {
   authenticated: localStorage.getItem('token') || '',
-  // errorMessage: '',
+  errorMessage: '',
   name: null,
   nameKid: null,
   kidBD: null,
@@ -14,18 +14,17 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
     case 'AUTH_USER':
       console.log('this comes from AUTH REDUCER', action.payload);
       return {
-        authenticated: action.payload.token,
+        ...state,
         name: action.payload.name,
         nameKid: action.payload.nameKid,
-        kidBD: new Date(action.payload.kidBD).toLocaleDateString(),
+        kidBD: action.payload.kidBD,
         email: action.payload.email,
       };
     case 'LOG_OUT':
       console.log('this comes from LOG OUT', action.payload);
-      return INITIAL_STATE;
-    // case 'AUTH_ERROR':
-    //   console.log('this comes from AUTH ERROR,action.payload');
-    //   return { ...state, errorMessage: action.payload };
+      return state;
+    case 'AUTH_ERROR':
+      return { ...state, errorMessage: action.payload };
     default:
       return state;
   }
