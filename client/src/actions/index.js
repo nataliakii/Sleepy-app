@@ -66,6 +66,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   };
+  console.log('sleepData that is sending to server', sleepData);
   try {
     const response = await axios.post(
       `${url}/user/sleepy_post`,

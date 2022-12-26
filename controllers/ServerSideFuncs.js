@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const {SleepyModel} = require('../models/sleep');
 const User = require('../models/user');
+const Sleepy = require('../models/sleep');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
