@@ -17,6 +17,12 @@ app.use('/user', require('./routes/user'));
 app.use('/api', require('./routes/all'));
 authRouter(app);
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use('/user', require('./routes/user'));
+app.use('/api', require('./routes/all'));
+authRouter(app);
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   const path = require("path");
