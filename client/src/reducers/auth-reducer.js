@@ -15,6 +15,7 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
       console.log('this comes from AUTH REDUCER', action.payload);
       return {
         ...state,
+        token: action.payload.token,
         name: action.payload.name,
         nameKid: action.payload.nameKid,
         kidBD: action.payload.kidBD,
@@ -22,7 +23,7 @@ export default function AuthReducer(state = INITIAL_STATE, action) {
       };
     case 'LOG_OUT':
       console.log('this comes from LOG OUT', action.payload);
-      return state;
+      return INITIAL_STATE;
     case 'AUTH_ERROR':
       return { ...state, errorMessage: action.payload };
     default:

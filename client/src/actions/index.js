@@ -3,8 +3,8 @@ import axios from 'axios';
 import _ from 'lodash';
 import { artRandomURL, payloadToReturn } from '../hooks/artFuncs';
 
-// const url = 'http://localhost:5000';
-const url = '';
+const url = 'http://localhost:5000';
+// const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
   const { userId } = localStorage;
@@ -66,6 +66,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   };
+  console.log(`${localStorage.getItem('token')}`);
   console.log('sleepData that is sending to server', sleepData);
   try {
     const response = await axios.post(
@@ -73,6 +74,7 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
       { sleepData },
       config
     );
+    console.log('from post form', response);
     dispatch({ type: 'POST_SLEEP', payload: response.data.sleepyDoc });
     callback();
   } catch (error) {

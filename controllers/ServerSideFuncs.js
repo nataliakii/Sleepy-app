@@ -52,7 +52,6 @@ exports.addSleepyDoc = function (req, res) {
       ),
     };
     sleep.result = createResultObject(sleep);
-    console.log(sleep.result)
     const sleepyDoc = new SleepyModel(sleep);
 
     sleepyDoc.save((err, sleep) => {

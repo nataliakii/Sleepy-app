@@ -31,12 +31,13 @@ const jwtOptions = {
 
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub, function(err, user) {
-    if (err) { return done(err, false) }
+    if (err) { console.log('coming from jwt, user is not found');return done(err, false) }
 
     if (user) {
       console.log('coming from jwt, authorisation')
       done(null, user)
     } else {
+      console.log('coming from jwt, some other problem occured');
       done(null, false)
     }
   });

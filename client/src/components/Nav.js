@@ -59,10 +59,7 @@ const Nav = ({ user }) => {
     <Navbar className="nav-container">
       <Container>
         <Navbar.Brand>
-          <Link
-            className="white"
-            onClick={() => navigate('/personal/all-docs-display')}
-          >
+          <Link className="white" to="/">
             SleepyApp
           </Link>
         </Navbar.Brand>

@@ -13,7 +13,7 @@ export default function TipsSleep() {
     dispatch(fetchTips());
   }, []);
   const tips = useSelector((state) => state.tips);
-  const tipsMap = tips?.map((tip,i) => (
+  const tipsMap = tips.map((tip,i) => (
           <Accordion.Item style={{width: '75%'}} eventKey={i} key={tip._id}>
             <Accordion.Header>{tip.name}</Accordion.Header>
             <Accordion.Body>{loopingTip(tip.content)}</Accordion.Body>
