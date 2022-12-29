@@ -1,6 +1,9 @@
 /* eslint-disable no-plusplus */
+import _ from 'lodash';
+
 export const loopingTip = (content) => {
-  const checkExpertTips = (par) => {
+  const keyRand = _.random(9329);
+  const checkExpertTip = (par) => {
     if (par.expertTip) {
       return (
         <>
@@ -15,8 +18,8 @@ export const loopingTip = (content) => {
   const contentTOreturn = content.map((p) => (
     <>
       {' '}
-      <h5>{p.title}</h5>
-      <div>{loopText(p.text)}</div> {checkExpertTips(p)}{' '}
+      <h5 key={keyRand}>{p.title}</h5>
+      <div>{loopText(p.text)}</div> {checkExpertTip(p)}{' '}
     </>
   ));
   return contentTOreturn;

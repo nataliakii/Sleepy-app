@@ -16,9 +16,9 @@ import TipsSleep from './TipsSleep';
 import SleepyResults from './SleepyResults';
 import AllDocsDisplay from './AllDocsDisplay';
 import EditProfile from './EditProfile';
-import FindPlayground from './FindPlayground';
 import FindRestaurant from './FindRestaurant';
 import OneDocDisplay from './OneDocDisplay';
+import Map from './Map/Map';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,9 +45,9 @@ const App = () => {
         <Route path="/personal/all-docs-display" element={<AllDocsDisplay />} />
         <Route path="/personal/edit" element={<EditProfile user={user} />} />
         <Route path="/tips-sleep" element={<TipsSleep />} />
-        <Route path="/find-playground" element={<FindPlayground />} />
         <Route path="/find-restaurant" element={<FindRestaurant />} />
         <Route path="/personal/:docId" element={<OneDocDisplay />} />
+        <Route path="/map" element={<Map />} />
       </Routes>
     </div>
   );

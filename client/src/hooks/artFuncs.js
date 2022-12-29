@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 export const artRandomURL = () => {
   const random0to10 = _.random(10);

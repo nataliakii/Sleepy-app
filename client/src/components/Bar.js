@@ -16,14 +16,6 @@ export default function Bar() {
         fontWeight: '300',
       }}
     >
-      {/* <Nav.Link
-        style={{
-          color: 'rgb(60,125,128)',
-        }}
-        href="/"
-      >
-        Home
-      </Nav.Link> */}
       <Nav.Link
         className="color-text"
         eventKey="link-1"
@@ -33,8 +25,8 @@ export default function Bar() {
       </Nav.Link>
       <Nav.Link
         className="color-text"
-        eventKey="link-3"
-        onClick={() => navigate('/find-playground')}
+        eventKey="link-4"
+        onClick={() => navigate('/map')}
       >
         Find playground
       </Nav.Link>
@@ -43,7 +35,7 @@ export default function Bar() {
         eventKey="link-4"
         onClick={() => navigate('/find-restaurant')}
       >
-        Some art-entertainment
+        Find restaurant with kidroom
       </Nav.Link>
     </Nav>
   );

@@ -330,3 +330,21 @@ span .footer {
 #table-width {
   width: 50rem !important;
 }
+.anchor {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #bf1650 !important;
+}
+.search {
+  position: absolute;
+  top: 24.99%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
+}
+.middle-vertical {
+  /* margin-top: 9% !important; */
+  vertical-align: middle !important;
+}

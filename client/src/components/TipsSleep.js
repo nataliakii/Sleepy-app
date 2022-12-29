@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
@@ -6,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Accordion } from 'react-bootstrap/';
 import { fetchTips } from '../actions';
 import { loopingTip } from '../hooks/displayTips';
+import Loading from './Loading';
 
 export default function TipsSleep() {
   const dispatch = useDispatch();
@@ -13,6 +15,7 @@ export default function TipsSleep() {
     dispatch(fetchTips());
   }, []);
   const tips = useSelector((state) => state.tips);
+  console.log(tips)
   const tipsMap = tips.map((tip,i) => (
           <Accordion.Item style={{width: '75%'}} eventKey={i} key={tip._id}>
             <Accordion.Header>{tip.name}</Accordion.Header>
@@ -21,7 +24,7 @@ export default function TipsSleep() {
         )
       )
 
-  return (
+  return ( 
     <div
       className="p-5 text-white bg-dark"
       style={{
@@ -32,10 +35,10 @@ export default function TipsSleep() {
         minWidth: '89%',
         minHeight: '100%',
       }}
-    >
+    > {tips.length >0 ? 
       <Accordion defaultActiveKey={['0']} alwaysOpen>
         {tipsMap}
       </Accordion>
-    </div>
+ : <Loading />}    </div>
   );
 }

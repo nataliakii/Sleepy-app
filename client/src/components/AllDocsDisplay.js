@@ -13,6 +13,7 @@ import { conditionalCellColor } from '../hooks/tableRenders';
 import displayTime from '../hooks/displayTime';
 import checkColForRender from '../hooks/checkColForRender';
 import { fetchAllDocs, deleteDoc } from '../actions';
+import Error from './Error';
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();
@@ -145,7 +146,7 @@ export default function AllDocsDisplay() {
       );
     }
     return (
-      <p className="error-message">You don't have any sleepy docs so far</p>
+      <p className="error-message">You don't have any sleepy docs so far.</p>
     );
   };
 

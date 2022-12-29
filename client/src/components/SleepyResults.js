@@ -9,6 +9,7 @@ import {
   conditionalTableRow2,
 } from '../hooks/tableRenders';
 import displayTime from '../hooks/displayTime';
+import Error from './Error';
 
 export default function SleepyResults() {
   const sleepy = useSelector((state) => state.sleepy);
@@ -41,52 +42,56 @@ export default function SleepyResults() {
         minWidth: '81%',
       }}
     >
-      <Table bordered className="sleepy-table">
-        <thead>
-          <tr className="table-head">
-            <th>Date</th>
-            <th>Age</th>
-            <th>Wake-up</th>
-            <th>Bed-time</th>
-            {conditionalTableHead(ww3, ww4, ww5)}
-            <th>Last nap</th>
-            <th>Number of naps</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="table-head">{convDate(sleepy.date)}</td>
-            <td className="table-head">{displayAge(sleepy.age)}</td>
-            <td className="table-head">{sleepy.wakeUp}</td>
-            <td className="table-head">{sleepy.bedTime}</td>
-            {conditionalTableRow1(
-              displayTime(ww1),
-              displayTime(ww2),
-              displayTime(ww3),
-              displayTime(ww4),
-              displayTime(ww5),
-              displayTime(sumNap)
-            )}
-            <td className="table-head">{lastNap}</td>
-            <td className="table-head">{numberOfNaps}</td>
-          </tr>
-          <tr className="table-result">
-            <td colSpan={4} className="table-comments">
-              Comments
-            </td>
-            {conditionalTableRow2(
-              ww1R,
-              ww2R,
-              ww3R,
-              ww4R,
-              ww5R,
-              sumNapR,
-              lastNapR,
-              numberOfNapsR
-            )}
-          </tr>
-        </tbody>
-      </Table>
+      {ww1 ? (
+        <Table bordered className="sleepy-table">
+          <thead>
+            <tr className="table-head">
+              <th>Date</th>
+              <th>Age</th>
+              <th>Wake-up</th>
+              <th>Bed-time</th>
+              {conditionalTableHead(ww3, ww4, ww5)}
+              <th>Last nap</th>
+              <th>Number of naps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="table-head">{convDate(sleepy.date)}</td>
+              <td className="table-head">{displayAge(sleepy.age)}</td>
+              <td className="table-head">{sleepy.wakeUp}</td>
+              <td className="table-head">{sleepy.bedTime}</td>
+              {conditionalTableRow1(
+                displayTime(ww1),
+                displayTime(ww2),
+                displayTime(ww3),
+                displayTime(ww4),
+                displayTime(ww5),
+                displayTime(sumNap)
+              )}
+              <td className="table-head">{lastNap}</td>
+              <td className="table-head">{numberOfNaps}</td>
+            </tr>
+            <tr className="table-result">
+              <td colSpan={4} className="table-comments">
+                Comments
+              </td>
+              {conditionalTableRow2(
+                ww1R,
+                ww2R,
+                ww3R,
+                ww4R,
+                ww5R,
+                sumNapR,
+                lastNapR,
+                numberOfNapsR
+              )}
+            </tr>
+          </tbody>
+        </Table>
+      ) : (
+        <Error />
+      )}
       <Button
         type="link"
         variant="primary"

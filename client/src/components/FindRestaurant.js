@@ -2,70 +2,61 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThreeCircles } from 'react-loader-spinner';
+import Loading from './Loading';
 import { fetchArtwork } from '../actions';
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const switchLoad = () => setLoading(!loading);
+  const artwork = useSelector((state) => state.art);
   const handleArtButton = (e) => {
     e.preventDefault();
-    switchLoad();
-    dispatch(fetchArtwork(() => switchLoad()));
+    setLoading(true);
+    dispatch(fetchArtwork());
   };
-  const artwork = useSelector((state) => state.art);
+  useEffect(() => {
+    setLoading(false);
+  }, [artwork]);
+
   const conditional = () => {
-    if (loading) {
-      return (
-        <ThreeCircles
-          height="100"
-          width="940"
-          color="#bf1650"
-          wrapperStyle={{}}
-          wrapperClass="loading__center"
-          visible
-          ariaLabel="three-circles-rotating"
-        />
-      );
+    if (loading || !artwork.title) {
+      return <Loading />;
     }
-    if (artwork.title) {
-      return (
-        <Container>
-          <Row className="justify-content-md-center">
-            <Col>
-              <img
-                style={{
-                  height: '420px',
-                  maxWidth: '420px',
-                  alignSelf: 'center',
-                }}
-                src={artwork.imageURL}
-                alt="artwork"
-              />
-            </Col>
-            <Col>
-              <p className="art-text">
-                <strong className="art-text-strong">Title </strong>:{' '}
-                {artwork.title}.
-              </p>
-              <p className="art-text">
-                <strong className="art-text-strong">Description</strong>:{' '}
-                {artwork.description}
-              </p>
-              <p className="art-text">
-                <strong className="art-text-strong">Artist</strong>:{' '}
-                {artwork.artist}.
-              </p>
-              <p className="art-text">
-                <strong className="art-text-strong">Date</strong>:{' '}
-                {artwork.date} y.
-              </p>
-            </Col>
-          </Row>
-        </Container>
-      );
-    }
+    return (
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col>
+            <img
+              style={{
+                height: '420px',
+                maxWidth: '420px',
+                alignSelf: 'center',
+              }}
+              src={artwork.imageURL}
+              alt="artwork"
+            />
+          </Col>
+          <Col>
+            <p className="art-text">
+              <strong className="art-text-strong">Title </strong>:{' '}
+              {artwork.title}.
+            </p>
+            <p className="art-text">
+              <strong className="art-text-strong">Description</strong>:{' '}
+              {artwork.description}
+            </p>
+            <p className="art-text">
+              <strong className="art-text-strong">Artist</strong>:{' '}
+              {artwork.artist}.
+            </p>
+            <p className="art-text">
+              <strong className="art-text-strong">Date</strong>: {artwork.date}{' '}
+              y.
+            </p>
+          </Col>
+        </Row>
+      </Container>
+    );
   };
 
   return (
@@ -80,6 +71,9 @@ export default function FindRestaurant() {
       }}
     >
       <Container>
+        <h6>
+          This page is under cinstruction. Meanwhile enjoy random artwork.
+        </h6>
         <Button
           type="button"
           variant="primary"

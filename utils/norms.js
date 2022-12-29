@@ -25,7 +25,7 @@ exports.schedulesNorms = {
     napSumMin: 420,
     napSumMax: 600,
     lastNap: '20:00',
-    napMin: 10,
+    napMin: 5,
     napMax: 15,
   },
   age1: {
