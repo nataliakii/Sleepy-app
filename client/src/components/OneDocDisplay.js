@@ -93,7 +93,7 @@ export default function OneDocDisplay() {
                 <td>
                   {doc.nap2.start} - {doc.nap2.end}
                 </td>
-                <td>@twitter</td>
+                <td>nap2</td>
               </tr>{' '}
               <tr>
                 <td>ww3</td>
@@ -110,7 +110,7 @@ export default function OneDocDisplay() {
                 <td>
                   {doc.nap3.start} - {doc.nap3.end}
                 </td>
-                <td>@twitter</td>
+                <td>nap3</td>
               </tr>
               <tr>
                 <td>ww4</td>
@@ -126,7 +126,7 @@ export default function OneDocDisplay() {
                 <td>
                   {doc.nap4.start} - {doc.nap4.end}
                 </td>
-                <td>@twitter</td>
+                <td>nap4</td>
               </tr>
               <tr>
                 <td>ww5</td>
