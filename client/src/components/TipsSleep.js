@@ -50,8 +50,7 @@ export default function TipsSleep() {
         position: 'absolute',
         display: 'inline-block',
         marginTop: '5%',
-        float: 'left',
-        minWidth: '89%',
+        minWidth: '85%',
         minHeight: '100%',
       }}
     > {tips.length >0 ? 
