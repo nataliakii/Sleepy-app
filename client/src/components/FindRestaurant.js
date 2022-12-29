@@ -72,7 +72,7 @@ export default function FindRestaurant() {
     >
       <Container>
         <h6>
-          This page is under cinstruction. Meanwhile enjoy random artwork.
+          This page is under construction. Meanwhile enjoy random artwork.
         </h6>
         <Button
           type="button"

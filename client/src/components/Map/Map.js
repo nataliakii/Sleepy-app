@@ -70,7 +70,7 @@ export default function Map() {
         marginTop: '5%',
       }}
     >
-      <h6>Use the map to find nearby playgrounds</h6>
+      <p>Use map to find nearby playgrounds</p>
       <Search panTo={panTo} />
       <Locate panTo={panTo} />
       <GoogleMap

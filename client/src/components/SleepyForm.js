@@ -37,6 +37,11 @@ export default function SleepyForm({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { nameKid } = user;
+  const kidBD = new Date(user.kidBD).toLocaleDateString();
+
+  const initialValues = {
+    date: kidBD,
+  };
 
   const handleFormSubmit = (data) => {
     dispatch(postForm(data, () => navigate('/personal/sleepy-form-get')));
@@ -69,6 +74,7 @@ export default function SleepyForm({ user }) {
               <Form.Label>Date</Form.Label>
               <Form.Control
                 type="date"
+                placeholder={initialValues.data}
                 {...register('date', { required: true })}
               />
               {errors.date && (

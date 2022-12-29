@@ -337,7 +337,7 @@ span .footer {
 }
 .search {
   position: absolute;
-  top: 24.99%;
+  top: 26.09%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -347,4 +347,8 @@ span .footer {
 .middle-vertical {
   /* margin-top: 9% !important; */
   vertical-align: middle !important;
+}
+p {
+  font-weight: lighter !important;
+  font-size: 17px;
 }

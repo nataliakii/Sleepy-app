@@ -12,6 +12,7 @@ import Loading from './Loading';
 export default function TipsSleep() {
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('dispatching Tips')
     dispatch(fetchTips());
   }, []);
   const tips = useSelector((state) => state.tips);
