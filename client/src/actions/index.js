@@ -134,7 +134,7 @@ export const fetchTips = () => async (dispatch) => {
   try {
     const response = await axios.get(`${url}/api/getTipsArticles`);
     dispatch({ type: 'DISPLAY_TIPS', payload: response.data });
-    console.log('dispatched, tips are', response.data)
+    console.log('dispatched, tips are', response.data);
   } catch (error) {
     console.log(error);
   }
