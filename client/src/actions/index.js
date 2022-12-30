@@ -177,7 +177,7 @@ export const fetchLocation = () => (dispatch) => {
   navigator.geolocation.getCurrentPosition(success, error, options);
 };
 
-export const fetchArtwork = (callback) => async (dispatch) => {
+export const fetchArtwork = () => async (dispatch) => {
   try {
     const request = await axios.get(`${artRandomURL()}`);
     const artworkData = payloadToReturn(request);
@@ -185,7 +185,6 @@ export const fetchArtwork = (callback) => async (dispatch) => {
       type: 'FETCH_ARTWORK',
       payload: artworkData,
     });
-    callback();
   } catch (error) {
     console.log(error);
   }

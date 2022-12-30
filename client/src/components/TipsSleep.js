@@ -7,18 +7,17 @@ import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { Accordion } from 'react-bootstrap/';
 import { fetchTips } from '../actions';
-// import { loopingTip } from '../hooks/displayTips';
 import Loading from './Loading';
 import articles from './data/articles'
 
 export default function TipsSleep() {
   const keyRand = useMemo(() => _.random(9345329), []);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    console.log('dispatching Tips')
-    dispatch(fetchTips());
-  }, []);
-  const tips = useSelector((state) => state.tips) ||articles;
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   console.log('dispatching Tips')
+  //   dispatch(fetchTips());
+  // }, []);
+  const tips = articles;
   console.log('articles', articles, 'state', tips)
 
 
