@@ -18,8 +18,8 @@ export default function TipsSleep() {
     console.log('dispatching Tips')
     dispatch(fetchTips());
   }, []);
-  const tips = useSelector((state) => state.tips || articles);
- 
+  const tips = useSelector((state) => state.tips) ||articles;
+  console.log('articles', articles, 'state', tips)
 
 
   const loopingTip = (content) => {
