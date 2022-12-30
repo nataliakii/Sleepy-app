@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Button, Form, Row } from 'react-bootstrap';
-import moment from 'moment';
 import { postForm } from '../actions';
 
 export default function SleepyForm({ user }) {
