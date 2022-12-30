@@ -57,21 +57,17 @@ exports.articles = [
     tags: ['sleep basics', 'new skills', 'sleep disruptions'],
     content: [
       {
-        text: ['Aren’t babies incredible? In a short time, they go from tiny sleepy bundles to active little ones. You are so proud when they start rolling over, sitting, walking, talking and so much more. Each of these new skills is a huge accomplishment for your baby! However, science shows us that learning these new skills can cause sleep disruptions.'],
+        text: [
+          'Aren’t babies incredible? In a short time, they go from tiny sleepy bundles to active little ones. You are so proud when they start rolling over, sitting, walking, talking and so much more. Each of these new skills is a huge accomplishment for your baby! However, science shows us that learning these new skills can cause sleep disruptions.',
+        ],
       },
       {
         title:
           ' Here are a few tips that can help you avoid sleep battles while they master this new skill.',
         text: [
-          {
-            p1: "1. Practice during the day. Help your little one practice new skills on the floor. Did he learn to roll? Do lots of tummy time together. Is she a new crawler? Encourage that crawling by putting toys a bit out of reach. Newly sitting or standing? Practice going from standing to sitting and sitting to laying. All of this practice during the day will help make the new skill less exciting at night. It ALSO provides active and stimulating awake time that helps your baby's body prepare for sleep during naps and at night",
-          },
-          {
-            p2: "2. Consider a sleep sack. Sleep sacks are a great cue that it's time for sleep, reminding your little one that playtime is over. They can also limit mobility making that exciting new skill a little less enticing in the night or during nap time.",
-          },
-          {
-            p3: "3. Stay consistent AND give everyone grace. Don’t throw out all of your healthy sleep habits. There's no need to stop your normal routines and sleep strategies. At the same time, give yourself and your little one some grace. Learning a new skill is hard and exciting. This is temporary, and it will pass.    4. Create a strong sleep foundation BEFORE you hit these bumps.",
-          },
+          "1. Practice during the day. Help your little one practice new skills on the floor. Did he learn to roll? Do lots of tummy time together. Is she a new crawler? Encourage that crawling by putting toys a bit out of reach. Newly sitting or standing? Practice going from standing to sitting and sitting to laying. All of this practice during the day will help make the new skill less exciting at night. It ALSO provides active and stimulating awake time that helps your baby's body prepare for sleep during naps and at night",
+          "2. Consider a sleep sack. Sleep sacks are a great cue that it's time for sleep, reminding your little one that playtime is over. They can also limit mobility making that exciting new skill a little less enticing in the night or during nap time.",
+          "3. Stay consistent AND give everyone grace. Don’t throw out all of your healthy sleep habits. There's no need to stop your normal routines and sleep strategies. At the same time, give yourself and your little one some grace. Learning a new skill is hard and exciting. This is temporary, and it will pass.    4. Create a strong sleep foundation BEFORE you hit these bumps.",
         ],
       },
     ],

@@ -9,6 +9,7 @@ import { Accordion } from 'react-bootstrap/';
 import { fetchTips } from '../actions';
 // import { loopingTip } from '../hooks/displayTips';
 import Loading from './Loading';
+import articles from './data/articles'
 
 export default function TipsSleep() {
   const keyRand = useMemo(() => _.random(9345329), []);
@@ -17,7 +18,9 @@ export default function TipsSleep() {
     console.log('dispatching Tips')
     dispatch(fetchTips());
   }, []);
-  const tips = useSelector((state) => state.tips);
+  const tips = useSelector((state) => state.tips || articles);
+ 
+
 
   const loopingTip = (content) => {
     const checkExpertTip = (par) => {
@@ -31,12 +34,12 @@ export default function TipsSleep() {
       }
     };
     const loopText = (text) =>
-      text.map((t,i) => <div key={`looptext${keyRand}${i}`}>{t}</div>);
+      text.map((p,i) => <div key={`looptext${keyRand}${i}`}>{p}</div>);
   
     const contentTOreturn = content.map((p, i) => (
       <div key={`content${keyRand}${i}`}>
         {' '}
-        <h5>{p.title}</h5>
+       {p.title ?  <h5>{p.title}</h5> : null}
         <div>{loopText(p.text)}</div> {checkExpertTip(p)}{' '}
       </div>
     ));

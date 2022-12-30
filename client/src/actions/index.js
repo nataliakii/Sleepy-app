@@ -78,7 +78,8 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
     dispatch({ type: 'POST_SLEEP', payload: response.data.sleepyDoc });
     callback();
   } catch (error) {
-    console.log(error);
+    dispatch({ type: 'POST_ERROR', payload: error.response?.data });
+    console.log(error.response?.data);
   }
 };
 
@@ -90,7 +91,6 @@ export const fetchAllDocs = () => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/user/sleepy_get_all`, config);
-    console.log('action fetchAllDocs', response.data.allDocs);
     dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
   } catch (error) {
     console.log(error);

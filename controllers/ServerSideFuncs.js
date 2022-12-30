@@ -17,7 +17,14 @@ exports.addSleepyDoc = function (req, res) {
     const { calculateSumNap } = helpingFuncs;
     const { createResultObject } = helpingFuncs;
     const { findNorm } = helpingFuncs;
+    const bd = req.user.kidBD.getTime()
+    const dt = new Date(sleepData.date).getTime()
 
+
+    if (bd > dt) {
+      res.status(400).send("Kid's BD appeared to be after the date of sleepy doc, which is forbidden by the laws of physics, you need to revise the form and sleep more")
+    }
+    else {
     const sleep = {
       date: sleepData.date,
       wakeUp: sleepData.wakeUp,
@@ -54,7 +61,7 @@ exports.addSleepyDoc = function (req, res) {
     sleep.result = createResultObject(sleep);
     const sleepyDoc = new SleepyModel(sleep);
 
-    sleepyDoc.save((err, sleep) => {
+    sleepyDoc.save((err, sleepyDoc) => {
       user.SleepyDocs.push(sleepyDoc);
 
       user.save((err, user) => {
@@ -63,6 +70,7 @@ exports.addSleepyDoc = function (req, res) {
         });
       });
     });
+  }
   });
 };
 

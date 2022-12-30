@@ -208,8 +208,8 @@ const helpingFuncs = {
       let arrToReturn=[]
       if (text.length>1){
         for(let i = 0; i < text.length; i++){
-          for(let prop in text[i])
-          arrToReturn.push(text[i][prop])
+          // for(let prop in text[i])
+          arrToReturn.push(text[i])
         }
         return arrToReturn
       }

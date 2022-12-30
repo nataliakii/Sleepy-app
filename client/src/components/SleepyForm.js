@@ -7,25 +7,25 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Button, Form, Row } from 'react-bootstrap';
+import moment from 'moment';
 import { postForm } from '../actions';
 
-const sleepySchema = Yup.object().shape({
-  date: Yup.date()
-    .required()
-    .default(() => new Date()),
-  wakeUp: Yup.string().required(),
-  nap1Start: Yup.string().required(),
-  nap1End: Yup.string().required(),
-  nap2Start: Yup.string(),
-  nap2End: Yup.string(),
-  nap3Start: Yup.string(),
-  nap3End: Yup.string(),
-  nap4Start: Yup.string(),
-  nap4End: Yup.string(),
-  bedTime: Yup.string().required(),
-});
-
 export default function SleepyForm({ user }) {
+  const { kidBD } = user;
+  const sleepySchema = Yup.object().shape({
+    date: Yup.date().required().default(new Date(kidBD)),
+    wakeUp: Yup.string().required(),
+    nap1Start: Yup.string().required(),
+    nap1End: Yup.string().required(),
+    nap2Start: Yup.string(),
+    nap2End: Yup.string(),
+    nap3Start: Yup.string(),
+    nap3End: Yup.string(),
+    nap4Start: Yup.string(),
+    nap4End: Yup.string(),
+    bedTime: Yup.string().required(),
+  });
+
   const {
     register,
     handleSubmit,
@@ -36,12 +36,8 @@ export default function SleepyForm({ user }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const error = useSelector((state) => state.sleepy?.errorMessage || '');
   const { nameKid } = user;
-  const kidBD = new Date(user.kidBD).toLocaleDateString();
-
-  const initialValues = {
-    date: kidBD,
-  };
 
   const handleFormSubmit = (data) => {
     dispatch(postForm(data, () => navigate('/personal/sleepy-form-get')));
@@ -70,11 +66,12 @@ export default function SleepyForm({ user }) {
               Please, provide some info about the time of {nameKid}'s wake up,
               having nap etc.{' '}
             </p>
+            {error ? <p className="error-message">{error}</p> : null}
             <Form.Group className="mb-2" controlId="formDate">
               <Form.Label>Date</Form.Label>
               <Form.Control
+                name="date"
                 type="date"
-                placeholder={initialValues.data}
                 {...register('date', { required: true })}
               />
               {errors.date && (
@@ -85,6 +82,8 @@ export default function SleepyForm({ user }) {
               <Form.Label>Wake up time</Form.Label>
               <Form.Control
                 type="time"
+                name="wakeUp"
+                onChange={(e) => console.log(e)}
                 {...register('wakeUp', { required: true })}
               />
               {errors.date && (
@@ -93,18 +92,21 @@ export default function SleepyForm({ user }) {
                 </p>
               )}
             </Form.Group>
-
             <Form.Group className="mb-2" controlId="formNap1">
               <Form.Label>Nap #1 Start-End</Form.Label>
               <Row>
                 <Form.Control
                   className="form-nap-start"
+                  name="nap1Start"
                   type="time"
+                  onChange={(e) => console.log(e)}
                   {...register('nap1Start', { required: true })}
                 />
                 <Form.Control
                   className="form-nap-end"
+                  name="nap1End"
                   type="time"
+                  onChange={(e) => console.log(e)}
                   {...register('nap1End', { required: true })}
                 />
               </Row>
@@ -112,58 +114,61 @@ export default function SleepyForm({ user }) {
                 <p className="error-message">Nap#1 is a required field</p>
               )}
             </Form.Group>
-
             <Form.Group className="mb-2" controlId="formNap2">
               <Form.Label>Nap #2 Start-End</Form.Label>
               <Row>
                 <Form.Control
                   className="form-nap-start"
+                  name="nap2Start"
                   type="time"
                   {...register('nap2Start')}
                 />
                 <Form.Control
                   className="form-nap-end"
+                  name="nap2End"
                   type="time"
                   {...register('nap2End')}
                 />
               </Row>
             </Form.Group>
-
             <Form.Group className="mb-2" controlId="formNap3">
               <Form.Label>Nap #3 Start-End</Form.Label>
               <Row>
                 <Form.Control
                   className="form-nap-start"
+                  name="nap3Start"
                   type="time"
                   {...register('nap3Start')}
                 />
                 <Form.Control
                   className="form-nap-end"
+                  name="nap3End"
                   type="time"
                   {...register('nap3End')}
                 />
               </Row>
             </Form.Group>
-
             <Form.Group className="mb-2" controlId="formNap4">
               <Form.Label>Nap #4 Start-End</Form.Label>
               <Row>
                 <Form.Control
                   className="form-nap-start"
+                  name="nap4Start"
                   type="time"
                   {...register('nap4Start')}
                 />
                 <Form.Control
                   className="form-nap-end"
+                  name="nap4End"
                   type="time"
                   {...register('nap4End')}
                 />
               </Row>
             </Form.Group>
-
             <Form.Group className="mb-2" controlId="formBedTime">
               <Form.Label>Bed time</Form.Label>
               <Form.Control
+                name="bedTime"
                 type="time"
                 {...register('bedTime', { required: true })}
               />
