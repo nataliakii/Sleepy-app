@@ -1,6 +1,5 @@
 const INITIAL_STATE = {
   authenticated: localStorage.getItem("token") || "",
-  errorMessage: "",
   name: null,
   nameKid: null,
   kidBD: null,

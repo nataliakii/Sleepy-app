@@ -24,7 +24,6 @@ export default function EditProfile({ user }) {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.auth.errorMessage);
 
   const { email } = user;
   const { name } = user;
@@ -45,12 +44,6 @@ export default function EditProfile({ user }) {
     );
   };
 
-  const errorRender = () => {
-    if (error) {
-      return <p className="error-message">{error}</p>;
-    }
-  };
-
   return (
     <div
       className="h-100 p-5 text-white bg-dark main-container-center"
@@ -63,7 +56,6 @@ export default function EditProfile({ user }) {
     >
       <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
         <h3 className="centered">Edit Profile</h3>
-        {errorRender()}
         <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>Update email</Form.Label>
           <Form.Control
@@ -71,7 +63,6 @@ export default function EditProfile({ user }) {
             value={email1}
             placeholder={email}
             onChange={(e) => setEmail(e.target.value)}
-            // {...register('email')}
           />
         </Form.Group>
 
@@ -82,7 +73,6 @@ export default function EditProfile({ user }) {
             value={name1}
             placeholder={name}
             onChange={(e) => setName(e.target.value)}
-            // {...register('name')}
           />
         </Form.Group>
 
@@ -93,7 +83,6 @@ export default function EditProfile({ user }) {
             value={nameKid1}
             placeholder={nameKid}
             onChange={(e) => setNameKid(e.target.value)}
-            // {...register('nameKid')}
           />
         </Form.Group>
 
@@ -104,7 +93,6 @@ export default function EditProfile({ user }) {
             value={kidBD1}
             placeholder={kidBD}
             onChange={(e) => setKidBD(e.target.value)}
-            // {...register('kidBD')}
           />
         </Form.Group>
 

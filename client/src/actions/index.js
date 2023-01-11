@@ -2,8 +2,8 @@ import axios from "axios";
 import _ from "lodash";
 import { artRandomURL, payloadToReturn } from "../hooks/artFuncs";
 
-const url = "http://localhost:8000";
-// const url = '';
+// const url = "http://localhost:8000";
+const url = "";
 
 export const fetchUser = (token) => async (dispatch) => {
   const { userId } = localStorage;

@@ -7,8 +7,6 @@ const helpingFuncs = require('../utils/helpingFuncs')
 
 
 exports.addSleepyDoc = function (req, res) {
-  console.log("/addSleepyDoc route hit")
-
   User.findOne({ _id: req.user._id }, (err, user) => {
     const { sleepData } = req.body
     const { calculateAge } = helpingFuncs;
@@ -74,11 +72,9 @@ exports.addSleepyDoc = function (req, res) {
 };
 
 exports.getAllDocs = function (req, res) {
-  console.log("/getAllDocs route hit")
 
   User.findOne({ _id: req.user._id }, (err, user) => {
     res.send({ allDocs: user.SleepyDocs, docsCount: user.SleepyDocs?.length});
-    console.log("Error in getAllDocs: ",err);
   });
 };
 
