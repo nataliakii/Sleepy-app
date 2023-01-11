@@ -17,11 +17,6 @@ app.use('/user', require('./routes/user'));
 app.use('/api', require('./routes/all'));
 authRouter(app);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use('/user', require('./routes/user'));
-app.use('/api', require('./routes/all'));
-authRouter(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -32,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Server Setup
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 server.listen(port);
-// console.log('Server listening on:', port)
+console.log('Server listening on:', port)

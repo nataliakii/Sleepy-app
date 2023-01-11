@@ -1,19 +1,14 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-plusplus */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import _ from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
-import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
-import displayAge from '../hooks/displayAge';
-import { conditionalCellColor } from '../hooks/tableRenders';
-import displayTime from '../hooks/displayTime';
-import checkColForRender from '../hooks/checkColForRender';
-import { fetchAllDocs, deleteDoc } from '../actions';
-import Error from './Error';
+import React, { useEffect, useRef } from "react";
+import _ from "lodash";
+import { OverlayTrigger, Tooltip, Table, Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import displayAge from "../hooks/displayAge";
+import { conditionalCellColor } from "../hooks/tableRenders";
+import displayTime from "../hooks/displayTime";
+import checkColForRender from "../hooks/checkColForRender";
+import { fetchAllDocs, deleteDoc } from "../actions";
+import Error from "./Error";
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();
@@ -25,19 +20,19 @@ export default function AllDocsDisplay() {
   const handleDeleteDoc = (docId) => {
     dispatch(deleteDoc(docId));
     // dispatch(fetchAllDocs());
-    navigate('/personal/all-docs-display');
+    navigate("/personal/all-docs-display");
   };
   const allDocs = useSelector((state) => state.allDocs);
 
   const allDocsMap = allDocs.map((doc) => {
-    const { ww1R } = doc.result;
-    const { ww2R } = doc.result;
-    const { ww3R } = doc.result;
-    const { ww4R } = doc.result;
-    const { ww5R } = doc.result;
-    const { sumNapR } = doc.result;
-    const { lastNapR } = doc.result;
-    const { numberOfNapsR } = doc.result;
+    const ww1R = doc.result.ww1R.message;
+    const ww2R = doc.result.ww2R.message;
+    const ww3R = doc.result.ww3R?.message;
+    const ww4R = doc.result.ww4R?.message;
+    const ww5R = doc.result.ww5R?.message;
+    const sumNapR = doc.result.sumNapR.message;
+    const lastNapR = doc.result.lastNapR.message;
+    const numberOfNapsR = doc.result.numberOfNapsR.message;
     const { ww1 } = doc;
     const { ww2 } = doc;
     const { ww3 } = doc;
@@ -51,7 +46,7 @@ export default function AllDocsDisplay() {
       <tbody key={doc._id}>
         <tr>
           <td className="table-head">
-            {' '}
+            {" "}
             <Button
               id="hover-color"
               variant="primary"
@@ -125,16 +120,41 @@ export default function AllDocsDisplay() {
               <th>Age</th>
               <th>Wake-up</th>
               <th>Bed-time</th>
-              <th>Ww 1</th>
-              <th>Ww 2</th>
+              <th>
+                <Link className="link-tips" to="/tips-sleep">
+                  Ww1
+                </Link>
+              </th>
+              <th>
+                {" "}
+                <Link className="link-tips" to="/tips-sleep">
+                  {" "}
+                  Ww 2{" "}
+                </Link>
+              </th>
               {checkColForRender(allDocs).w3.length !== 0 ? (
-                <th>Ww 3</th>
+                <th>
+                  {" "}
+                  <Link className="link-tips" to="/tips-sleep">
+                    Ww 3{" "}
+                  </Link>
+                </th>
               ) : null}
               {checkColForRender(allDocs).w4.length !== 0 ? (
-                <th>Ww 4</th>
+                <th>
+                  {" "}
+                  <Link className="link-tips" to="/tips-sleep">
+                    Ww 4
+                  </Link>
+                </th>
               ) : null}
               {checkColForRender(allDocs).w5.length !== 0 ? (
-                <th>Ww 5</th>
+                <th>
+                  {" "}
+                  <Link className="link-tips" to="/tips-sleep">
+                    Ww 5
+                  </Link>
+                </th>
               ) : null}
               <th>Sum Nap</th>
               <th>Last Nap</th>
@@ -154,11 +174,11 @@ export default function AllDocsDisplay() {
     <div
       className="h-auto  p-5 text-white bg-dark"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        minHeight: '100%',
-        minWidth: '85%',
-        marginTop: '5%',
+        position: "absolute",
+        display: "inline-block",
+        minHeight: "100%",
+        minWidth: "85%",
+        marginTop: "5%",
       }}
     >
       {conditionalDisplay()}
@@ -166,7 +186,7 @@ export default function AllDocsDisplay() {
         variant="primary"
         className="main-button personal padding-button"
         type="button"
-        onClick={() => navigate('/sleepy-form-post')}
+        onClick={() => navigate("/sleepy-form-post")}
       >
         Fill in sleepy form
       </Button>
@@ -174,7 +194,7 @@ export default function AllDocsDisplay() {
         variant="primary"
         className="main-button personal padding-button"
         type="button"
-        onClick={() => navigate('/personal')}
+        onClick={() => navigate("/personal")}
       >
         Back to profile
       </Button>

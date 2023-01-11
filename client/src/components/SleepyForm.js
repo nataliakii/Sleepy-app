@@ -38,6 +38,8 @@ export default function SleepyForm({ user }) {
   const error = useSelector((state) => state.sleepy?.errorMessage || '');
   const { nameKid } = user;
 
+  const handleChange = (e) => console.log(e);
+
   const handleFormSubmit = (data) => {
     dispatch(postForm(data, () => navigate('/personal/sleepy-form-get')));
   };

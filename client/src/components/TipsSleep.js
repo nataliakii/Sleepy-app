@@ -1,14 +1,10 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo } from 'react';
-import _ from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
-import { Accordion } from 'react-bootstrap/';
-import { fetchTips } from '../actions';
-import Loading from './Loading';
-import articles from './data/articles'
+import React, { useEffect, useMemo } from "react";
+import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+import { Accordion } from "react-bootstrap/";
+import { fetchTips } from "../actions";
+import Loading from "./Loading";
+import articles from "./data/articles";
 
 export default function TipsSleep() {
   const keyRand = useMemo(() => _.random(9345329), []);
@@ -18,8 +14,7 @@ export default function TipsSleep() {
   //   dispatch(fetchTips());
   // }, []);
   const tips = articles;
-  console.log('articles', articles, 'state', tips)
-
+  console.log("articles", articles, "state", tips);
 
   const loopingTip = (content) => {
     const checkExpertTip = (par) => {
@@ -33,38 +28,42 @@ export default function TipsSleep() {
       }
     };
     const loopText = (text) =>
-      text.map((p,i) => <div key={`looptext${keyRand}${i}`}>{p}</div>);
-  
+      text.map((p, i) => <div key={`looptext${keyRand}${i}`}>{p}</div>);
+
     const contentTOreturn = content.map((p, i) => (
       <div key={`content${keyRand}${i}`}>
-        {' '}
-       {p.title ?  <h5>{p.title}</h5> : null}
-        <div>{loopText(p.text)}</div> {checkExpertTip(p)}{' '}
+        {" "}
+        {p.title ? <h5>{p.title}</h5> : null}
+        <div>{loopText(p.text)}</div> {checkExpertTip(p)}{" "}
       </div>
     ));
     return contentTOreturn;
   };
-  
-  return ( 
+
+  return (
     <div
       className="p-5 text-white bg-dark"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        marginTop: '5%',
-        minWidth: '85%',
-        minHeight: '100%',
+        position: "absolute",
+        display: "inline-block",
+        marginTop: "5%",
+        minWidth: "85%",
+        minHeight: "100%",
       }}
-    > {tips.length >0 ? 
-      <Accordion defaultActiveKey={['0']} alwaysOpen>
-        {tips.map((tip,i) => (
-          <Accordion.Item style={{width: '75%'}} eventKey={i} key={tip._id}>
-            <Accordion.Header>{tip.name}</Accordion.Header>
-            <Accordion.Body>{loopingTip(tip.content)}</Accordion.Body>
-          </Accordion.Item>
-        )
-      )}
-      </Accordion>
- : <Loading />}    </div>
+    >
+      {" "}
+      {tips.length > 0 ? (
+        <Accordion defaultActiveKey={["1"]} alwaysOpen>
+          {tips.map((tip, i) => (
+            <Accordion.Item style={{ width: "75%" }} eventKey={i} key={tip._id}>
+              <Accordion.Header>{tip.name}</Accordion.Header>
+              <Accordion.Body>{loopingTip(tip.content)}</Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      ) : (
+        <Loading />
+      )}{" "}
+    </div>
   );
 }

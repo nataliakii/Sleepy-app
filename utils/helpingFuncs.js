@@ -156,43 +156,43 @@ const helpingFuncs = {
 
     const compareData = (normMax, normMin, input) => {
       if (input > normMin && input < normMax) {
-        return 'Ok';
+        return {code:200, message: "Ok"};
       }
       if (input > normMax) {
-        return `Should be less than ${convMins(normMax)} `;
+        return {code : 500, message: `Try to make it less than ${convMins(normMax)} `};
       }
       if (input === 0 || !input) {
         return null;
       }
-      return `Should last at least ${convMins(normMin)} `;
+      return {code : 400, message: `Try to make it more than ${convMins(normMin)} `};
     };
     const compareLastNap = (normLastNap,input) => {
       if (input<=normLastNap){
-        return 'Ok'
+        return {code:200, message: "Ok"};
       }
-      else return `Last nap should end up by ${normLastNap}`
+      else return {code: 500, message: ` Try to end up last nap by ${normLastNap}`}
     };
     const compareNumberNaps = (normMax, normMin, input) => {
-      if (input == normMin || input == normMax) {
-        return 'Ok';
+      if (input >= normMin || input <= normMax ) {
+        return {code:200, message: "Ok"};
       }
       if (input > normMax) {
-        return `There should be less than ${normMax+1} naps `;
+        return {code:500, message: `Try to make it less than ${normMax+1} naps`};
       }
-      else return `There should be at least ${normMin} nap(s) `
+      else return {code:400, message: `Try to make it at least ${normMin} naps `}
 
 
     }
 
     return {
-      ww1R: compareData(norms.wwMax, norms.wwMin, ww1),
-      ww2R: compareData(norms.wwMax, norms.wwMin, ww2),
-      ww3R: compareData(norms.wwMax, norms.wwMin, ww3),
-      ww4R: compareData(norms.wwMax, norms.wwMin, ww4),
-      ww5R: compareData(norms.wwMax, norms.wwMin, ww5),
-      sumNapR: compareData(norms.napSumMax, norms.napSumMin, sumNap),
-      numberOfNapsR: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps),
-      lastNapR: compareLastNap(norms.lastNap, lastNap)
+      ww1R: { message: compareData(norms.wwMax, norms.wwMin, ww1).message, code : compareData(norms.wwMax, norms.wwMin, ww1).code},
+      ww2R: { message: compareData(norms.wwMax, norms.wwMin, ww2).message, code : compareData(norms.wwMax, norms.wwMin, ww2).code},
+      ww3R: {message: compareData(norms.wwMax, norms.wwMin, ww3)?.message, code :compareData(norms.wwMax, norms.wwMin, ww3)?.code},
+      ww4R: {message: compareData(norms.wwMax, norms.wwMin, ww4)?.message, code: compareData(norms.wwMax, norms.wwMin, ww4)?.code},
+      ww5R: { message: compareData(norms.wwMax, norms.wwMin, ww5)?.message, code : compareData(norms.wwMax, norms.wwMin, ww5)?.code},
+      sumNapR: {message: compareData(norms.napSumMax, norms.napSumMin, sumNap).message, code: compareData(norms.napSumMax, norms.napSumMin, sumNap).code},
+      numberOfNapsR: {message: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).message, code : compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).code},
+      lastNapR: {message: compareLastNap(norms.lastNap, lastNap).message, code: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).code}
     };
   }),
 

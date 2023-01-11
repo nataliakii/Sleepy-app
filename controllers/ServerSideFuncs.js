@@ -1,7 +1,6 @@
 const _ = require('lodash');
-const {SleepyModel} = require('../models/sleep');
+const { SleepyModel } = require('../models/sleep');
 const User = require('../models/user');
-// const Sleepy = require('../models/sleep');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
@@ -78,8 +77,8 @@ exports.getAllDocs = function (req, res) {
   console.log("/getAllDocs route hit")
 
   User.findOne({ _id: req.user._id }, (err, user) => {
-    res.send({ allDocs: user.SleepyDocs, docsCount: user.SleepyDocs.length });
-    console.log(err);
+    res.send({ allDocs: user.SleepyDocs, docsCount: user.SleepyDocs?.length});
+    console.log("Error in getAllDocs: ",err);
   });
 };
 

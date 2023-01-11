@@ -156,10 +156,10 @@ input[type="button"]:hover {
 }
 
 /* button[type="submit"],
-input[type="button"],
-input[type="submit"] {
-  appearance: none;
-} */
+  input[type="button"],
+  input[type="submit"] {
+    appearance: none;
+  } */
 
 .personal {
   padding: 10px 15px;
@@ -351,4 +351,12 @@ span .footer {
 p {
   font-weight: 300 !important;
   font-size: 17px;
+}
+.link-tips {
+  color: whitesmoke !important;
+  font-size: 10px !important;
+}
+.link-tips:hover {
+  color: #bf1650 !important;
+  text-decoration: none !important;
 }

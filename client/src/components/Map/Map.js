@@ -13,7 +13,7 @@ import Error from '../Error';
 import Search from './Search';
 import Locate from './Locate';
 
-const libraries = ['places'];
+const libraries = ['places', 'localContext', 'marker'];
 const containerStyle = {
   width: '100%',
   maxWidth: '950px',

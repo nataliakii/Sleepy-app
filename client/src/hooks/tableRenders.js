@@ -1,4 +1,5 @@
 /* eslint-disable no-plusplus */
+
 export const conditionalTableHead = (ww3, ww4, ww5) => {
   if (ww5) {
     return (
@@ -91,11 +92,19 @@ export const conditionalCellColor = (string) => {
   if (!string) {
     return '';
   }
-  if (string.length === 2) {
-    return 'ok-cell';
+  if (string.length !== 2) {
+    return 'no-ok-cell';
   }
-  return 'no-ok-cell';
 };
+export const cellCol = (code) => {
+  if (!code) {
+    return '';
+  }
+  if (code === 400 || code === 500) {
+    return 'no-ok-cell';
+  }
+};
+
 export const conditionalTableRow2 = (
   ww1R,
   ww2R,
