@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import Loading from './Loading';
-import { fetchArtwork } from '../actions';
+import React, { useState, useEffect } from "react";
+import { Button, Container, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "./Loading";
+import { fetchArtwork } from "../actions";
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
@@ -28,9 +27,9 @@ export default function FindRestaurant() {
           <Col>
             <img
               style={{
-                height: '420px',
-                maxWidth: '420px',
-                alignSelf: 'center',
+                height: "420px",
+                maxWidth: "420px",
+                alignSelf: "center",
               }}
               src={artwork.imageURL}
               alt="artwork"
@@ -38,19 +37,19 @@ export default function FindRestaurant() {
           </Col>
           <Col>
             <p className="art-text">
-              <strong className="art-text-strong">Title </strong>:{' '}
+              <strong className="art-text-strong">Title </strong>:{" "}
               {artwork.title}.
             </p>
             <p className="art-text">
-              <strong className="art-text-strong">Description</strong>:{' '}
+              <strong className="art-text-strong">Description</strong>:{" "}
               {artwork.description}
             </p>
             <p className="art-text">
-              <strong className="art-text-strong">Artist</strong>:{' '}
+              <strong className="art-text-strong">Artist</strong>:{" "}
               {artwork.artist}.
             </p>
             <p className="art-text">
-              <strong className="art-text-strong">Date</strong>: {artwork.date}{' '}
+              <strong className="art-text-strong">Date</strong>: {artwork.date}{" "}
               y.
             </p>
           </Col>
@@ -63,11 +62,11 @@ export default function FindRestaurant() {
     <div
       className="h-100 p-5 text-white bg-dark main-container-center"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        minWidth: '84%',
-        minHeight: '99%',
-        marginTop: '5%',
+        position: "absolute",
+        display: "inline-block",
+        minWidth: "84%",
+        minHeight: "99%",
+        marginTop: "5%",
       }}
     >
       <Container>

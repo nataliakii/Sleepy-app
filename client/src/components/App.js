@@ -1,24 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { fetchUser } from '../actions';
-import Main from './Main';
-import Nav from './Nav';
-import Bar from './Bar';
-import Personal from './Personal';
-import Signup from './auth/Signup';
-import Signin from './auth/Signin';
-import SleepyForm from './SleepyForm';
-import TipsSleep from './TipsSleep';
-import SleepyResults from './SleepyResults';
-import AllDocsDisplay from './AllDocsDisplay';
-import EditProfile from './EditProfile';
-import FindRestaurant from './FindRestaurant';
-import OneDocDisplay from './OneDocDisplay';
-import Map from './Map/Map';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import { fetchUser } from "../actions";
+import Main from "./Main";
+import Nav from "./Nav";
+import Bar from "./Bar";
+import Personal from "./Personal";
+import Signup from "./auth/Signup";
+import Signin from "./auth/Signin";
+import SleepyForm from "./SleepyForm";
+import TipsSleep from "./TipsSleep";
+import SleepyResults from "./SleepyResults";
+import AllDocsDisplay from "./AllDocsDisplay";
+import EditProfile from "./EditProfile";
+import FindRestaurant from "./FindRestaurant";
+import OneDocDisplay from "./OneDocDisplay";
+import Map from "./Map/Map";
 
 const App = () => {
   const dispatch = useDispatch();

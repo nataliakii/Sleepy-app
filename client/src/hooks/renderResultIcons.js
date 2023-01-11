@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { TfiAngleDoubleDown, TfiAngleDoubleUp } from 'react-icons/tfi';
-import { CgYinyang } from 'react-icons/cg';
-import { TiHeart } from 'react-icons/ti';
+import { TfiAngleDoubleDown, TfiAngleDoubleUp } from "react-icons/tfi";
+import { CgYinyang } from "react-icons/cg";
+import { TiHeart } from "react-icons/ti";
 
 export default function icons(code) {
   if (code === 200) {

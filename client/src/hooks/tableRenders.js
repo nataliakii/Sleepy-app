@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-
 export const conditionalTableHead = (ww3, ww4, ww5) => {
   if (ww5) {
     return (
@@ -90,18 +88,18 @@ export const conditionalTableRow1 = (ww1, ww2, ww3, ww4, ww5, sumNap) => {
 };
 export const conditionalCellColor = (string) => {
   if (!string) {
-    return '';
+    return "";
   }
   if (string.length !== 2) {
-    return 'no-ok-cell';
+    return "no-ok-cell";
   }
 };
 export const cellCol = (code) => {
   if (!code) {
-    return '';
+    return "";
   }
   if (code === 400 || code === 500) {
-    return 'no-ok-cell';
+    return "no-ok-cell";
   }
 };
 

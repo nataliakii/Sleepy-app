@@ -1,13 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { Button, Form, Row } from 'react-bootstrap';
-import { postForm } from '../actions';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { Button, Form, Row } from "react-bootstrap";
+import { postForm } from "../actions";
 
 export default function SleepyForm({ user }) {
   const { kidBD } = user;
@@ -35,13 +33,13 @@ export default function SleepyForm({ user }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.sleepy?.errorMessage || '');
+  const error = useSelector((state) => state.sleepy?.errorMessage || "");
   const { nameKid } = user;
 
   const handleChange = (e) => console.log(e);
 
   const handleFormSubmit = (data) => {
-    dispatch(postForm(data, () => navigate('/personal/sleepy-form-get')));
+    dispatch(postForm(data, () => navigate("/personal/sleepy-form-get")));
   };
 
   const renderFormDisplay = () => {
@@ -50,12 +48,12 @@ export default function SleepyForm({ user }) {
         <div
           className="h-auto p-5 text-white bg-dark"
           style={{
-            position: 'absolute',
-            display: 'inline-block',
-            width: '89%',
-            marginTop: '5%',
-            float: 'left',
-            fontWeight: '200',
+            position: "absolute",
+            display: "inline-block",
+            width: "89%",
+            marginTop: "5%",
+            float: "left",
+            fontWeight: "200",
           }}
         >
           <Form
@@ -65,7 +63,7 @@ export default function SleepyForm({ user }) {
             <h3 className="centered">Submit Sleepy Form</h3>
             <p className="p-1 ">
               Please, provide some info about the time of {nameKid}'s wake up,
-              having nap etc.{' '}
+              having nap etc.{" "}
             </p>
             {error ? <p className="error-message">{error}</p> : null}
             <Form.Group className="mb-2" controlId="formDate">
@@ -73,7 +71,7 @@ export default function SleepyForm({ user }) {
               <Form.Control
                 name="date"
                 type="date"
-                {...register('date', { required: true })}
+                {...register("date", { required: true })}
               />
               {errors.date && (
                 <p className="error-message">Date is a required field</p>
@@ -85,7 +83,7 @@ export default function SleepyForm({ user }) {
                 type="time"
                 name="wakeUp"
                 onChange={(e) => console.log(e)}
-                {...register('wakeUp', { required: true })}
+                {...register("wakeUp", { required: true })}
               />
               {errors.date && (
                 <p className="error-message">
@@ -101,14 +99,14 @@ export default function SleepyForm({ user }) {
                   name="nap1Start"
                   type="time"
                   onChange={(e) => console.log(e)}
-                  {...register('nap1Start', { required: true })}
+                  {...register("nap1Start", { required: true })}
                 />
                 <Form.Control
                   className="form-nap-end"
                   name="nap1End"
                   type="time"
                   onChange={(e) => console.log(e)}
-                  {...register('nap1End', { required: true })}
+                  {...register("nap1End", { required: true })}
                 />
               </Row>
               {errors.date && (
@@ -122,13 +120,13 @@ export default function SleepyForm({ user }) {
                   className="form-nap-start"
                   name="nap2Start"
                   type="time"
-                  {...register('nap2Start')}
+                  {...register("nap2Start")}
                 />
                 <Form.Control
                   className="form-nap-end"
                   name="nap2End"
                   type="time"
-                  {...register('nap2End')}
+                  {...register("nap2End")}
                 />
               </Row>
             </Form.Group>
@@ -139,13 +137,13 @@ export default function SleepyForm({ user }) {
                   className="form-nap-start"
                   name="nap3Start"
                   type="time"
-                  {...register('nap3Start')}
+                  {...register("nap3Start")}
                 />
                 <Form.Control
                   className="form-nap-end"
                   name="nap3End"
                   type="time"
-                  {...register('nap3End')}
+                  {...register("nap3End")}
                 />
               </Row>
             </Form.Group>
@@ -156,13 +154,13 @@ export default function SleepyForm({ user }) {
                   className="form-nap-start"
                   name="nap4Start"
                   type="time"
-                  {...register('nap4Start')}
+                  {...register("nap4Start")}
                 />
                 <Form.Control
                   className="form-nap-end"
                   name="nap4End"
                   type="time"
-                  {...register('nap4End')}
+                  {...register("nap4End")}
                 />
               </Row>
             </Form.Group>
@@ -171,7 +169,7 @@ export default function SleepyForm({ user }) {
               <Form.Control
                 name="bedTime"
                 type="time"
-                {...register('bedTime', { required: true })}
+                {...register("bedTime", { required: true })}
               />
               {errors.date && (
                 <p className="error-message">Bed time is a required field</p>
@@ -192,10 +190,10 @@ export default function SleepyForm({ user }) {
       <div
         className="h-100 p-4 text-white bg-dark"
         style={{
-          position: 'absolute',
-          display: 'inline-block',
-          width: '100%',
-          marginTop: '5%',
+          position: "absolute",
+          display: "inline-block",
+          width: "100%",
+          marginTop: "5%",
         }}
       >
         <p className="col-md-8 margin-top">

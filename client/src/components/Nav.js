@@ -1,11 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable no-unused-vars */
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Navbar } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { signout } from '../actions';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Container, Navbar } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { signout } from "../actions";
 
 const Nav = ({ user }) => {
   const navigate = useNavigate();
@@ -20,7 +17,7 @@ const Nav = ({ user }) => {
     if (name) {
       return (
         <>
-          {' '}
+          {" "}
           <li>
             <Link className="white" to="/personal">
               Hello, {name}

@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import Loading from '../Loading';
+import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Loading from "../Loading";
 
 export default function Locate({ panTo }) {
   const [loading, setLoading] = useState(false);

@@ -1,59 +1,58 @@
-/* eslint-disable import/no-anonymous-default-export */
 export default [
   {
-    featureType: 'landscape.natural',
-    elementType: 'geometry.fill',
+    featureType: "landscape.natural",
+    elementType: "geometry.fill",
     stylers: [
       {
-        visibility: 'on',
+        visibility: "on",
       },
       {
-        color: '#e0efef',
+        color: "#e0efef",
       },
     ],
   },
   {
-    featureType: 'poi',
-    elementType: 'geometry.fill',
+    featureType: "poi",
+    elementType: "geometry.fill",
     stylers: [
       {
-        visibility: 'on',
+        visibility: "on",
       },
       {
-        hue: '#1900ff',
+        hue: "#1900ff",
       },
       {
-        color: '#c0e8e8',
+        color: "#c0e8e8",
       },
     ],
   },
   {
-    featureType: 'road',
-    elementType: 'geometry',
+    featureType: "road",
+    elementType: "geometry",
     stylers: [
       {
         lightness: 100,
       },
       {
-        visibility: 'simplified',
+        visibility: "simplified",
       },
     ],
   },
   {
-    featureType: 'road',
-    elementType: 'labels',
+    featureType: "road",
+    elementType: "labels",
     stylers: [
       {
-        visibility: 'off',
+        visibility: "off",
       },
     ],
   },
   {
-    featureType: 'transit.line',
-    elementType: 'geometry',
+    featureType: "transit.line",
+    elementType: "geometry",
     stylers: [
       {
-        visibility: 'on',
+        visibility: "on",
       },
       {
         lightness: 700,
@@ -61,11 +60,11 @@ export default [
     ],
   },
   {
-    featureType: 'water',
-    elementType: 'all',
+    featureType: "water",
+    elementType: "all",
     stylers: [
       {
-        color: '#7dcdcd',
+        color: "#7dcdcd",
       },
     ],
   },

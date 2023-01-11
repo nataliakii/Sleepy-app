@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from "react";
 import _ from "lodash";
 import { useParams, useNavigate, Link } from "react-router-dom";

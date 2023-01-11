@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, Modal, Container } from 'react-bootstrap';
-import { deleteProfile, signout } from '../actions';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Modal, Container } from "react-bootstrap";
+import { deleteProfile, signout } from "../actions";
 
 export default function Personal() {
   const dispatch = useDispatch();
@@ -16,19 +15,19 @@ export default function Personal() {
 
   const handleDeleteButton = () => {
     dispatch(deleteProfile());
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
     <Container
       className="h-100 p-5 text-white bg-dark"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        marginTop: '5%',
-        float: 'left',
-        fontWeight: '200',
-        minWidth: '89%',
+        position: "absolute",
+        display: "inline-block",
+        marginTop: "5%",
+        float: "left",
+        fontWeight: "200",
+        minWidth: "89%",
       }}
     >
       <div className="container-fluid py-4">
@@ -36,15 +35,15 @@ export default function Personal() {
           {name}'s and {kidName}'s personal page
         </h1>
         <p className="col-ms-1 fs">
-          {' '}
+          {" "}
           In order to get your personal recommendations, please, provide some
-          info about {kidName}'s sleeping schedule.{' '}
+          info about {kidName}'s sleeping schedule.{" "}
         </p>
         <Button
           type="button"
           variant="primary"
           className="main-button personal display-block padding-button"
-          onClick={() => navigate('/sleepy-form-post')}
+          onClick={() => navigate("/sleepy-form-post")}
         >
           Check if {kidName} sleeps enough (so you do!)
         </Button>
@@ -52,7 +51,7 @@ export default function Personal() {
           type="button"
           variant="primary"
           className="main-button personal display-block padding-button"
-          onClick={() => navigate('/personal/all-docs-display')}
+          onClick={() => navigate("/personal/all-docs-display")}
         >
           All your sleepy docs
         </Button>
@@ -60,7 +59,7 @@ export default function Personal() {
           type="button"
           variant="primary"
           className="main-button personal display-block padding-button"
-          onClick={() => navigate('/personal/edit')}
+          onClick={() => navigate("/personal/edit")}
         >
           Edit personal info
         </Button>

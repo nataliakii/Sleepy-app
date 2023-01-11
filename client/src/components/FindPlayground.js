@@ -1,32 +1,29 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 import {
   GoogleMap,
   LoadScript,
   useLoadScript,
   useJsApiLoader,
   Circle,
-} from '@react-google-maps/api';
-import Loading from './Loading';
-import { fetchLocation } from '../actions';
+} from "@react-google-maps/api";
+import Loading from "./Loading";
+import { fetchLocation } from "../actions";
 
 const containerStyle = {
-  width: '900px',
-  height: '400px',
-  marginLeft: '4%',
+  width: "900px",
+  height: "400px",
+  marginLeft: "4%",
 };
 
 export default function FindPlayground() {
   const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   console.log(API_KEY);
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4',
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,10 +36,10 @@ export default function FindPlayground() {
     <div
       className="h-100 p-5 text-white bg-dark main-container-center"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        width: '84%',
-        marginTop: '5%',
+        position: "absolute",
+        display: "inline-block",
+        width: "84%",
+        marginTop: "5%",
       }}
     >
       <Button

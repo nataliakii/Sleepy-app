@@ -1,5 +1,4 @@
-/* eslint-disable prefer-const */
-import _ from 'lodash';
+import _ from "lodash";
 
 const checkColForRender = (arr) => {
   let w3 = [];

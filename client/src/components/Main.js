@@ -1,31 +1,29 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Container, Button } from 'react-bootstrap';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Container, Button } from "react-bootstrap";
 
 export default function Main({ user }) {
   const navigate = useNavigate();
   const { name } = user;
 
-  let str = '';
+  let str = "";
   const renderStringName = () => {
     if (name) {
       return (str = name);
     }
-    return (str = 'this is SleepyApp');
+    return (str = "this is SleepyApp");
   };
 
   return (
     <Container
       className="h-100 p-5 text-white bg-dark"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        marginTop: '5%',
-        float: 'left',
-        fontWeight: '200',
-        maxWidth: '89%',
+        position: "absolute",
+        display: "inline-block",
+        marginTop: "5%",
+        float: "left",
+        fontWeight: "200",
+        maxWidth: "89%",
       }}
     >
       <div className="container-fluid py-4">
@@ -40,7 +38,7 @@ export default function Main({ user }) {
             variant="primary"
             className="main-button personal main"
             type="button"
-            onClick={() => navigate('/sleepy-form-post')}
+            onClick={() => navigate("/sleepy-form-post")}
           >
             I want to sleep more!
           </Button>

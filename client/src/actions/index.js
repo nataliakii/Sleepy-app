@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-import axios from 'axios';
-import _ from 'lodash';
-import { artRandomURL, payloadToReturn } from '../hooks/artFuncs';
+import axios from "axios";
+import _ from "lodash";
+import { artRandomURL, payloadToReturn } from "../hooks/artFuncs";
 
-const url = 'http://localhost:8000';
+const url = "http://localhost:8000";
 // const url = '';
 
 export const fetchUser = (token) => async (dispatch) => {
@@ -15,8 +14,8 @@ export const fetchUser = (token) => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/auth/${userId}`, config);
-    console.log('current USer', response.data);
-    dispatch({ type: 'AUTH_USER', payload: response.data });
+    console.log("current USer", response.data);
+    dispatch({ type: "AUTH_USER", payload: response.data });
   } catch (error) {
     console.log(error);
   }
@@ -24,21 +23,21 @@ export const fetchUser = (token) => async (dispatch) => {
 
 export const signout = () => async (dispatch) => {
   localStorage.clear();
-  dispatch({ type: 'LOG_OUT' });
+  dispatch({ type: "LOG_OUT" });
 };
 
 export const signin = (formProps, callback) => async (dispatch) => {
   axios
     .post(`${url}/auth/signin`, formProps)
     .then((response) => {
-      dispatch({ type: 'AUTH_USER', payload: response.data });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.userId);
+      dispatch({ type: "AUTH_USER", payload: response.data });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
       callback();
     })
     .catch((error) => {
       console.log(error);
-      dispatch({ type: 'AUTH_ERROR', payload: error });
+      dispatch({ type: "AUTH_ERROR", payload: error });
     });
 };
 
@@ -46,15 +45,15 @@ export const signup = (formProps, callback) => async (dispatch) => {
   axios
     .post(`${url}/auth/signup`, formProps)
     .then((response) => {
-      dispatch({ type: 'AUTH_USER', payload: response.data });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.userId);
+      dispatch({ type: "AUTH_USER", payload: response.data });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
       callback();
     })
     .catch((error) => {
       console.log(error);
       dispatch({
-        type: 'AUTH_ERROR',
+        type: "AUTH_ERROR",
         payload: error.response.data.error,
       });
     });
@@ -63,22 +62,22 @@ export const signup = (formProps, callback) => async (dispatch) => {
 export const postForm = (sleepData, callback) => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-  console.log(`${localStorage.getItem('token')}`);
-  console.log('sleepData that is sending to server', sleepData);
+  console.log(`${localStorage.getItem("token")}`);
+  console.log("sleepData that is sending to server", sleepData);
   try {
     const response = await axios.post(
       `${url}/user/sleepy_post`,
       { sleepData },
       config
     );
-    console.log('from post form', response);
-    dispatch({ type: 'POST_SLEEP', payload: response.data.sleepyDoc });
+    console.log("from post form", response);
+    dispatch({ type: "POST_SLEEP", payload: response.data.sleepyDoc });
     callback();
   } catch (error) {
-    dispatch({ type: 'POST_ERROR', payload: error.response?.data });
+    dispatch({ type: "POST_ERROR", payload: error.response?.data });
     console.log(error.response?.data);
   }
 };
@@ -86,12 +85,12 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
 export const fetchAllDocs = () => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
   try {
     const response = await axios.get(`${url}/user/sleepy_get_all`, config);
-    dispatch({ type: 'ALL_DOCS', payload: response.data.allDocs });
+    dispatch({ type: "ALL_DOCS", payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
   }
@@ -100,14 +99,14 @@ export const fetchAllDocs = () => async (dispatch) => {
 export const updateProfile = (data, callback) => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-  console.log('action update profile', data);
+  console.log("action update profile", data);
   try {
     const response = await axios.put(`${url}/user/edit`, { data }, config);
     console.log(response.data);
-    dispatch({ type: 'AUTH_USER', payload: response.data });
+    dispatch({ type: "AUTH_USER", payload: response.data });
     callback();
   } catch (error) {
     console.log(error);
@@ -117,14 +116,14 @@ export const updateProfile = (data, callback) => async (dispatch) => {
 export const deleteProfile = () => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
   try {
     const response = await axios.delete(`${url}/user/delete`, config);
     console.log(response.data);
     localStorage.clear();
-    dispatch({ type: 'LOG_OUT' });
+    dispatch({ type: "LOG_OUT" });
   } catch (error) {
     console.log(error);
   }
@@ -133,8 +132,8 @@ export const deleteProfile = () => async (dispatch) => {
 export const fetchTips = () => async (dispatch) => {
   try {
     const response = await axios.get(`${url}/api/getTipsArticles`);
-    dispatch({ type: 'DISPLAY_TIPS', payload: response.data });
-    console.log('dispatched, tips are', response.data);
+    dispatch({ type: "DISPLAY_TIPS", payload: response.data });
+    console.log("dispatched, tips are", response.data);
   } catch (error) {
     console.log(error);
   }
@@ -150,13 +149,13 @@ export const fetchLocation = () => (dispatch) => {
   function showError(error) {
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        return 'User denied the request for Geolocation.';
+        return "User denied the request for Geolocation.";
       case error.POSITION_UNAVAILABLE:
-        return 'Location information is unavailable.';
+        return "Location information is unavailable.";
       case error.TIMEOUT:
-        return 'The request to get user location timed out.';
+        return "The request to get user location timed out.";
       case error.UNKNOWN_ERROR:
-        return 'An unknown error occurred.';
+        return "An unknown error occurred.";
       default:
         return null;
     }
@@ -164,13 +163,13 @@ export const fetchLocation = () => (dispatch) => {
 
   function success(pos) {
     const coordinates = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    dispatch({ type: 'DISPLAY_LOCATION', payload: coordinates });
+    dispatch({ type: "DISPLAY_LOCATION", payload: coordinates });
   }
 
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
     dispatch({
-      type: 'LOC_ERROR',
+      type: "LOC_ERROR",
       payload: showError(err),
     });
   }
@@ -182,7 +181,7 @@ export const fetchArtwork = () => async (dispatch) => {
     const request = await axios.get(`${artRandomURL()}`);
     const artworkData = payloadToReturn(request);
     dispatch({
-      type: 'FETCH_ARTWORK',
+      type: "FETCH_ARTWORK",
       payload: artworkData,
     });
   } catch (error) {
@@ -193,13 +192,13 @@ export const fetchArtwork = () => async (dispatch) => {
 export const deleteDoc = (docId) => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
   try {
     const response = await axios.delete(`${url}/user/${docId}`, config);
     console.log(response.data.SleepyDocs);
-    dispatch({ type: 'DELETE_DOC', payload: response.data.SleepyDocs });
+    dispatch({ type: "DELETE_DOC", payload: response.data.SleepyDocs });
   } catch (error) {
     console.log(error);
   }
@@ -208,12 +207,12 @@ export const deleteDoc = (docId) => async (dispatch) => {
 export const getOneDoc = (docId) => async (dispatch) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
   try {
     const response = await axios.get(`${url}/user/${docId}`, config);
-    dispatch({ type: 'GET_DOC' });
+    dispatch({ type: "GET_DOC" });
   } catch (error) {
     console.log(error);
   }

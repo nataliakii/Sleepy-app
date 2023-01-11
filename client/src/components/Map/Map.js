@@ -1,25 +1,24 @@
-/* eslint-disable react/prop-types */
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef } from "react";
 import {
   useLoadScript,
   GoogleMap,
   Marker,
   InfoWindow,
-} from '@react-google-maps/api';
+} from "@react-google-maps/api";
 
-import mapStyles from './mapStyles';
-import Loading from '../Loading';
-import Error from '../Error';
-import Search from './Search';
-import Locate from './Locate';
+import mapStyles from "./mapStyles";
+import Loading from "../Loading";
+import Error from "../Error";
+import Search from "./Search";
+import Locate from "./Locate";
 
-const libraries = ['places', 'localContext', 'marker'];
+const libraries = ["places", "localContext", "marker"];
 const containerStyle = {
-  width: '100%',
-  maxWidth: '950px',
-  height: '400px',
-  Left: '4%',
-  marginTop: '2%',
+  width: "100%",
+  maxWidth: "950px",
+  height: "400px",
+  Left: "4%",
+  marginTop: "2%",
 };
 const center = {
   lat: 49,
@@ -33,7 +32,7 @@ const options = {
 
 export default function Map() {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4',
+    googleMapsApiKey: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
     libraries,
   });
   const [markers, setMarkers] = useState([]);
@@ -64,10 +63,10 @@ export default function Map() {
     <div
       className="h-100 p-5 text-white bg-dark main-container-center"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        width: '84%',
-        marginTop: '5%',
+        position: "absolute",
+        display: "inline-block",
+        width: "84%",
+        marginTop: "5%",
       }}
     >
       <p>Use map to find nearby playgrounds</p>
@@ -81,7 +80,7 @@ export default function Map() {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {' '}
+        {" "}
         {markers.map((marker) => (
           <Marker
             key={marker.time.toISOString()}
@@ -90,7 +89,7 @@ export default function Map() {
               setSelected(marker);
             }}
             icon={{
-              url: '/icon.svg',
+              url: "/icon.svg",
               scaledSize: new window.google.maps.Size(30, 30),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(15, 15),

@@ -1,13 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { Button, Form } from 'react-bootstrap';
-import { updateProfile } from '../actions';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { Button, Form } from "react-bootstrap";
+import { updateProfile } from "../actions";
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email(),
@@ -38,11 +36,11 @@ export default function EditProfile({ user }) {
   const [kidBD1, setKidBD] = useState(null);
 
   const data = { email1, name1, nameKid1, kidBD1 };
-  console.log('data', data);
+  console.log("data", data);
   const handleFormSubmit = () => {
     dispatch(
       updateProfile(data, () => {
-        navigate('/personal');
+        navigate("/personal");
       })
     );
   };
@@ -57,10 +55,10 @@ export default function EditProfile({ user }) {
     <div
       className="h-100 p-5 text-white bg-dark main-container-center"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        width: '100%',
-        marginTop: '5%',
+        position: "absolute",
+        display: "inline-block",
+        width: "100%",
+        marginTop: "5%",
       }}
     >
       <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>

@@ -1,6 +1,5 @@
-/* eslint-disable eqeqeq */
 const displayAge = (ageObj) => {
-  let ageString = '';
+  let ageString = "";
   if (ageObj.years > 1 && ageObj.months > 6)
     ageString = `${ageObj.years} years and ${ageObj.months} months`;
   else if (ageObj.years > 1 && ageObj.months <= 6)

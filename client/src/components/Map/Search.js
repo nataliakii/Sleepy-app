@@ -1,21 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
 import {
   Combobox,
   ComboboxInput,
   ComboboxPopover,
   ComboboxList,
   ComboboxOption,
-} from '@reach/combobox';
-import '@reach/combobox/styles.css';
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-} from 'use-places-autocomplete';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchLocation } from '../../actions';
-import Error from '../Error';
+} from "use-places-autocomplete";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchLocation } from "../../actions";
+import Error from "../Error";
 
 export default function Search({ panTo }) {
   const dispatch = useDispatch();
@@ -46,7 +44,7 @@ export default function Search({ panTo }) {
             const { lat, lng } = await getLatLng(results[0]);
             panTo({ lat, lng });
           } catch (error) {
-            console.log('error!');
+            console.log("error!");
             <Error />;
           }
         }}
@@ -61,7 +59,7 @@ export default function Search({ panTo }) {
         />
         <ComboboxPopover>
           <ComboboxList>
-            {status === 'OK' &&
+            {status === "OK" &&
               data.map(({ id, description }) => (
                 <ComboboxOption key={id} value={description} />
               ))}
