@@ -36,8 +36,8 @@ export default function Personal() {
         </h1>
         <p className="col-ms-1 fs">
           {" "}
-          In order to get your personal recommendations, please, provide some
-          info about {kidName}'s sleeping schedule.{" "}
+          To get your personal recommendations, please provide {kidName}'s
+          sleeping schedule.{" "}
         </p>
         <Button
           type="button"
@@ -82,7 +82,7 @@ export default function Personal() {
               variant="primary"
               onClick={handleClose}
             >
-              No, I just want to sleep more.
+              No, it's just that I want to sleep more.
             </Button>
             <Button
               className="modal-button"

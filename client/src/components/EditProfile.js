@@ -117,7 +117,7 @@ export default function EditProfile({ user }) {
               variant="primary"
               onClick={handleUpdateButton}
             >
-              Woohoo! So, where is a sofa here ?
+              Woohoo! As much as anything, I love to sleep!
             </Button>
           </Modal.Footer>
         </Modal>

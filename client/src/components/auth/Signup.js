@@ -134,7 +134,8 @@ const Signup = () => {
             variant="primary"
             onClick={handleSignUpButton}
           >
-            Woohoo! Sleeping more is my favorite thing! Where is a sofa here ?
+            Woohoo! The best thing that ever happened to me was sleeping more!
+            Where is a sofa here ?
           </Button>
         </Modal.Footer>
       </Modal>

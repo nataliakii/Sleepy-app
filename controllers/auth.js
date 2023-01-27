@@ -3,7 +3,7 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const keys = require("../config/dev");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey('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');
 
 function tokenForUser(user) {
   return jwt.encode(
@@ -85,15 +85,15 @@ exports.signup = function (req, res, next) {
       const msg = {
         to: user.email,
         from: "nataliaki@icloud.com",
-        subject: "Welcome to SleepyApp! Thanks for signing up",
+        subject: "Welcome to SleepyApp! This is a confirmation email",
         text: `Hi ${user.name},
         We are reaching out to say hello! We are SleepyApp, and we're excited to welcome you to our community.
         If you have any questions or need assistance, don't hesitate to reach out. We’re here to help.
         Best regards, SleepyApp`,
-        html: `<strong> Hi ${user.name},
+        html: `Hi ${user.name},
         We are reaching out to say hello! We are SleepyApp, and we're excited to welcome you to our community.
         If you have any questions or need assistance, don't hesitate to reach out. We’re here to help.
-        Best regards, SleepyApp</strong>`,
+        Best regards, SleepyApp`,
       };
       console.log('msg', msg)
       sgMail.send(msg).then(

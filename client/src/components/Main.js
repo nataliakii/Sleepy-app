@@ -29,10 +29,12 @@ export default function Main({ user }) {
       <div className="container-fluid py-4">
         <h1 className="display-5 fw-bold">Hello, {renderStringName()}</h1>
         <p className="col-md-7 fs-5">
-          We are here to help mothers to sleep more. Is it possible? Yes, you
-          just need to know how to organize sleep for your baby.
+          Our goal is to help mothers sleep more. Is that possible? It's just a
+          matter of figuring out how to organize your baby's sleep.
         </p>
-        <p className="col-md-7 fs-5">Btw, you're the best mom.</p>
+        <p className="col-md-7 fs-5">
+          As a side note, you're the best mother in the world.
+        </p>
         <p>
           <Button
             variant="primary"
@@ -40,7 +42,7 @@ export default function Main({ user }) {
             type="button"
             onClick={() => navigate("/sleepy-form-post")}
           >
-            I want to sleep more!
+            I love sleeping more than anything!
           </Button>
         </p>
       </div>
