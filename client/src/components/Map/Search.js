@@ -10,17 +10,8 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { fetchLocation } from "../../actions";
-import Error from "../Error";
 
 export default function Search({ panTo }) {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchLocation());
-  }, []);
-  const loc = useSelector((state) => state.loc.location || null);
   const {
     ready,
     value,
@@ -29,7 +20,7 @@ export default function Search({ panTo }) {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => loc.lat, lng: () => loc.lng },
+      location: { lat: () => 10, lng: () => 10 },
       radius: 10 * 1000,
     },
   });
@@ -45,7 +36,6 @@ export default function Search({ panTo }) {
             panTo({ lat, lng });
           } catch (error) {
             console.log("error!");
-            <Error />;
           }
         }}
       >

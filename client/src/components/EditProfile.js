@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { updateProfile } from "../actions";
 
 const userSchema = Yup.object().shape({
@@ -24,24 +24,31 @@ export default function EditProfile({ user }) {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const { email } = user;
   const { name } = user;
   const { nameKid } = user;
   const { kidBD } = user;
-  const [email1, setEmail] = useState(null);
-  const [name1, setName] = useState(null);
-  const [nameKid1, setNameKid] = useState(null);
-  const [kidBD1, setKidBD] = useState(null);
+  const [email1, setEmail] = useState(email);
+  const [name1, setName] = useState(name);
+  const [nameKid1, setNameKid] = useState(nameKid);
+  const [kidBD1, setKidBD] = useState(kidBD);
 
   const data = { email1, name1, nameKid1, kidBD1 };
   console.log("data", data);
   const handleFormSubmit = () => {
     dispatch(
       updateProfile(data, () => {
-        navigate("/personal");
+        handleShow();
       })
     );
+  };
+
+  const handleUpdateButton = () => {
+    window.location.href = "/personal";
   };
 
   return (
@@ -99,6 +106,21 @@ export default function EditProfile({ user }) {
         <Button variant="primary" type="submit" className="centered-button">
           Update
         </Button>
+
+        <Modal show={show} onHide={handleClose} centered>
+          <Modal.Body className="modal-title">
+            {name1}, your profile was updated successfully.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              className="modal-update"
+              variant="primary"
+              onClick={handleUpdateButton}
+            >
+              Woohoo! So, where is a sofa here ?
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Form>
     </div>
   );

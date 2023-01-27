@@ -266,6 +266,9 @@ a {
   display: block !important;
   width: 31%;
 }
+.display-inline {
+  display: flex !important;
+}
 .delete-btn {
   background-color: #bf1650 !important;
   padding: 10px !important;
@@ -295,6 +298,18 @@ span .footer {
   margin-right: 20px !important;
   padding: 10px !important;
   font-size: 12px !important;
+  letter-spacing: 2px !important;
+}
+.modal-signup {
+  margin-right: 1% !important;
+  padding: 20px !important;
+  font-size: 13px !important;
+  letter-spacing: 2px !important;
+}
+.modal-update {
+  margin-right: 14% !important;
+  padding: 20px !important;
+  font-size: 13px !important;
   letter-spacing: 2px !important;
 }
 .art-text {
@@ -337,7 +352,7 @@ span .footer {
 }
 .search {
   position: absolute;
-  top: 26.09%;
+  top: 24.99%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -359,4 +374,10 @@ p {
 .link-tips:hover {
   color: #bf1650 !important;
   text-decoration: none !important;
+}
+.center {
+  text-align: center;
+}
+.art-color {
+  color: #cb4472 !important;
 }

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { signup } from "../../actions";
 
 const userSchema = Yup.object().shape({
@@ -27,13 +27,21 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const error = useSelector((state) => state.auth.errorMessage);
+  const name = useSelector((state) => state.auth.name);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleFormSubmit = (data) => {
     dispatch(
       signup(data, () => {
-        navigate("/personal");
+        handleShow();
       })
     );
+  };
+
+  const handleSignUpButton = () => {
+    window.location.href = "/personal";
   };
 
   const errorRender = () => {
@@ -112,9 +120,24 @@ const Signup = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit" className="centered-button">
-          Submit
+          Sign me up
         </Button>
       </Form>
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Body className="modal-title">
+          {name}, welcome to SleepyApp! Thanks for signing up
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            className="modal-signup"
+            variant="primary"
+            onClick={handleSignUpButton}
+          >
+            Woohoo! Sleeping more is my favorite thing! Where is a sofa here ?
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

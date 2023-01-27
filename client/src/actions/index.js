@@ -1,8 +1,9 @@
 import axios from "axios";
 import _ from "lodash";
 import { artRandomURL, payloadToReturn } from "../hooks/artFuncs";
+import { getPlaygroundsCoord } from "../hooks/getPlaygroundsCoord";
 
-// const url = "http://localhost:8000";
+// const url = "http://localhost:5000";
 const url = "";
 
 export const fetchUser = (token) => async (dispatch) => {
@@ -36,8 +37,8 @@ export const signin = (formProps, callback) => async (dispatch) => {
       callback();
     })
     .catch((error) => {
-      console.log(error);
-      dispatch({ type: "AUTH_ERROR", payload: error });
+      console.log(error.message);
+      dispatch({ type: "AUTH_ERROR", payload: error.message });
     });
 };
 
@@ -139,43 +140,6 @@ export const fetchTips = () => async (dispatch) => {
   }
 };
 
-export const fetchLocation = () => (dispatch) => {
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
-
-  function showError(error) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        return "User denied the request for Geolocation.";
-      case error.POSITION_UNAVAILABLE:
-        return "Location information is unavailable.";
-      case error.TIMEOUT:
-        return "The request to get user location timed out.";
-      case error.UNKNOWN_ERROR:
-        return "An unknown error occurred.";
-      default:
-        return null;
-    }
-  }
-
-  function success(pos) {
-    const coordinates = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    dispatch({ type: "DISPLAY_LOCATION", payload: coordinates });
-  }
-
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-    dispatch({
-      type: "LOC_ERROR",
-      payload: showError(err),
-    });
-  }
-  navigator.geolocation.getCurrentPosition(success, error, options);
-};
-
 export const fetchArtwork = () => async (dispatch) => {
   try {
     const request = await axios.get(`${artRandomURL()}`);
@@ -217,3 +181,60 @@ export const getOneDoc = (docId) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const fetchPlaygrounds = (coord) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${url}/api/getLocation`, { coord });
+    const c = getPlaygroundsCoord(response);
+    dispatch({ type: "FETCH_PLAYGROUNDS", payload: c });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchErrorPic = () => async (dispatch) => {
+  try {
+    const response = await axios.get("https://dog.ceo/api/breeds/image/random");
+    console.log(response);
+    dispatch({ type: "FETCH_ERROR", payload: response.data.message });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const fetchLocation = () => (dispatch) => {
+//   const options = {
+//     enableHighAccuracy: true,
+//     timeout: 5000,
+//     maximumAge: 0,
+//   };
+
+//   function showError(error) {
+//     switch (error.code) {
+//       case error.PERMISSION_DENIED:
+//         return "User denied the request for Geolocation.";
+//       case error.POSITION_UNAVAILABLE:
+//         return "Location information is unavailable.";
+//       case error.TIMEOUT:
+//         return "The request to get user location timed out.";
+//       case error.UNKNOWN_ERROR:
+//         return "An unknown error occurred.";
+//       default:
+//         return null;
+//     }
+//   }
+
+//   function success(pos) {
+//     const coordinates = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+//     dispatch({ type: "DISPLAY_LOCATION", payload: coordinates });
+//   }
+
+//   function error(err) {
+//     console.warn(`ERROR(${err.code}): ${err.message}`);
+//     dispatch({
+//       type: "LOC_ERROR",
+//       payload: showError(err),
+//     });
+//   }
+//   navigator.geolocation.getCurrentPosition(success, error, options);
+// };

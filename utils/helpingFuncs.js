@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const norms = require('./norms');
+const _ = require("lodash");
+const norms = require("./norms");
 
 const helpingFuncs = {
   calculateAge: (calculateAge = (kidBD, date) => {
@@ -43,7 +43,7 @@ const helpingFuncs = {
   }),
 
   convMins: (convMins = (mins) => {
-    let str = '';
+    let str = "";
     const fullHours = Math.floor(mins / 60);
     const time = {
       hours: fullHours,
@@ -61,8 +61,8 @@ const helpingFuncs = {
   }),
 
   getTimeDiff: (getTimeDiff = (start, end) => {
-    const [startHour, startMins] = start.split(':');
-    const [endHour, endMins] = end.split(':');
+    const [startHour, startMins] = start.split(":");
+    const [endHour, endMins] = end.split(":");
 
     const diffHour = endHour - startHour;
     const diffMins = endMins - startMins;
@@ -156,43 +156,81 @@ const helpingFuncs = {
 
     const compareData = (normMax, normMin, input) => {
       if (input > normMin && input < normMax) {
-        return {code:200, message: "Ok"};
+        return { code: 200, message: "Ok" };
       }
       if (input > normMax) {
-        return {code : 500, message: `Try to make it less than ${convMins(normMax)} `};
+        return {
+          code: 500,
+          message: `Try to make it less than ${convMins(normMax)} `,
+        };
       }
       if (input === 0 || !input) {
         return null;
       }
-      return {code : 400, message: `Try to make it more than ${convMins(normMin)} `};
+      return {
+        code: 400,
+        message: `Try to make it more than ${convMins(normMin)} `,
+      };
     };
-    const compareLastNap = (normLastNap,input) => {
-      if (input<=normLastNap){
-        return {code:200, message: "Ok"};
-      }
-      else return {code: 500, message: ` Try to end up last nap by ${normLastNap}`}
+    const compareLastNap = (normLastNap, input) => {
+      if (input <= normLastNap) {
+        return { code: 200, message: "Ok" };
+      } else
+        return {
+          code: 500,
+          message: ` Try to end up last nap by ${normLastNap}`,
+        };
     };
     const compareNumberNaps = (normMax, normMin, input) => {
-      if (input >= normMin || input <= normMax ) {
-        return {code:200, message: "Ok"};
+      if (input >= normMin || input <= normMax) {
+        return { code: 200, message: "Ok" };
       }
       if (input > normMax) {
-        return {code:500, message: `Try to make it less than ${normMax+1} naps`};
-      }
-      else return {code:400, message: `Try to make it at least ${normMin} naps `}
-
-
-    }
+        return {
+          code: 500,
+          message: `Try to make it less than ${normMax + 1} naps`,
+        };
+      } else
+        return {
+          code: 400,
+          message: `Try to make it at least ${normMin} naps `,
+        };
+    };
 
     return {
-      ww1R: { message: compareData(norms.wwMax, norms.wwMin, ww1).message, code : compareData(norms.wwMax, norms.wwMin, ww1).code},
-      ww2R: { message: compareData(norms.wwMax, norms.wwMin, ww2).message, code : compareData(norms.wwMax, norms.wwMin, ww2).code},
-      ww3R: {message: compareData(norms.wwMax, norms.wwMin, ww3)?.message, code :compareData(norms.wwMax, norms.wwMin, ww3)?.code},
-      ww4R: {message: compareData(norms.wwMax, norms.wwMin, ww4)?.message, code: compareData(norms.wwMax, norms.wwMin, ww4)?.code},
-      ww5R: { message: compareData(norms.wwMax, norms.wwMin, ww5)?.message, code : compareData(norms.wwMax, norms.wwMin, ww5)?.code},
-      sumNapR: {message: compareData(norms.napSumMax, norms.napSumMin, sumNap).message, code: compareData(norms.napSumMax, norms.napSumMin, sumNap).code},
-      numberOfNapsR: {message: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).message, code : compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).code},
-      lastNapR: {message: compareLastNap(norms.lastNap, lastNap).message, code: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).code}
+      ww1R: {
+        message: compareData(norms.wwMax, norms.wwMin, ww1).message,
+        code: compareData(norms.wwMax, norms.wwMin, ww1).code,
+      },
+      ww2R: {
+        message: compareData(norms.wwMax, norms.wwMin, ww2).message,
+        code: compareData(norms.wwMax, norms.wwMin, ww2).code,
+      },
+      ww3R: {
+        message: compareData(norms.wwMax, norms.wwMin, ww3)?.message,
+        code: compareData(norms.wwMax, norms.wwMin, ww3)?.code,
+      },
+      ww4R: {
+        message: compareData(norms.wwMax, norms.wwMin, ww4)?.message,
+        code: compareData(norms.wwMax, norms.wwMin, ww4)?.code,
+      },
+      ww5R: {
+        message: compareData(norms.wwMax, norms.wwMin, ww5)?.message,
+        code: compareData(norms.wwMax, norms.wwMin, ww5)?.code,
+      },
+      sumNapR: {
+        message: compareData(norms.napSumMax, norms.napSumMin, sumNap).message,
+        code: compareData(norms.napSumMax, norms.napSumMin, sumNap).code,
+      },
+      numberOfNapsR: {
+        message: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps)
+          .message,
+        code: compareNumberNaps(norms.napMax, norms.napMin, numberOfNaps).code,
+      },
+      lastNapR: {
+        message: compareLastNap(norms.lastNap, lastNap).message,
+        code: compareLastNaps(norms.napMax, norms.napMin, numberOfNaps).code,
+      },
     };
   }),
 
@@ -204,25 +242,28 @@ const helpingFuncs = {
   }),
 
   loopContent: (loopContent = (arr) => {
-    const loopText=(text)=>{
-      let arrToReturn=[]
-      if (text.length>1){
-        for(let i = 0; i < text.length; i++){
+    const loopText = (text) => {
+      let arrToReturn = [];
+      if (text.length > 1) {
+        for (let i = 0; i < text.length; i++) {
           // for(let prop in text[i])
-          arrToReturn.push(text[i])
+          arrToReturn.push(text[i]);
         }
-        return arrToReturn
-      }
-      else return text
-    }
+        return arrToReturn;
+      } else return text;
+    };
 
-    let arrayToReturn=[]
-    for (let i = 0; i < arr.length; i++){
-      const content = { title : arr[i].title || '', text: loopText(arr[i].text), expertTip: arr[i].expertTip || null}
-      arrayToReturn.push(content)
+    let arrayToReturn = [];
+    for (let i = 0; i < arr.length; i++) {
+      const content = {
+        title: arr[i].title || "",
+        text: loopText(arr[i].text),
+        expertTip: arr[i].expertTip || null,
+      };
+      arrayToReturn.push(content);
     }
-    return arrayToReturn
-  })
+    return arrayToReturn;
+  }),
 };
 
 module.exports = helpingFuncs;

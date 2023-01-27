@@ -1,22 +1,21 @@
-require('dotenv').config()
-const express = require('express');
-const http = require('http');
-const bodyParser = require('body-parser');
+require("dotenv").config();
+const express = require("express");
+const http = require("http");
+const bodyParser = require("body-parser");
 const app = express();
-const authRouter = require('./routes/auth');
-const cors = require('cors');
+const authRouter = require("./routes/auth");
+const cors = require("cors");
 const connectDB = require("./config/db");
-const router = require('./router');
+const router = require("./router");
 
 // DB Setup
-connectDB()
+connectDB();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/user', require('./routes/user'));
-app.use('/api', require('./routes/all'));
+app.use("/user", require("./routes/user"));
+app.use("/api", require("./routes/all"));
 authRouter(app);
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -27,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Server Setup
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 server.listen(port);
-console.log('Server listening on:', port)
+console.log("Server listening on:", port);

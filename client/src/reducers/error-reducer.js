@@ -1,6 +1,6 @@
-export default function ArtReducer(state = [], action) {
+export default function ErrorReducer(state = [], action) {
   switch (action.type) {
-    case "FETCH_ARTWORK":
+    case "FETCH_ERROR":
       return action.payload;
     default:
       return state;

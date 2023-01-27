@@ -1,20 +1,27 @@
-import axios from "axios";
+import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchErrorPic } from "../actions";
 
-export default async function Error() {
-  // const dog = await axios.get(https://dog.ceo/api/breeds/image/random);
+export default function Error() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchErrorPic());
+  }, []);
+  const dog = useSelector((state) => state.error);
+  console.log("dog from container", dog);
   return (
     <Container>
-      <Row className="justify-content-md-center">
-        <Col>
-          <p>Something get wrong. Meanwhile enjoy this dog.</p>
+      <Row>
+        <Col md={{ span: 6, offset: 3 }}>
+          <p className="error-message center">
+            Ooops! Nothing to display, there's still something to show you
+          </p>
           <img
             style={{
-              height: "420px",
-              maxWidth: "420px",
-              alignSelf: "center",
+              maxWidth: "520px",
             }}
-            src="https://images.dog.ceo/breeds/beagle/n02088364_4823.jpg"
+            src={dog}
             alt="dog"
           />
         </Col>

@@ -19,7 +19,6 @@ export default function AllDocsDisplay() {
   }, []);
   const handleDeleteDoc = (docId) => {
     dispatch(deleteDoc(docId));
-    // dispatch(fetchAllDocs());
     navigate("/personal/all-docs-display");
   };
   const allDocs = useSelector((state) => state.allDocs);
@@ -166,7 +165,10 @@ export default function AllDocsDisplay() {
       );
     }
     return (
-      <p className="error-message">You don't have any sleepy docs so far.</p>
+      <>
+        {" "}
+        <p>You don't have any sleepy docs so far.</p> <Error />
+      </>
     );
   };
 

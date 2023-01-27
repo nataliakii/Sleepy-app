@@ -12,17 +12,18 @@ import Error from "../Error";
 import Search from "./Search";
 import Locate from "./Locate";
 
-const libraries = ["places", "localContext", "marker"];
+const libraries = ["marker", "places"];
 const containerStyle = {
   width: "100%",
-  maxWidth: "950px",
+  maxWidth: "1050px",
+  minWidth: "400px",
   height: "400px",
   Left: "4%",
   marginTop: "2%",
 };
 const center = {
-  lat: 49,
-  lng: 13,
+  lat: 34,
+  lng: -83,
 };
 const options = {
   styles: mapStyles,
@@ -36,6 +37,7 @@ export default function Map() {
     libraries,
   });
   const [markers, setMarkers] = useState([]);
+  console.log("markers are", markers);
   const [selected, setSelected] = useState(null);
   const onMapClick = useCallback((e) => {
     setMarkers((current) => [
@@ -43,10 +45,14 @@ export default function Map() {
       {
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
-        time: new Date(),
+        id: new Date().toISOString(),
       },
     ]);
   }, []);
+  const onFindNearby = (pgs) => {
+    setMarkers(pgs);
+    return <h6>Wohoo! We've found playgrounds nearby</h6>;
+  };
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -56,7 +62,7 @@ export default function Map() {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
   }, []);
-  if (loadError) return <Error />;
+
   if (!isLoaded) return <Loading />;
 
   return (
@@ -70,43 +76,48 @@ export default function Map() {
       }}
     >
       <p>Use map to find nearby playgrounds</p>
-      <Search panTo={panTo} />
-      <Locate panTo={panTo} />
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={5}
-        options={options}
-        onClick={onMapClick}
-        onLoad={onMapLoad}
-      >
-        {" "}
-        {markers.map((marker) => (
-          <Marker
-            key={marker.time.toISOString()}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onClick={() => {
-              setSelected(marker);
-            }}
-            icon={{
-              url: "/icon.svg",
-              scaledSize: new window.google.maps.Size(30, 30),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
-            }}
-          />
-        ))}
-        {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <h6>Spot this playground! </h6>
-          </InfoWindow>
-        ) : null}
-      </GoogleMap>
+      <Locate panTo={panTo} onFindNearby={onFindNearby} />
+      {/* <Search panTo={panTo} /> */}
+      {/* {!isLoaded ? <Loading /> : null} */}
+      {loadError ? (
+        <Error />
+      ) : (
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={5}
+          options={options}
+          onClick={onMapClick}
+          onLoad={onMapLoad}
+        >
+          {" "}
+          {markers.map((marker) => (
+            <Marker
+              key={marker.id}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              // onClick={() => {
+              //   setSelected(marker);
+              // }}
+              icon={{
+                url: "/icon.svg",
+                scaledSize: new window.google.maps.Size(30, 30),
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+              }}
+            />
+          ))}
+          {/* {selected ? (
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <h6>Spot playground! </h6>
+            </InfoWindow>
+          ) : null} */}
+        </GoogleMap>
+      )}
     </div>
   );
 }

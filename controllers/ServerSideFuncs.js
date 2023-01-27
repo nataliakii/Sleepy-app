@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
+// const norms = require('..utils/norms');
 
 
 exports.addSleepyDoc = function (req, res) {
@@ -164,3 +165,10 @@ exports.deleteDoc = async function (req, res) {
   );
   return res.status(200).send(updateUser).end();
 };
+
+// exports.getNorms = function (req,res) {
+//   const ages = norms.agesNorms;
+//   const schedules = norms.schedulesNorms;
+
+//   res.send({ages:ages, schedules:schedules}).end()
+// }

@@ -6,6 +6,7 @@ import { fetchArtwork } from "../actions";
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const artwork = useSelector((state) => state.art);
   const handleArtButton = (e) => {
@@ -18,9 +19,10 @@ export default function FindRestaurant() {
   }, [artwork]);
 
   const conditional = () => {
-    if (loading || !artwork.title) {
+    if (loading) {
       return <Loading />;
     }
+    if (!artwork.title) return;
     return (
       <Container>
         <Row className="justify-content-md-center">
@@ -70,8 +72,9 @@ export default function FindRestaurant() {
       }}
     >
       <Container>
-        <h6>
-          This page is under construction. Meanwhile enjoy random artwork.
+        <h6 className="art-color">
+          This page is under construction. In the meantime, check out some
+          random art.
         </h6>
         <Button
           type="button"
