@@ -7,6 +7,7 @@ const getLocation=require("../controllers/googleMap")
 router.get("/addArticlesToDB", ServerSideFuncs.addArticlesToDB);
 router.get("/getTipsArticles", ServerSideFuncs.getArticles)
 router.post("/getLocation", getLocation.getLocation);
+router.get("/getFunFacts", ServerSideFuncs.getFunFacts);
 // router.get("/getNorms", ServerSideFuncs.getNorms);
 
 module.exports = router;

@@ -44,14 +44,14 @@ export default function FindRestaurant() {
             </p>
             <p className="art-text">
               <strong className="art-text-strong">Description</strong>:{" "}
-              {artwork.description}
+              {artwork.description}.
             </p>
             <p className="art-text">
               <strong className="art-text-strong">Artist</strong>:{" "}
               {artwork.artist}.
             </p>
             <p className="art-text">
-              <strong className="art-text-strong">Date</strong>: {artwork.date}{" "}
+              <strong className="art-text-strong">Date</strong>: {artwork.date}.{" "}
               y.
             </p>
           </Col>

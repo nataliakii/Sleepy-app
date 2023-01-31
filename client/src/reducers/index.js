@@ -7,6 +7,7 @@ import LocationReducer from "./loc-reducer";
 import ArtReducer from "./art-reducer";
 import PlaygroundsReducer from "./playgrounds-reducer";
 import ErrorReducer from "./error-reducer";
+import funFactReducer from "./funFact-reducer";
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -17,5 +18,6 @@ const rootReducer = combineReducers({
   playgrounds: PlaygroundsReducer,
   art: ArtReducer,
   error: ErrorReducer,
+  funFact: funFactReducer,
 });
 export default rootReducer;

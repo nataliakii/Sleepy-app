@@ -15,7 +15,6 @@ export const fetchUser = (token) => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/auth/${userId}`, config);
-    console.log("current USer", response.data);
     dispatch({ type: "AUTH_USER", payload: response.data });
   } catch (error) {
     console.log(error);
@@ -197,6 +196,15 @@ export const fetchErrorPic = () => async (dispatch) => {
     const response = await axios.get("https://dog.ceo/api/breeds/image/random");
     console.log(response);
     dispatch({ type: "FETCH_ERROR", payload: response.data.message });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFunFact = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${url}/api/getFunFacts`);
+    dispatch({ type: "FETCH_FUNFACT", payload: response.data });
   } catch (error) {
     console.log(error);
   }

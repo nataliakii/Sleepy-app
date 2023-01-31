@@ -347,8 +347,9 @@ span .footer {
 }
 .anchor {
   font-size: 10px !important;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
   color: #bf1650 !important;
+  margin: 1px;
 }
 .search {
   position: absolute;
@@ -380,4 +381,12 @@ p {
 }
 .art-color {
   color: #cb4472 !important;
+}
+.margin-top {
+  margin-top: 7%;
+  font-size: 15px;
+}
+.gm-hui-hover-effect [role="button"] {
+  display: none !important;
+  z-index: -1234134 !important;
 }

@@ -1,3 +1,4 @@
+
 const { Client } = require("@googlemaps/google-maps-services-js");
 
 exports.getLocation = function (req, res) {
@@ -14,9 +15,9 @@ exports.getLocation = function (req, res) {
   client
     .placesNearby({
       params: {
-        keyword: "playground",
-        type: ["park"],
-        radius: 5000000,
+        keyword: "Playground",
+        type: ["playground", 'park'],
+        radius: 5000,
         location: { lat: latitude, lng: longitude },
         key: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
       },

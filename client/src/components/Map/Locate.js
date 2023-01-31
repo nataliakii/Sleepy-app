@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
 import { fetchPlaygrounds, fetchLocation } from "../../actions";
-import Playgrounds from "./Playgrounds";
 
-export default function Locate({ panTo, onFindNearby }) {
+export default function Locate({ panTo }) {
   const dispatch = useDispatch();
-
+  const playgrounds = useSelector((state) => state.playgrounds);
+  const [coords, setCoords] = useState({});
   const getCoords = () => {
     function success(pos) {
       const coordinates = {
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
       };
+      setCoords(coordinates);
       panTo({
         lat: coordinates.lat,
         lng: coordinates.lng,
@@ -26,6 +27,7 @@ export default function Locate({ panTo, onFindNearby }) {
     }
     navigator.geolocation.getCurrentPosition(success);
   };
+  console.log("coming from Location setCoords", coords);
 
   return (
     <div>
@@ -37,7 +39,11 @@ export default function Locate({ panTo, onFindNearby }) {
       >
         Locate me
       </Button>
-      <Playgrounds onFindNearby={onFindNearby} />
+      {playgrounds.length > 0 ? (
+        <h2 className="white display-5">
+          Here are {playgrounds.length} playgrounds we found nearby :
+        </h2>
+      ) : null}
     </div>
   );
 }

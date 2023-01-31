@@ -1,18 +1,18 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
   useLoadScript,
   GoogleMap,
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-
+import { useSelector, useDispatch } from "react-redux";
 import mapStyles from "./mapStyles";
 import Loading from "../Loading";
 import Error from "../Error";
 import Search from "./Search";
 import Locate from "./Locate";
 
-const libraries = ["marker", "places"];
+const libraries = ["marker"];
 const containerStyle = {
   width: "100%",
   maxWidth: "1050px",
@@ -22,8 +22,8 @@ const containerStyle = {
   marginTop: "2%",
 };
 const center = {
-  lat: 34,
-  lng: -83,
+  lat: 35.787743,
+  lng: -78.644257,
 };
 const options = {
   styles: mapStyles,
@@ -36,23 +36,24 @@ export default function Map() {
     googleMapsApiKey: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
     libraries,
   });
-  const [markers, setMarkers] = useState([]);
-  console.log("markers are", markers);
+  // const [markers, setMarkers] = useState([{ lat: 3, lng: -10, id: "12312" }]);
+  const playgrounds = useSelector((state) => state.playgrounds);
+  // useEffect(() => {
+  //   setMarkers(playgrounds);
+  //   console.log(playgrounds);
+  // }, []);
+
   const [selected, setSelected] = useState(null);
-  const onMapClick = useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        id: new Date().toISOString(),
-      },
-    ]);
-  }, []);
-  const onFindNearby = (pgs) => {
-    setMarkers(pgs);
-    return <h6>Wohoo! We've found playgrounds nearby</h6>;
-  };
+  // const onMapClick = useCallback((e) => {
+  //   setMarkers((current) => [
+  //     ...current,
+  //     {
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //       id: new Date().toISOString(),
+  //     },
+  //   ]);
+  // }, []);
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -60,7 +61,7 @@ export default function Map() {
 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(15);
+    mapRef.current.setZoom(12);
   }, []);
 
   if (!isLoaded) return <Loading />;
@@ -76,9 +77,9 @@ export default function Map() {
       }}
     >
       <p>Use map to find nearby playgrounds</p>
-      <Locate panTo={panTo} onFindNearby={onFindNearby} />
+      <Locate panTo={panTo} />
       {/* <Search panTo={panTo} /> */}
-      {/* {!isLoaded ? <Loading /> : null} */}
+      {!isLoaded ? <Loading /> : null}
       {loadError ? (
         <Error />
       ) : (
@@ -87,35 +88,68 @@ export default function Map() {
           center={center}
           zoom={5}
           options={options}
-          onClick={onMapClick}
+          // onClick={onMapClick}
           onLoad={onMapLoad}
         >
           {" "}
-          {markers.map((marker) => (
+          {playgrounds.map((marker) => (
             <Marker
               key={marker.id}
               position={{ lat: marker.lat, lng: marker.lng }}
-              // onClick={() => {
-              //   setSelected(marker);
-              // }}
+              onClick={() => {
+                setSelected(marker);
+              }}
+              animation={2}
               icon={{
-                url: "/icon.svg",
-                scaledSize: new window.google.maps.Size(30, 30),
+                url: "/swingIcon.svg",
+                scaledSize: new window.google.maps.Size(25, 25),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(15, 15),
               }}
             />
           ))}
-          {/* {selected ? (
+          {selected ? (
             <InfoWindow
               position={{ lat: selected.lat, lng: selected.lng }}
               onCloseClick={() => {
                 setSelected(null);
               }}
             >
-              <h6>Spot playground! </h6>
+              <>
+                {/* <p className="anchor">
+                  <img src={selected.photo} />{" "}
+                </p> */}
+                {selected.address ? (
+                  <p className="anchor">
+                    <strong>Address :</strong>
+                    {selected.address}
+                  </p>
+                ) : (
+                  <p className="anchor">
+                    <strong> Vicinity : </strong> {selected.vicinity}{" "}
+                  </p>
+                )}
+
+                <p className="anchor">
+                  <strong> Link : </strong>{" "}
+                  <a href={selected.link} target="_blank">
+                    Here
+                  </a>{" "}
+                </p>
+              </>
             </InfoWindow>
-          ) : null} */}
+          ) : null}
+          {/* <Marker
+            key={current.id}
+            position={{ lat: current.lat, lng: current.lng }}
+            icon={{
+              url: "/slideIcon.svg",
+              scaledSize: new window.google.maps.Size(25, 25),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(15, 15),
+            }}
+          />
+          <h6>You are here! </h6> */}
         </GoogleMap>
       )}
     </div>

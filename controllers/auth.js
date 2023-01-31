@@ -3,7 +3,7 @@ const jwt = require("jwt-simple");
 const User = require("../models/user");
 const keys = require("../config/dev");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 function tokenForUser(user) {
   return jwt.encode(
@@ -95,7 +95,7 @@ exports.signup = function (req, res, next) {
         If you have any questions or need assistance, don't hesitate to reach out. We’re here to help.
         Best regards, SleepyApp`,
       };
-      console.log('msg', msg)
+      console.log('msg is :', msg)
       sgMail.send(msg).then(
         (res) => {console.log(res)},
         (error) => {

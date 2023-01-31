@@ -4,7 +4,8 @@ const User = require('../models/user');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
-// const norms = require('..utils/norms');
+// const norms = require('../utils/norms');
+const funFacts = require('../utils/funFacts');
 
 
 exports.addSleepyDoc = function (req, res) {
@@ -166,6 +167,11 @@ exports.deleteDoc = async function (req, res) {
   return res.status(200).send(updateUser).end();
 };
 
+exports.getFunFacts = function (req,res) {
+  const random0to11 = _.random(10);
+  const arrayOfFacts=funFacts.funFacts
+  res.send(arrayOfFacts[random0to11])
+}
 // exports.getNorms = function (req,res) {
 //   const ages = norms.agesNorms;
 //   const schedules = norms.schedulesNorms;

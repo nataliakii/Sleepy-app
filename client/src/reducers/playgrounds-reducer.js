@@ -1,4 +1,4 @@
-export default function PlaygroundsReducer(state = null, action) {
+export default function PlaygroundsReducer(state = [], action) {
   switch (action.type) {
     case "FETCH_PLAYGROUNDS":
       console.log(action.payload);

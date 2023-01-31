@@ -25,14 +25,14 @@ export default function Bar() {
       </Nav.Link>
       <Nav.Link
         className="color-text"
-        eventKey="link-4"
+        eventKey="link-2"
         onClick={() => navigate("/map")}
       >
         Find playground
       </Nav.Link>
       <Nav.Link
         className="color-text"
-        eventKey="link-4"
+        eventKey="link-3"
         onClick={() => navigate("/find-restaurant")}
       >
         Find restaurant with kidsroom
