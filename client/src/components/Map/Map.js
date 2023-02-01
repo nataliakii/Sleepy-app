@@ -21,10 +21,7 @@ const containerStyle = {
   Left: "4%",
   marginTop: "2%",
 };
-const center = {
-  lat: 35.787743,
-  lng: -78.644257,
-};
+
 const options = {
   styles: mapStyles,
   disableDefaultUI: true,
@@ -40,10 +37,11 @@ export default function Map() {
   const playgrounds = useSelector((state) => state.playgrounds);
   // useEffect(() => {
   //   setMarkers(playgrounds);
-  //   console.log(playgrounds);
   // }, []);
 
   const [selected, setSelected] = useState(null);
+  const [coords, setCoords] = useState({ lat: 50, lng: 30 });
+  console.log(coords);
   // const onMapClick = useCallback((e) => {
   //   setMarkers((current) => [
   //     ...current,
@@ -77,16 +75,15 @@ export default function Map() {
       }}
     >
       <p>Use map to find nearby playgrounds</p>
-      <Locate panTo={panTo} />
+      <Locate panTo={panTo} setCoords={setCoords} />
       {/* <Search panTo={panTo} /> */}
-      {!isLoaded ? <Loading /> : null}
       {loadError ? (
         <Error />
       ) : (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
-          zoom={5}
+          center={coords}
+          zoom={2}
           options={options}
           // onClick={onMapClick}
           onLoad={onMapLoad}
@@ -139,17 +136,6 @@ export default function Map() {
               </>
             </InfoWindow>
           ) : null}
-          {/* <Marker
-            key={current.id}
-            position={{ lat: current.lat, lng: current.lng }}
-            icon={{
-              url: "/slideIcon.svg",
-              scaledSize: new window.google.maps.Size(25, 25),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
-            }}
-          />
-          <h6>You are here! </h6> */}
         </GoogleMap>
       )}
     </div>

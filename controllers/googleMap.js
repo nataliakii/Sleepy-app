@@ -1,14 +1,9 @@
-
 const { Client } = require("@googlemaps/google-maps-services-js");
 
 exports.getLocation = function (req, res) {
   console.log("/getLocation route hit and this is req.body", req.body);
-  const latitude = req.body.coord.lat;
-  const longitude = req.body.coord.lng;
-  const latLng = {
-    lat: latitude,
-    long: longitude,
-  };
+  const lat = req.body.coord.lat;
+  const lng = req.body.coord.lng;
 
   const client = new Client({});
 
@@ -16,9 +11,35 @@ exports.getLocation = function (req, res) {
     .placesNearby({
       params: {
         keyword: "Playground",
-        type: ["playground", 'park'],
+        language: [
+          "da",
+          "en",
+          "nl",
+          "et",
+          "fi",
+          "fr",
+          "ka",
+          "de",
+          "iw",
+          "hi",
+          "is",
+          "it",
+          "uk",
+          "tr",
+          "es","es-419",
+          "ru",
+          "no",
+          "lt",
+          "lv",
+          "ko",
+          "ja",
+          "ar",
+          "ca",
+          "zh","zh-CN","zh-TW"
+        ],
+        type: ["playground", "park"],
         radius: 5000,
-        location: { lat: latitude, lng: longitude },
+        location: { lat: lat, lng: lng },
         key: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
       },
       timeout: 5000,

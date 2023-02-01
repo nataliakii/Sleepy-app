@@ -168,9 +168,9 @@ exports.deleteDoc = async function (req, res) {
 };
 
 exports.getFunFacts = function (req,res) {
-  const random0to11 = _.random(10);
+  const random0to12 = _.random(12);
   const arrayOfFacts=funFacts.funFacts
-  res.send(arrayOfFacts[random0to11])
+  res.send(arrayOfFacts[random0to12])
 }
 // exports.getNorms = function (req,res) {
 //   const ages = norms.agesNorms;

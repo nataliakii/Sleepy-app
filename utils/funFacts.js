@@ -9,5 +9,7 @@ exports.funFacts = [
     "After all, nothing brings a family closer together than a good night's sleep. Except maybe a good night's sleep in a separate bedroom. ",
     "After all, nothing brings a family closer together than a good night's sleep. Except for a bad night's sleep, which brings the family even closer together - in the same room!",
     "Dolphins sleep with one eye open in order to continue breathing while sleeping. They sleep while still swimming, resting only one half of their brain at a time, while the other half remains awake. ",
-    "As a side note, you're the best mother in the world."
+    "As a side note, you're the best mother in the world.",
+    "Sleep is an important part of life, and it is essential for physical and mental health. Unless of course you are a parent of young children, in which case sleep is more like a distant memory!",
+    "Sleep is an important part of life, and it is essential for physical and mental health. So let's all just hit the hay, and wake up with a refreshed perspective on life!"
   ];

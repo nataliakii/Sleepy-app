@@ -184,6 +184,7 @@ export const getOneDoc = (docId) => async (dispatch) => {
 export const fetchPlaygrounds = (coord) => async (dispatch) => {
   try {
     const response = await axios.post(`${url}/api/getLocation`, { coord });
+    console.log(response);
     const c = getPlaygroundsCoord(response);
     dispatch({ type: "FETCH_PLAYGROUNDS", payload: c });
   } catch (error) {
