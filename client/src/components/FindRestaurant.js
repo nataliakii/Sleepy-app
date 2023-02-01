@@ -66,7 +66,7 @@ export default function FindRestaurant() {
       style={{
         position: "absolute",
         display: "inline-block",
-        minWidth: "84%",
+        minWidth: "82%",
         minHeight: "99%",
         marginTop: "5%",
       }}

@@ -9,6 +9,8 @@ const funFacts = require('../utils/funFacts');
 
 
 exports.addSleepyDoc = function (req, res) {
+  console.log("req body", req.body)
+  console.log("req user", req.user)
   User.findOne({ _id: req.user._id }, (err, user) => {
     const { sleepData } = req.body
     const { calculateAge } = helpingFuncs;
@@ -64,6 +66,7 @@ exports.addSleepyDoc = function (req, res) {
       user.SleepyDocs.push(sleepyDoc);
 
       user.save((err, user) => {
+        console.log(sleepyDoc)
         res.send({
           sleepyDoc,
         });

@@ -36,8 +36,6 @@ export default function SleepyForm({ user }) {
   const error = useSelector((state) => state.sleepy?.errorMessage || "");
   const { nameKid } = user;
 
-  const handleChange = (e) => console.log(e);
-
   const handleFormSubmit = (data) => {
     dispatch(postForm(data, () => navigate("/personal/sleepy-form-get")));
   };
@@ -192,14 +190,15 @@ export default function SleepyForm({ user }) {
         style={{
           position: "absolute",
           display: "inline-block",
-          width: "100%",
           marginTop: "5%",
+          minWidth: "82%",
+          minHeight: "100%",
         }}
       >
-        <p className="col-md-8 margin-top">
+        <h6 className="art-color margin-top">
           Please, sign in for being able to get your personal recommendations on
           your baby's sleep schedule.
-        </p>
+        </h6>
       </div>
     );
   };

@@ -9,8 +9,8 @@ import icons from "../hooks/renderResultIcons";
 import Error from "./Error";
 
 export default function SleepyResults() {
-  const doc = useSelector((state) => state.sleepy);
   const convDate = (d) => new Date(d).toDateString();
+  const doc = useSelector((state) => state.sleepy);
   console.log(doc);
   const ww1R = doc.result.ww1R.message;
   const ww2R = doc.result.ww2R.message;

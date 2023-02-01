@@ -229,7 +229,7 @@ const helpingFuncs = {
       },
       lastNapR: {
         message: compareLastNap(norms.lastNap, lastNap).message,
-        code: compareLastNaps(norms.napMax, norms.napMin, numberOfNaps).code,
+        code: compareLastNap(norms.lastNap, lastNap).code,
       },
     };
   }),

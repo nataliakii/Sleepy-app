@@ -57,8 +57,10 @@ export default function EditProfile({ user }) {
       style={{
         position: "absolute",
         display: "inline-block",
-        width: "100%",
+        width: "auto",
         marginTop: "5%",
+        minWidth: "82%",
+        minHeight: "100%",
       }}
     >
       <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>

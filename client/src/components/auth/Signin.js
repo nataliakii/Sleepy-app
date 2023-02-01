@@ -1,11 +1,11 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { Button, Form } from 'react-bootstrap';
-import { signin } from '../../actions';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { Button, Form } from "react-bootstrap";
+import { signin } from "../../actions";
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -27,7 +27,7 @@ const Signin = () => {
   const handleFormSubmit = (data) => {
     dispatch(
       signin(data, () => {
-        navigate('/personal');
+        navigate("/personal");
       })
     );
   };
@@ -47,10 +47,11 @@ const Signin = () => {
     <div
       className="h-100 p-5 text-white bg-dark"
       style={{
-        position: 'absolute',
-        display: 'inline-block',
-        width: '100%',
-        marginTop: '5%',
+        position: "absolute",
+        display: "inline-block",
+        marginTop: "5%",
+        minWidth: "82%",
+        minHeight: "100%",
       }}
     >
       <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -61,7 +62,7 @@ const Signin = () => {
           <Form.Control
             type="email"
             placeholder="Enter email"
-            {...register('email', { required: true })}
+            {...register("email", { required: true })}
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -75,7 +76,7 @@ const Signin = () => {
           <Form.Control
             type="password"
             placeholder="Password"
-            {...register('password', { required: true })}
+            {...register("password", { required: true })}
           />
           {errors.password && (
             <p className="error-message">Password is a required field</p>

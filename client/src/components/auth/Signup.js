@@ -52,12 +52,13 @@ const Signup = () => {
 
   return (
     <div
-      className="h-auto p-5 text-white bg-dark"
+      className="h-100 p-5 text-white bg-dark"
       style={{
         position: "absolute",
         display: "inline-block",
-        width: "100%",
         marginTop: "5%",
+        minWidth: "82%",
+        minHeight: "100%",
       }}
     >
       <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>

@@ -47,7 +47,7 @@ export default function TipsSleep() {
         position: "absolute",
         display: "inline-block",
         marginTop: "5%",
-        minWidth: "85%",
+        minWidth: "83%",
         minHeight: "100%",
       }}
     >
