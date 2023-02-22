@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
-import { fetchPlaygrounds, fetchLocation } from "../../actions";
+import { fetchPlaygrounds, fetchDistances } from "../../actions";
+import { mapObjForDistances } from "../../hooks/mapObjForDistances";
+import Distance from "./Distance";
 
-export default function Locate({ panTo, setCoords }) {
+export default function Locate({ panTo, loc, leg }) {
   const dispatch = useDispatch();
-  const playgrounds = useSelector((state) => state.playgrounds);
   const [string, setString] = useState(false);
-  const getCoords = () => {
-    function success(pos) {
-      const coordinates = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-      };
-      setString(true);
-      setCoords(coordinates);
-      panTo({
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-      });
-      dispatch(
-        fetchPlaygrounds({
-          lat: coordinates.lat,
-          lng: coordinates.lng,
-        })
-      );
-    }
-    navigator.geolocation.getCurrentPosition(success);
+  console.log("render Locate, loc is :", loc);
+
+  const playgrounds = useSelector((state) => state.playgrounds);
+  const setCoords = () => {
+    const { lat } = loc;
+    const { lng } = loc;
+    setString(true);
+    panTo({ lat, lng });
+    dispatch(fetchPlaygrounds(loc));
   };
 
   return (
@@ -35,9 +25,9 @@ export default function Locate({ panTo, setCoords }) {
         variant="primary"
         type="button"
         className="main-button personal display-block art-centered"
-        onClick={() => getCoords()}
+        onClick={() => setCoords()}
       >
-        Locate me
+        Find nearby playgrounds
       </Button>
       {string ? (
         <h6 className="display-10">

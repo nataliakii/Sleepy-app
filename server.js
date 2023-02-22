@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
+const app = express();
 const http = require("http");
 const bodyParser = require("body-parser");
-const app = express();
 const authRouter = require("./routes/auth");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Server Setup
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 server.listen(port);
 console.log("Server listening on:", port);

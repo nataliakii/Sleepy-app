@@ -8,6 +8,8 @@ import ArtReducer from "./art-reducer";
 import PlaygroundsReducer from "./playgrounds-reducer";
 import ErrorReducer from "./error-reducer";
 import funFactReducer from "./funFact-reducer";
+import DistanceReducer from "./distance-reducer";
+import NormsReducer from "./norms-reducer";
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -15,9 +17,11 @@ const rootReducer = combineReducers({
   allDocs: AllDocsReducer,
   tips: TipsReducer,
   loc: LocationReducer,
+  distance: DistanceReducer,
   playgrounds: PlaygroundsReducer,
   art: ArtReducer,
   error: ErrorReducer,
   funFact: funFactReducer,
+  norms: NormsReducer,
 });
 export default rootReducer;

@@ -18,6 +18,13 @@ export default function Bar() {
     >
       <Nav.Link
         className="color-text"
+        eventKey="link-4"
+        onClick={() => navigate("/norms")}
+      >
+        Norms
+      </Nav.Link>
+      <Nav.Link
+        className="color-text"
         eventKey="link-1"
         onClick={() => navigate("/tips-sleep")}
       >

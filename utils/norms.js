@@ -14,7 +14,7 @@ exports.agesNorms = {
     age12: { from: 52, till: 57 },
     age13: { from: 56, till: 79 },
     age14: { from: 78, till: 105 },
-    age15: { from: 108, till: 157 },
+    age15: { from: 104, till: 157 },
   };
   
   exports.schedulesNorms = {
@@ -68,8 +68,8 @@ exports.agesNorms = {
       wwMax: 137,
       napSumMin: 175,
       napSumMax: 242,
-      napMax: 3,
-      napMin: 4,
+      napMax: 4,
+      napMin: 3,
       lastNap: '17:45',
     },
     age6: {
@@ -77,8 +77,8 @@ exports.agesNorms = {
       wwMax: 152,
       napSumMin: 175,
       napSumMax: 242,
-      napMax: 3,
-      napMin: 4,
+      napMax: 4,
+      napMin: 3,
       lastNap: '17:45',
     },
     age7: {
@@ -86,8 +86,8 @@ exports.agesNorms = {
       wwMax: 182,
       napSumMin: 205,
       napSumMax: 212,
-      napMax: 2,
-      napMin: 3,
+      napMax: 3,
+      napMin: 2,
       lastNap: '17:30',
     },
     age8: {
@@ -95,8 +95,8 @@ exports.agesNorms = {
       wwMax: 222,
       napSumMin: 175,
       napSumMax: 182,
-      napMax: 2,
-      napMin: 3,
+      napMax: 3,
+      napMin: 2,
       lastNap: '17:30',
     },
     age9: {
@@ -140,8 +140,8 @@ exports.agesNorms = {
       wwMax: 332,
       napSumMin: 115,
       napSumMax: 152,
-      napMax: 1,
-      napMin: 2,
+      napMax: 2,
+      napMin: 1,
       lastNap: '16:45',
     },
     age14: {

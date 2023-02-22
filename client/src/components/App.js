@@ -16,6 +16,7 @@ import EditProfile from "./EditProfile";
 import FindRestaurant from "./FindRestaurant";
 import OneDocDisplay from "./OneDocDisplay";
 import Map from "./Map/Map";
+import Norms from "./Norms";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/personal/all-docs-display" element={<AllDocsDisplay />} />
         <Route path="/personal/edit" element={<EditProfile user={user} />} />
         <Route path="/tips-sleep" element={<TipsSleep />} />
+        <Route path="/norms" element={<Norms />} />
         <Route path="/find-restaurant" element={<FindRestaurant />} />
         <Route path="/personal/:docId" element={<OneDocDisplay />} />
         <Route path="/map" element={<Map />} />

@@ -1,7 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { CircleLoader } from "react-spinners";
 
-export default function Loading() {
+export default function Loading({ children }) {
   return (
     <div
       className="h-100 p-5 text-white bg-dark main-container-center"
@@ -19,6 +19,7 @@ export default function Loading() {
           </Col>
         </Row>
       </Container>
+      {children}
     </div>
   );
 }

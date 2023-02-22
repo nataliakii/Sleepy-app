@@ -1,15 +1,21 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPhoto } from "../../hooks/fetchPhoto";
+import { fetchLocation } from "../../actions";
+import { TravelMode } from "@googlemaps/google-maps-services-js";
 import {
   useLoadScript,
   GoogleMap,
   Marker,
   InfoWindow,
+  DirectionsRenderer,
+  Circle,
+  MarkerClusterer,
 } from "@react-google-maps/api";
-import { useSelector, useDispatch } from "react-redux";
 import mapStyles from "./mapStyles";
 import Loading from "../Loading";
+import Distance from "./Distance";
 import Error from "../Error";
-import Search from "./Search";
 import Locate from "./Locate";
 
 const libraries = ["marker"];
@@ -21,9 +27,9 @@ const containerStyle = {
   Left: "4%",
   marginTop: "2%",
 };
-
 const options = {
   styles: mapStyles,
+  clickableIcons: false,
   disableDefaultUI: true,
   zoomControl: true,
 };
@@ -33,30 +39,54 @@ export default function Map() {
     googleMapsApiKey: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
     libraries,
   });
-  // const [markers, setMarkers] = useState([{ lat: 3, lng: -10, id: "12312" }]);
-  const playgrounds = useSelector((state) => state.playgrounds);
-  // useEffect(() => {
-  //   setMarkers(playgrounds);
-  // }, []);
-
-  const [selected, setSelected] = useState(null);
-  const [coords, setCoords] = useState({ lat: 50, lng: 30 });
-  console.log(coords);
-  // const onMapClick = useCallback((e) => {
-  //   setMarkers((current) => [
-  //     ...current,
-  //     {
-  //       lat: e.latLng.lat(),
-  //       lng: e.latLng.lng(),
-  //       id: new Date().toISOString(),
-  //     },
-  //   ]);
-  // }, []);
+  const dispatch = useDispatch();
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+    function success(pos) {
+      const coordinates = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      };
+      setCenter(coordinates);
+    }
+    navigator.geolocation.getCurrentPosition(success);
   }, []);
+  const [center, setCenter] = useState();
+  const [directions, setDirections] = useState();
+  const playgrounds = useSelector((state) => state.playgrounds);
 
+  const fetchDirections = (marker) => {
+    const service = new google.maps.DirectionsService();
+    service.route(
+      {
+        origin: center,
+        destination: { lat: marker.lat, lng: marker.lng },
+        travelMode: google.maps.TravelMode.WALKING,
+      },
+      (result, status) => {
+        if (status === "OK" && result) {
+          setDirections(result);
+        }
+      }
+    );
+  };
+
+  // useEffect(() => {
+  //   // dispatch(fetchLocation());
+  //   function success(pos) {
+  //     const coordinates = {
+  //       lat: pos.coords.latitude,
+  //       lng: pos.coords.longitude,
+  //     };
+  //     setCenter(coordinates);
+  //   }
+  //   navigator.geolocation.getCurrentPosition(success);
+  // }, []);
+
+  // const center = useMemo(() => ({ lat: loc.lat, lng: loc.lng }), [loc]);
+
+  const [selected, setSelected] = useState(null);
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(12);
@@ -74,27 +104,40 @@ export default function Map() {
         marginTop: "5%",
       }}
     >
-      <p>Use map to find nearby playgrounds</p>
-      <Locate panTo={panTo} setCoords={setCoords} />
-      {/* <Search panTo={panTo} /> */}
+      {directions ? (
+        <Distance leg={directions.routes[0].legs[0]} />
+      ) : (
+        <p>Use map to find nearby playgrounds</p>
+      )}
+      {center ? <Locate panTo={panTo} loc={center} /> : <Loading />}
+
       {loadError ? (
         <Error />
       ) : (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={coords}
+          center={center}
           zoom={2}
           options={options}
-          // onClick={onMapClick}
           onLoad={onMapLoad}
         >
-          {" "}
+          {directions ? (
+            <DirectionsRenderer
+              directions={directions}
+              options={{
+                polylineOptions: {
+                  strokeColor: "#bf1650",
+                },
+              }}
+            />
+          ) : null}
           {playgrounds.map((marker) => (
             <Marker
               key={marker.id}
               position={{ lat: marker.lat, lng: marker.lng }}
               onClick={() => {
                 setSelected(marker);
+                fetchDirections(marker);
               }}
               animation={2}
               icon={{
@@ -110,11 +153,12 @@ export default function Map() {
               position={{ lat: selected.lat, lng: selected.lng }}
               onCloseClick={() => {
                 setSelected(null);
+                setDirections(null);
               }}
             >
               <>
                 {/* <p className="anchor">
-                  <img src={selected.photo} />{" "}
+                  <img src={fetchPhoto(selected.photoLink)} />{" "}
                 </p> */}
                 {selected.address ? (
                   <p className="anchor">
@@ -133,6 +177,12 @@ export default function Map() {
                     Here
                   </a>{" "}
                 </p>
+                <div id="info-window">
+                  {" "}
+                  {directions ? (
+                    <Distance leg={directions.routes[0].legs[0]} />
+                  ) : null}
+                </div>
               </>
             </InfoWindow>
           ) : null}

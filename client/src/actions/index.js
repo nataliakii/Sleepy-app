@@ -1,9 +1,8 @@
 import axios from "axios";
 import _ from "lodash";
 import { artRandomURL, payloadToReturn } from "../hooks/artFuncs";
-import { getPlaygroundsCoord } from "../hooks/getPlaygroundsCoord";
 
-// const url = "http://localhost:5000";
+// const url = "http://localhost:8000";
 const url = "";
 
 export const fetchUser = (token) => async (dispatch) => {
@@ -184,9 +183,8 @@ export const getOneDoc = (docId) => async (dispatch) => {
 export const fetchPlaygrounds = (coord) => async (dispatch) => {
   try {
     const response = await axios.post(`${url}/api/getLocation`, { coord });
-    console.log(response);
-    const c = getPlaygroundsCoord(response);
-    dispatch({ type: "FETCH_PLAYGROUNDS", payload: c });
+    console.log(response.data);
+    dispatch({ type: "FETCH_PLAYGROUNDS", payload: response.data });
   } catch (error) {
     console.log(error);
   }
@@ -211,39 +209,25 @@ export const fetchFunFact = () => async (dispatch) => {
   }
 };
 
-// export const fetchLocation = () => (dispatch) => {
-//   const options = {
-//     enableHighAccuracy: true,
-//     timeout: 5000,
-//     maximumAge: 0,
-//   };
+export const fetchLocation = () => (dispatch) => {
+  function success(pos) {
+    const coordinates = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    dispatch({ type: "DISPLAY_LOCATION", payload: coordinates });
+  }
+  navigator.geolocation.getCurrentPosition(success);
+};
 
-//   function showError(error) {
-//     switch (error.code) {
-//       case error.PERMISSION_DENIED:
-//         return "User denied the request for Geolocation.";
-//       case error.POSITION_UNAVAILABLE:
-//         return "Location information is unavailable.";
-//       case error.TIMEOUT:
-//         return "The request to get user location timed out.";
-//       case error.UNKNOWN_ERROR:
-//         return "An unknown error occurred.";
-//       default:
-//         return null;
-//     }
-//   }
+export const fetchDistances = (obj) => async (dispatch) => {
+  const response = await axios.get(`${url}/api/getDistances`);
+  dispatch({ type: "FETCH_DISTANCES", payload: responce });
+};
 
-//   function success(pos) {
-//     const coordinates = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-//     dispatch({ type: "DISPLAY_LOCATION", payload: coordinates });
-//   }
+export const fetchNorms = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${url}/api/getNorms`);
 
-//   function error(err) {
-//     console.warn(`ERROR(${err.code}): ${err.message}`);
-//     dispatch({
-//       type: "LOC_ERROR",
-//       payload: showError(err),
-//     });
-//   }
-//   navigator.geolocation.getCurrentPosition(success, error, options);
-// };
+    dispatch({ type: "DISPLAY_NORMS", payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+};

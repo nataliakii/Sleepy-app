@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
-// const norms = require('../utils/norms');
+const norms = require('../utils/norms');
 const funFacts = require('../utils/funFacts');
 
 
@@ -169,15 +169,25 @@ exports.deleteDoc = async function (req, res) {
   );
   return res.status(200).send(updateUser).end();
 };
-
 exports.getFunFacts = function (req,res) {
   const random0to12 = _.random(12);
   const arrayOfFacts=funFacts.funFacts
   res.send(arrayOfFacts[random0to12])
 }
-// exports.getNorms = function (req,res) {
-//   const ages = norms.agesNorms;
-//   const schedules = norms.schedulesNorms;
-
-//   res.send({ages:ages, schedules:schedules}).end()
-// }
+exports.getNorms = function (req, res) {
+  const ages = norms.agesNorms;
+  const schedules = norms.schedulesNorms;
+  const func = () => {
+    let items = {};
+    Object.entries(schedules).map(([key, value]) => {
+      for (let [key1, value1] of Object.entries(ages)) {
+        value1 = `${value1.from < 0 ? 0 : value1.from} - ${value1.till -2} weeks`;
+        if (key1 == key) {
+          items[value1] = value;
+        }
+      }
+    });
+    return items;
+  };
+  res.send(func()).end();
+};

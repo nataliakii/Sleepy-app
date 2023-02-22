@@ -191,7 +191,7 @@ input[type="button"]:hover {
   text-align: center !important;
   width: 60rem !important;
   font-weight: 10 !important;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 td {
   font-size: 10px;
@@ -225,6 +225,7 @@ td {
   font-size: 11px !important;
 }
 .table-head {
+  text-transform: uppercase !important;
   background-color: rgb(76, 125, 128);
 }
 .ok-cell {
@@ -389,4 +390,7 @@ p {
 .gm-hui-hover-effect [role="button"] {
   display: none !important;
   z-index: -1234134 !important;
+}
+#info-window {
+  color: #cb4472 !important;
 }

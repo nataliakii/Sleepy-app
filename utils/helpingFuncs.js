@@ -264,6 +264,38 @@ const helpingFuncs = {
     }
     return arrayToReturn;
   }),
+
+  getPgs: getPgs=(arr)=> {
+    let playgroundsCoord = [];
+    arr.forEach((pg) => {
+      let pgData = {
+        opening: pg.opening_hours ? pg.opening_hours.open_now : null,
+        address: pg.formatted_address || null,
+        vicinity: pg.vicinity || null,
+        photoRef: pg.photos ? pg.photos[0].photo_reference : null,
+        photoLink: pg.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${pg.photos[0].photo_reference}&key=AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4` : null,
+        lat: pg.geometry.location.lat,
+        lng: pg.geometry.location.lng,
+        id: pg.place_id,
+        link: `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${pg.place_id}`,
+      };
+      playgroundsCoord.push(pgData);
+    });
+    return playgroundsCoord;
+  },
+  getDistance: getDistance=(ob)=> {
+    let arrToReturn=[]
+    for (let i=0; i<ob.destination_addresses.length; i++){
+      const o={
+        from: ob.origin_addresses[0],
+        to: ob.destination_addresses[i],
+        distance: ob.rows[0].elements[i].distance.text || 'zero resuls',
+        durationWalk:ob.rows[0].elements[i].duration.text || 'zero resuls'
+      }
+      arrToReturn.push(o)
+    }
+    return arrToReturn
+  }
 };
 
 module.exports = helpingFuncs;

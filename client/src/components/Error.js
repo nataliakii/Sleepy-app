@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchErrorPic } from "../actions";
 
-export default function Error() {
+export default function Error({ children }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchErrorPic());
@@ -26,6 +26,7 @@ export default function Error() {
           />
         </Col>
       </Row>
+      {children}
     </Container>
   );
 }

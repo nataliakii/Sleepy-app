@@ -11,7 +11,6 @@ import Error from "./Error";
 export default function SleepyResults() {
   const convDate = (d) => new Date(d).toDateString();
   const doc = useSelector((state) => state.sleepy);
-  console.log(doc);
   const ww1R = doc.result.ww1R.message;
   const ww2R = doc.result.ww2R.message;
   const ww3R = doc.result.ww3R?.message;
@@ -56,6 +55,7 @@ export default function SleepyResults() {
     }
   };
 
+  if (!doc) return <Error />;
   return (
     <div
       className="h-auto p-5 text-white bg-dark"
