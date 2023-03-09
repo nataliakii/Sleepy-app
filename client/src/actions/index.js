@@ -159,8 +159,7 @@ export const deleteDoc = (docId) => async (dispatch) => {
   };
   try {
     const response = await axios.delete(`${url}/user/${docId}`, config);
-    console.log(response.data.SleepyDocs);
-    dispatch({ type: "DELETE_DOC", payload: response.data.SleepyDocs });
+    dispatch({ type: "DELETE_DOC" });
   } catch (error) {
     console.log(error);
   }
@@ -174,7 +173,7 @@ export const getOneDoc = (docId) => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/user/${docId}`, config);
-    dispatch({ type: "GET_DOC" });
+    dispatch({ type: "GET_DOC", payload: response.data.SleepyDocs });
   } catch (error) {
     console.log(error);
   }
@@ -225,7 +224,6 @@ export const fetchDistances = (obj) => async (dispatch) => {
 export const fetchNorms = () => async (dispatch) => {
   try {
     const response = await axios.get(`${url}/api/getNorms`);
-
     dispatch({ type: "DISPLAY_NORMS", payload: response.data });
   } catch (error) {
     console.log(error);

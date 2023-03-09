@@ -41,7 +41,7 @@ exports.getLocation = function (req, res) {
         type: ["playground", "park"],
         radius: 5000,
         location: { lat: lat, lng: lng },
-        key: "AIzaSyAPFke-0DvZs8-Yw-IYnj8-Zr7M3G4d8l4",
+        key: "AIzaSyB0xtT-PgDUe0Q3-PFFMnBxCLjXoTWUY5Q",
       },
       timeout: 5000,
     })
