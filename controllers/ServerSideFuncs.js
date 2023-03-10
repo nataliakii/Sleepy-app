@@ -214,11 +214,10 @@ exports.addNormsToDB = function (req, res) {
  res.send('Norms were added').end(); 
 }
 
-exports.getNorms = function (req, res) {
+exports.getNorms = async function (req, res) {
   console.log("/getNorms route hit")
-  Norm.find({}).exec((err, norms) => {
-    res.send(norms)
-  })
+  const n = await Norm.find({})
+  res.send(n).end()
 };
 
 exports.fetchN=function(req,res){
