@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchNorms } from "../actions";
 import { Table } from "react-bootstrap";
 import displayTime from "../hooks/displayTime";
+import { calculateAge } from "../hooks/calculateAge";
 
 const Norms = React.memo(function () {
   const dispatch = useDispatch();

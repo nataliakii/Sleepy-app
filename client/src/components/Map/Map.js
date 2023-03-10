@@ -1,16 +1,11 @@
 import React, { useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPhoto } from "../../hooks/fetchPhoto";
-import { fetchLocation } from "../../actions";
-import { TravelMode } from "@googlemaps/google-maps-services-js";
 import {
   useLoadScript,
   GoogleMap,
   Marker,
   InfoWindow,
   DirectionsRenderer,
-  Circle,
-  MarkerClusterer,
 } from "@react-google-maps/api";
 import mapStyles from "./mapStyles";
 import Loading from "../Loading";
