@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const { SleepyModel } = require('../models/sleep');
 const User = require('../models/user');
+const Norm = require('../models/norm');
 const Article = require('../models/article');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
@@ -174,20 +175,56 @@ exports.getFunFacts = function (req,res) {
   const arrayOfFacts=funFacts.funFacts
   res.send(arrayOfFacts[random0to12])
 }
-exports.getNorms = function (req, res) {
+exports.addNormsToDB = function (req, res) {
+  console.log("/addNormToDB route hit")
+  const {ConvAgeinWeeks} = helpingFuncs
   const ages = norms.agesNorms;
   const schedules = norms.schedulesNorms;
   const func = () => {
-    let items = {};
+    let items = [];
     Object.entries(schedules).map(([key, value]) => {
       for (let [key1, value1] of Object.entries(ages)) {
-        value1 = `${value1.from < 0 ? 0 : value1.from} - ${value1.till -2} weeks`;
+        // value1 = {'weeks': `${value1.from < 0 ? 0 : value1.from} - ${value1.till -2} weeks`, 'short': `${ConvAgeinWeeks(value1.from)}-${ConvAgeinWeeks(value1.till)}`}
+        value1 = `${ConvAgeinWeeks(value1.from) === ConvAgeinWeeks(value1.till) ? "" : ConvAgeinWeeks(value1.from) + "-" } ${ConvAgeinWeeks(value1.till)}`
         if (key1 == key) {
-          items[value1] = value;
+          let item = {}
+          item['age'] = value1;
+          item['content'] = value
+          item['name'] = key
+          items.push(item)
         }
       }
-    });
+    }); 
     return items;
   };
-  res.send(func()).end();
+  const ObjectForAdding=func()
+
+  ObjectForAdding.forEach(el=>{
+  const norm = new Norm({
+    age: el.age,
+    name: el.name,
+    content:el.content
+  })
+  Norm.findOne({ name: norm.name }, function (err, findNorm) {
+      if (!findNorm) {
+        norm.save()
+      }
+    })
+ })
+ res.send('Norms were added').end(); 
+}
+
+exports.getNorms = function (req, res) {
+  console.log("/getNorms route hit")
+  Norm.find({}).exec((err, norms) => {
+    res.send(norms)
+  })
 };
+
+exports.fetchN=function(req,res){
+
+  const { age } = req.query;
+  const { findNorm } = helpingFuncs;
+  const scheduleNorms=findNorm(age) || norms. schedulesNorms.age15
+  res.send(scheduleNorms)
+}

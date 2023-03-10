@@ -14,7 +14,6 @@ export default function TipsSleep() {
   //   dispatch(fetchTips());
   // }, []);
   const tips = articles;
-  console.log("articles", articles, "state", tips);
 
   const loopingTip = (content) => {
     const checkExpertTip = (par) => {
