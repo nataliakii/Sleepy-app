@@ -37,10 +37,10 @@ export default function Main({ user }) {
       <div className="container-fluid py-4">
         <h1 className="display-5 fw-bold">Hello, {renderStringName()}</h1>
         <p className="col-md-7 fs-5">
-          Our goal is to help mothers sleep more. Is that possible? It's just a
-          matter of figuring out how to organize your baby's sleep.
+          We're on a mission to help new moms get the sleep they deserve. Let us
+          help you create a peaceful and restful environment for you and your
+          little one.
         </p>
-
         <Button
           variant="primary"
           className="main-button personal main"

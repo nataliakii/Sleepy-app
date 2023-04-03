@@ -68,4 +68,4 @@ const Norms = React.memo(function () {
     </div>
   );
 });
-export default Norms;
+export default React.memo(Norms);

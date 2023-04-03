@@ -9,8 +9,6 @@ const funFacts = require('../utils/funFacts');
 
 
 exports.addSleepyDoc = function (req, res) {
-  console.log("req body", req.body)
-  console.log("req user", req.user)
   User.findOne({ _id: req.user._id }, (err, user) => {
     const { sleepData } = req.body
     const { calculateAge } = helpingFuncs;
@@ -191,3 +189,5 @@ exports.getNorms = function (req, res) {
   };
   res.send(func()).end();
 };
+
+

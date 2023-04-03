@@ -10,7 +10,6 @@ export default function FindRestaurant() {
   const [loading, setLoading] = useState(false);
   const artwork = useSelector((state) => state.art);
   const handleArtButton = (e) => {
-    e.preventDefault();
     setLoading(true);
     dispatch(fetchArtwork());
   };
