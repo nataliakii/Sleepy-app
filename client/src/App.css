@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,7 +35,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .centered {
   text-align: center;
@@ -113,47 +113,32 @@ label {
   font-weight: 200;
 }
 
-button[type="submit"],
-button[type="button"],
-button[type="link"],
-input[type="submit"] {
+/* button {
   color: white;
   text-transform: uppercase;
   border: none;
-  padding: 20px;
   font-size: 16px;
   letter-spacing: 5px;
   display: block;
-  appearance: none;
   background: rgb(112, 128, 144);
   border-radius: 4px;
   font-weight: 100;
-}
+} */
 
-button[type="submit"]:hover,
-button[type="button"]:hover,
-button[type="link"]:hover,
-input[type="submit"]:hover {
+/* button:hover {
   background: #bf1650 !important;
-}
+} */
 
-button[type="submit"]:active,
-button[type="button"]:active,
-button[type="link"]:active,
-input[type="submit"]:active {
+button:active {
   transition: 0.3s all !important;
   transform: translateY(3px) !important;
   border: 1px solid transparent !important;
   opacity: 0.8 !important;
 }
 
-input:disabled {
-  opacity: 0.4;
-}
-
-input[type="button"]:hover {
+/* input[type="button"]:hover {
   transition: 0.3s all;
-}
+} */
 
 /* button[type="submit"],
   input[type="button"],

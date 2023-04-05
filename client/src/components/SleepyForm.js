@@ -8,6 +8,7 @@ import { Button, Form, Row } from "react-bootstrap";
 import { postForm } from "../actions";
 
 export default function SleepyForm({ user }) {
+  console.log(user);
   const { kidBD } = user;
   const sleepySchema = Yup.object().shape({
     date: Yup.date().required().default(new Date(kidBD)),

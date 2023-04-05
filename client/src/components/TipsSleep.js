@@ -17,7 +17,7 @@ export default function TipsSleep() {
   console.log("articles", articles, "state", tips);
 
   const loopingTip = (content) => {
-    const checkExpertTip = (par) => {
+    const checkExpertTip = (par, index) => {
       if (par.expertTip) {
         return (
           <>
@@ -27,14 +27,15 @@ export default function TipsSleep() {
         );
       }
     };
-    const loopText = (text) =>
-      text.map((p, i) => <div key={`looptext${keyRand}${i}`}>{p}</div>);
+    const loopText = (text, contentIndex) =>
+      text.map((p, i) => (
+        <div key={`looptext${keyRand}-${contentIndex}-${i}`}>{p}</div>
+      ));
 
     const contentTOreturn = content.map((p, i) => (
-      <div key={`content${keyRand}${i}`}>
-        {" "}
+      <div key={`content${keyRand}-${i}`}>
         {p.title ? <h5>{p.title}</h5> : null}
-        <div>{loopText(p.text)}</div> {checkExpertTip(p)}{" "}
+        <div>{loopText(p.text, i)}</div> {checkExpertTip(p, i)}{" "}
       </div>
     ));
     return contentTOreturn;
@@ -55,7 +56,7 @@ export default function TipsSleep() {
       {tips.length > 0 ? (
         <Accordion defaultActiveKey={["1"]} alwaysOpen>
           {tips.map((tip, i) => (
-            <Accordion.Item style={{ width: "75%" }} eventKey={i} key={tip._id}>
+            <Accordion.Item style={{ width: "75%" }} eventKey={i} key={i}>
               <Accordion.Header>{tip.name}</Accordion.Header>
               <Accordion.Body>{loopingTip(tip.content)}</Accordion.Body>
             </Accordion.Item>

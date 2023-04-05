@@ -2,6 +2,7 @@ const _ = require('lodash');
 const { SleepyModel } = require('../models/sleep');
 const User = require('../models/user');
 const Article = require('../models/article');
+const Norm = require('../models/norm');
 const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
 const norms = require('../utils/norms');
@@ -191,3 +192,8 @@ exports.getNorms = function (req, res) {
 };
 
 
+exports.getNorms =async  function (req, res) {
+  console.log("/getNorms route hit")
+  const n = await Norm.find({})
+  res.send(n)
+};

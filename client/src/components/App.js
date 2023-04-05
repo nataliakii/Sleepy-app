@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { fetchUser } from "../actions";
@@ -17,38 +17,66 @@ import FindRestaurant from "./FindRestaurant";
 import OneDocDisplay from "./OneDocDisplay";
 import Map from "./Map/Map";
 import Norms from "./Norms";
+import { createTheme, ThemeProvider } from "@mui/material/";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#3C7D80",
+      light: "#4C7D80",
+      dark: "#073a67",
+    },
+    button: {
+      main: "#bf1650",
+      light: "#7D803C",
+      dark: "#d7a8b6",
+    },
+    text: {
+      main: "#3C7D80",
+      light: "whitesmoke",
+      dark: "#cb4587",
+    },
+  },
+});
 
 const App = () => {
   const dispatch = useDispatch();
-
-  const { token } = localStorage;
-  useEffect(() => {
-    if (token) {
-      dispatch(fetchUser(token));
-    }
-  }, []);
   const user = useSelector((state) => state.auth);
+  const auth = user.authenticated;
+  useEffect(() => {
+    if (auth) {
+      dispatch(fetchUser());
+    }
+  }, [auth, dispatch]);
+
+  const navElement = useMemo(() => <Nav user={user} />, [user]);
+  const mainElement = useMemo(() => <Main user={user} />, [user]);
+  const personalElement = useMemo(() => <Personal user={user} />, [user]);
+  const editProfileElement = useMemo(() => <EditProfile user={user} />, [user]);
+  const NormsElement = useMemo(() => <Norms />, []);
+  const TipsElement = useMemo(() => <TipsSleep />, []);
+  const barElement = useMemo(() => <Bar />, []);
 
   return (
-    <div>
-      <Nav user={user} />
-      <Bar />
+    <ThemeProvider theme={theme}>
+      {navElement}
+      {/* {barElement} */}
       <Routes>
-        <Route exact path="/" element={<Main user={user} />} />
+        <Route exact path="/" element={mainElement} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route exact path="/personal" element={<Personal user={user} />} />
+        <Route exact path="/personal" element={personalElement} />
         <Route path="/sleepy-form-post" element={<SleepyForm user={user} />} />
         <Route path="/personal/sleepy-form-get" element={<SleepyResults />} />
         <Route path="/personal/all-docs-display" element={<AllDocsDisplay />} />
-        <Route path="/personal/edit" element={<EditProfile user={user} />} />
-        <Route path="/tips-sleep" element={<TipsSleep />} />
-        <Route path="/norms" element={<Norms />} />
+        <Route path="/personal/edit" element={editProfileElement} />
+        <Route path="/tips-sleep" element={TipsElement} />
+        <Route path="/norms" element={NormsElement} />
         <Route path="/find-restaurant" element={<FindRestaurant />} />
         <Route path="/personal/:docId" element={<OneDocDisplay />} />
         <Route path="/map" element={<Map />} />
       </Routes>
-    </div>
+    </ThemeProvider>
   );
 };
 
