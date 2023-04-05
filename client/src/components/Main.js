@@ -1,11 +1,29 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Typography } from "@mui/material";
 import { fetchFunFact } from "../actions";
 import { MdAccessibilityNew } from "react-icons/md";
+import { styled } from "@mui/material/styles";
+import Footer from "./Footer";
 
-export default function Main({ user }) {
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.8 ",
+  },
+}));
+
+export default function Main({ user, companyData }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchFunFact());
@@ -24,39 +42,56 @@ export default function Main({ user }) {
 
   return (
     <Container
-      className="h-100 p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        marginTop: "5%",
-        float: "left",
-        fontWeight: "200",
-        maxWidth: "89%",
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <div className="container-fluid py-4">
-        <h1 className="display-5 fw-bold">Hello, {renderStringName()}</h1>
-        <p className="col-md-7 fs-5">
-          We're on a mission to help new moms get the sleep they deserve. Let us
-          help you create a peaceful and restful environment for you and your
-          little one.
-        </p>
-        <Button
-          variant="primary"
-          className="main-button personal main"
-          type="button"
-          onClick={() => navigate("/sleepy-form-post")}
-        >
-          I love sleeping more than anything!
-        </Button>
-        <h6 className="col-md-7 margin-top">
-          {" "}
-          <em>
-            {" "}
-            <MdAccessibilityNew /> {funFact}{" "}
-          </em>
-        </h6>
-      </div>
+      <Typography variant="h2" align="center" gutterBottom sx={{ mt: -10 }}>
+        Hello, {renderStringName()}
+      </Typography>
+      <Typography variant="h4" align="center" gutterBottom>
+        We're on a mission to help new moms get the sleep they deserve. Let us
+        help you create a peaceful and restful environment for you and your
+        little one.
+      </Typography>
+      <CustomButton
+        variant="contained"
+        size="large"
+        onClick={() => navigate("/sleepy-form-post")}
+        sx={{ mt: 2 }}
+      >
+        I love sleeping more than anything! I want to submit a form.
+      </CustomButton>
+      <CustomButton
+        variant="contained"
+        size="large"
+        onClick={() => navigate("/map")}
+        sx={{ mt: 2 }}
+      >
+        Show me a map with nearby playgrounds!
+      </CustomButton>
+      <CustomButton
+        variant="contained"
+        size="large"
+        onClick={() => navigate("/find-restaurant")}
+        sx={{ mt: 2 }}
+      >
+        I want some entertainment!
+      </CustomButton>
+      <Typography variant="subtitle1" align="center" sx={{ mt: 4 }}>
+        <em>
+          <MdAccessibilityNew />
+          {funFact}
+        </em>
+      </Typography>
+      <Footer companyData={companyData} />
     </Container>
   );
 }

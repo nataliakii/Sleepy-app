@@ -37,7 +37,28 @@ const theme = createTheme({
       dark: "#cb4587",
     },
   },
+  overrides: {
+    MuiButton: {
+      root: {
+        "&:hover": {
+          color: "#bf1650",
+          backgroundColor: "transparent",
+        },
+        "&:active": {
+          transition: "0.3s all ",
+          transform: "translateY(3px) ",
+          border: "1px solid transparent",
+          opacity: "0.8 ",
+        },
+      },
+    },
+  },
 });
+
+const companyData = {
+  name: "SleepyApp",
+  url: "https://protected-beach-44415.herokuapp.com/",
+};
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,8 +70,14 @@ const App = () => {
     }
   }, [auth, dispatch]);
 
-  const navElement = useMemo(() => <Nav user={user} />, [user]);
-  const mainElement = useMemo(() => <Main user={user} />, [user]);
+  const navElement = useMemo(
+    () => <Nav user={user} companyData={companyData} />,
+    [user]
+  );
+  const mainElement = useMemo(
+    () => <Main user={user} companyData={companyData} />,
+    [user]
+  );
   const personalElement = useMemo(() => <Personal user={user} />, [user]);
   const editProfileElement = useMemo(() => <EditProfile user={user} />, [user]);
   const NormsElement = useMemo(() => <Norms />, []);

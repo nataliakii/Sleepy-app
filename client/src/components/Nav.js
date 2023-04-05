@@ -41,7 +41,7 @@ const pages = [
   { page: "Entertainment", to: "/find-restaurant" },
 ];
 
-const Nav = ({ user }) => {
+const Nav = ({ user, companyData }) => {
   console.log("name from Nav", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -115,7 +115,7 @@ const Nav = ({ user }) => {
                 letterSpacing: ".1rem",
               }}
             >
-              SleepyApp
+              {companyData.name}
             </Typography>
           </ButtonBase>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
