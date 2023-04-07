@@ -4,8 +4,31 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Button, Form } from "react-bootstrap";
+import {
+  Button,
+  TextField,
+  Typography,
+  Box,
+  Container,
+  styled,
+} from "@mui/material";
 import { signin } from "../../actions";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.01 ",
+  },
+}));
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -35,58 +58,83 @@ const Signin = () => {
   const errorRender = () => {
     if (error) {
       return (
-        <p className="error-message">
+        <Typography color="error" variant="body2">
           It seems invalid login or password was provided. Please, try again or
-          sing up.
-        </p>
+          sign up.
+        </Typography>
       );
     }
   };
 
   return (
-    <div
-      className="h-100 p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        marginTop: "5%",
-        minWidth: "82%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
-        <h3 className="centered">Signin</h3>
-        {errorRender()}
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
+      <Box
+        component="form"
+        className="form-signup"
+        onSubmit={handleSubmit(handleFormSubmit)}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          ml: 2,
+          mt: -10,
+        }}
+      >
+        <Typography
+          variant="h5"
+          align="center"
+          sx={{ textTransform: "uppercase" }}
+        >
+          Signin
+        </Typography>
+        <Box mt={2}>{errorRender()}</Box>
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="email"
+            label="Email"
+            variant="outlined"
+            margin="normal"
             {...register("email", { required: true })}
+            error={!!errors.email}
+            helperText={errors.email && "Email is a required field"}
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-          {errors.email && (
-            <p className="error-message">Email is a required field</p>
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </Box>
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="password"
+            label="Password"
             type="password"
-            placeholder="Password"
+            variant="outlined"
+            margin="normal"
             {...register("password", { required: true })}
+            error={!!errors.password}
+            helperText={errors.password && "Password is a required field"}
           />
-          {errors.password && (
-            <p className="error-message">Password is a required field</p>
-          )}
-        </Form.Group>
-        <Button variant="primary" type="submit" className="centered-button">
-          Submit
-        </Button>
-      </Form>
-    </div>
+        </Box>
+        <Box mt={2}>
+          <CustomButton
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Submit
+          </CustomButton>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

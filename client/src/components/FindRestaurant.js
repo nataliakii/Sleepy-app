@@ -1,8 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  Container,
+  Button,
+  Typography,
+  styled,
+  Box,
+  Grid,
+  CircularProgress,
+} from "@mui/material";
 import Loading from "./Loading";
 import { fetchArtwork } from "../actions";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.8 ",
+  },
+}));
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
@@ -17,74 +42,63 @@ export default function FindRestaurant() {
     setLoading(false);
   }, [artwork]);
 
-  const conditional = () => {
-    if (loading) {
-      return <Loading />;
-    }
-    if (!artwork.title) return;
-    return (
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col>
+  return (
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
+      }}
+    >
+      <Typography sx={{ color: "primary.main" }}>
+        This page is under construction. In the meantime, check out some random
+        art.
+      </Typography>
+      <CustomButton
+        variant="contained"
+        size="large"
+        onClick={handleArtButton}
+        sx={{ mt: 2 }}
+      >
+        Show me artwork
+      </CustomButton>
+
+      {loading && <Loading />}
+
+      {artwork.title && (
+        <Grid container justifyContent="center" sx={{ mt: 4 }}>
+          <Grid item sx={{ maxWidth: 500 }}>
             <img
               style={{
                 height: "420px",
                 maxWidth: "420px",
-                alignSelf: "center",
+                alignSelf: "left",
               }}
               src={artwork.imageURL}
               alt="artwork"
             />
-          </Col>
-          <Col>
-            <p className="art-text">
-              <strong className="art-text-strong">Title </strong>:{" "}
-              {artwork.title}.
-            </p>
-            <p className="art-text">
-              <strong className="art-text-strong">Description</strong>:{" "}
-              {artwork.description}.
-            </p>
-            <p className="art-text">
-              <strong className="art-text-strong">Artist</strong>:{" "}
-              {artwork.artist}.
-            </p>
-            <p className="art-text">
-              <strong className="art-text-strong">Date</strong>: {artwork.date}.{" "}
-              y.
-            </p>
-          </Col>
-        </Row>
-      </Container>
-    );
-  };
-
-  return (
-    <div
-      className="h-100 p-5 text-white bg-dark main-container-center"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        minWidth: "82%",
-        minHeight: "99%",
-        marginTop: "5%",
-      }}
-    >
-      <Container>
-        <h6 className="art-color">
-          This page is under construction. In the meantime, check out some
-          random art.
-        </h6>
-        <Button
-          type="button"
-          variant="primary"
-          className="main-button personal display-block art-centered"
-          onClick={handleArtButton}
-        >
-          Show me artwork
-        </Button>
-      </Container>
-      {conditional()}
-    </div>
+          </Grid>
+          <Grid item sx={{ ml: 4, maxWidth: 500 }}>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              <strong>Title</strong>: {artwork.title}.
+            </Typography>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              <strong>Description</strong>: {artwork.description}.
+            </Typography>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              <strong>Artist</strong>: {artwork.artist}.
+            </Typography>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              <strong>Date</strong>: {artwork.date}. y.
+            </Typography>
+          </Grid>
+        </Grid>
+      )}
+    </Container>
   );
 }

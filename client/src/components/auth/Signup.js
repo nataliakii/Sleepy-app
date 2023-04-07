@@ -1,11 +1,39 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import {
+  Container,
+  Typography,
+  Box,
+  styled,
+  TextField,
+  Button,
+  Modal,
+  Dialog,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Button, Form, Modal } from "react-bootstrap";
 import { signup } from "../../actions";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.01 ",
+  },
+}));
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -41,7 +69,7 @@ const Signup = () => {
   };
 
   const handleSignUpButton = () => {
-    useNavigate("/personal");
+    window.location.href = "/personal";
   };
 
   const errorRender = () => {
@@ -51,96 +79,135 @@ const Signup = () => {
   };
 
   return (
-    <div
-      className="h-100 p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        marginTop: "5%",
-        minWidth: "82%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
-        <h3 className="centered">Signup</h3>
+      <Box
+        component="form"
+        className="form-signup"
+        onSubmit={handleSubmit(handleFormSubmit)}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          ml: 2,
+          mt: -10,
+        }}
+      >
+        <Typography
+          sx={{ textTransform: "uppercase" }}
+          variant="h5"
+          align="center"
+        >
+          Signup
+        </Typography>
         {errorRender()}
-        <Form.Group className="mb-2" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="enter email"
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="email"
+            label="Email"
+            variant="outlined"
             {...register("email", { required: true })}
+            error={!!errors.email}
+            helperText={errors.email && "Email is a required field"}
           />
-          {errors.email && (
-            <p className="error-message">Email is a required field</p>
-          )}
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </Box>
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="password"
+            label="Password"
+            variant="outlined"
             type="password"
-            placeholder="password"
             {...register("password", { required: true })}
+            error={!!errors.password}
+            helperText={errors.password && "Password is a required field"}
           />
-          {errors.password && (
-            <p className="error-message">Password is a required field</p>
-          )}
-        </Form.Group>
-
-        <Form.Group className="mb-2" controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            placeholder="your name"
+        </Box>
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="name"
+            label="Your name"
+            variant="outlined"
             {...register("name", { required: true })}
+            error={!!errors.name}
+            helperText={errors.name && "Name is a required field"}
           />
-          {errors.name && (
-            <p className="error-message">Name is a required field</p>
-          )}
-        </Form.Group>
+        </Box>
 
-        <Form.Group className="mb-2" controlId="formBasicNameKid">
-          <Form.Label>Your kid's name</Form.Label>
-          <Form.Control
-            placeholder="kid's name"
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="nameKid"
+            label="Kid's name"
+            variant="outlined"
             {...register("nameKid", { required: true })}
+            error={!!errors.nameKid}
+            helperText={errors.nameKid && "Kid's name is a required field"}
           />
-          {errors.nameKid && (
-            <p className="error-message">Please, provide your kid's name</p>
-          )}
-        </Form.Group>
+        </Box>
 
-        <Form.Group className="mb-2" controlId="formBasicDate">
-          <Form.Label>Your kid's birthday</Form.Label>
-          <Form.Control
-            type="date"
+        <Box mt={2}>
+          <TextField
+            fullWidth
+            id="kidBD"
+            label="Kid's Birthday"
+            variant="outlined"
+            sx={{ mb: 2 }}
             {...register("kidBD", { required: true })}
+            error={!!errors.kidBD}
+            helperText={errors.kidBD && "Kid's BD is a required field"}
           />
-          {errors.kidBD && (
-            <p className="error-message">Please, provide your kid's birthday</p>
-          )}
-        </Form.Group>
+        </Box>
 
-        <Button variant="primary" type="submit" className="centered-button">
+        <CustomButton
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
           Sign me up
-        </Button>
-      </Form>
+        </CustomButton>
+      </Box>
 
-      <Modal show={show} onHide={handleClose} centered>
+      <Dialog open={show} onClose={handleClose} fullWidth maxWidth="sm">
+        <DialogContent>
+          <div className="modal-title">
+            {name}, welcome to SleepyApp! Thanks for signing up
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <CustomButton
+            sx={{ backgroundColor: "primary.main" }}
+            onClick={handleSignUpButton}
+          >
+            Woohoo! The best thing that ever happened to me was sleeping more!
+            Where is a sofa here?
+          </CustomButton>
+        </DialogActions>
+      </Dialog>
+      {/* <Modal show={show} onHide={handleClose} centered>
         <Modal.Body className="modal-title">
           {name}, welcome to SleepyApp! Thanks for signing up
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            className="modal-signup"
-            variant="primary"
-            onClick={handleSignUpButton}
-          >
+          <CustomButton className="modal-signup" onClick={handleSignUpButton}>
             Woohoo! The best thing that ever happened to me was sleeping more!
             Where is a sofa here ?
-          </Button>
+          </CustomButton>
         </Modal.Footer>
-      </Modal>
-    </div>
+      </Modal> */}
+    </Container>
   );
 };
 

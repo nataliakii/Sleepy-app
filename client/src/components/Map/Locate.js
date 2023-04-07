@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "react-bootstrap";
 import { fetchPlaygrounds, fetchDistances } from "../../actions";
 import { mapObjForDistances } from "../../hooks/mapObjForDistances";
 import Distance from "./Distance";
+import { styled, Button, Typography } from "@mui/material/";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.8 ",
+  },
+}));
 
 export default function Locate({ panTo, loc, leg }) {
   const dispatch = useDispatch();
@@ -21,18 +37,18 @@ export default function Locate({ panTo, loc, leg }) {
 
   return (
     <div>
-      <Button
-        variant="primary"
-        type="button"
-        className="main-button personal display-block art-centered"
+      <CustomButton
+        variant="contained"
+        size="large"
+        sx={{ ml: 1.8 }}
         onClick={() => setCoords()}
       >
         Find nearby playgrounds
-      </Button>
+      </CustomButton>
       {string ? (
-        <h6 className="display-10">
+        <Typography sx={{ mt: 4 }}>
           Here are {playgrounds.length} playgrounds we found nearby :
-        </h6>
+        </Typography>
       ) : null}
     </div>
   );

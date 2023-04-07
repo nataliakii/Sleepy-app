@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import _ from "lodash";
+import { Container, Box } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { Accordion } from "react-bootstrap/";
 import { fetchTips } from "../actions";
@@ -42,17 +43,15 @@ export default function TipsSleep() {
   };
 
   return (
-    <div
-      className="p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        marginTop: "5%",
-        minWidth: "83%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      {" "}
       {tips.length > 0 ? (
         <Accordion defaultActiveKey={["1"]} alwaysOpen>
           {tips.map((tip, i) => (
@@ -65,6 +64,6 @@ export default function TipsSleep() {
       ) : (
         <Loading />
       )}{" "}
-    </div>
+    </Container>
   );
 }

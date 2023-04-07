@@ -34,14 +34,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const pages = [
-  { page: "Tips", to: "/tips" },
-  { page: "Norms", to: "/norms" },
-  { page: "Search Playground", to: "/map" },
-  { page: "Entertainment", to: "/find-restaurant" },
-];
-
-const Nav = ({ user, companyData }) => {
+const Nav = ({ user, companyData, pages }) => {
   console.log("name from Nav", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();

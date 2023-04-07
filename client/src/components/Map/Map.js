@@ -7,6 +7,7 @@ import {
   InfoWindow,
   DirectionsRenderer,
 } from "@react-google-maps/api";
+import { Container, Typography } from "@mui/material";
 import mapStyles from "./mapStyles";
 import Loading from "../Loading";
 import Distance from "./Distance";
@@ -90,19 +91,24 @@ export default function Map() {
   if (!isLoaded) return <Loading />;
 
   return (
-    <div
-      className="h-100 p-5 text-white bg-dark main-container-center"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        width: "84%",
-        marginTop: "5%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
       {directions ? (
         <Distance leg={directions.routes[0].legs[0]} />
       ) : (
-        <p>Use map to find nearby playgrounds</p>
+        <Typography variant="body1" component="p" sx={{ mt: -8, mb: 1 }}>
+          Use map to find nearby playgrounds
+        </Typography>
       )}
       {center ? <Locate panTo={panTo} loc={center} /> : <Loading />}
 
@@ -183,6 +189,6 @@ export default function Map() {
           ) : null}
         </GoogleMap>
       )}
-    </div>
+    </Container>
   );
 }

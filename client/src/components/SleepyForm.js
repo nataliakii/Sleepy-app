@@ -10,7 +10,6 @@ import { DatePicker } from "@mui/x-date-pickers-pro/";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, MobileTimePicker } from "@mui/x-date-pickers/";
 import { SingleInputTimeRangeField } from "@mui/x-date-pickers-pro/SingleInputTimeRangeField";
-import timeZone from "../hooks/timeZone";
 import sleepyFormHelper from "../hooks/sleepyFormHelper";
 
 const CustomButton = styled(Button)(({ theme }) => ({
@@ -46,7 +45,6 @@ export default function SleepyForm({ user }) {
   const startTime = dayjs("11:00", "HH:mm");
   const endTime = dayjs("11:45", "HH:mm");
   const [selectedNap1, setSelectedNap1] = useState([startTime, endTime]);
-
   const sleepySchema = Yup.object().shape({
     date: Yup.date().required("Date is required"),
     wakeUp: Yup.string().required("Wake up time is required"),

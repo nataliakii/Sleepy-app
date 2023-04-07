@@ -65,6 +65,13 @@ const companyData = {
   url: "https://protected-beach-44415.herokuapp.com/",
 };
 
+const pages = [
+  { page: "Tips", to: "/tips-sleep" },
+  { page: "Norms", to: "/norms" },
+  { page: "Search Playground", to: "/map" },
+  { page: "Entertainment", to: "/find-restaurant" },
+];
+
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
@@ -76,7 +83,7 @@ const App = () => {
   }, [auth, dispatch]);
 
   const navElement = useMemo(
-    () => <Nav user={user} companyData={companyData} />,
+    () => <Nav user={user} companyData={companyData} pages={pages} />,
     [user]
   );
   const mainElement = useMemo(
@@ -87,7 +94,6 @@ const App = () => {
   const editProfileElement = useMemo(() => <EditProfile user={user} />, [user]);
   const NormsElement = useMemo(() => <Norms />, []);
   const TipsElement = useMemo(() => <TipsSleep />, []);
-  const barElement = useMemo(() => <Bar />, []);
 
   return (
     <ThemeProvider theme={theme}>

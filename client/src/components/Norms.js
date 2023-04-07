@@ -6,6 +6,7 @@ import _ from "lodash";
 import { fetchNorms } from "../actions";
 import displayTime from "../hooks/displayTime";
 import { calculateAge } from "../hooks/calculateAge";
+import { Container } from "@mui/material";
 
 const sorting = (arr) => {
   const sorted = _.sortBy(arr, [
@@ -29,15 +30,16 @@ const Norms = () => {
 
   return useMemo(
     () => (
-      <div
-        className="h-auto p-5 text-white bg-dark"
-        style={{
-          position: "absolute",
-          display: "inline-block",
-          width: "auto",
-          marginTop: "5%",
-          minWidth: "85%",
-          minHeight: "100%",
+      <Container
+        maxWidth="xl"
+        sx={{
+          backgroundColor: "#ecebeb",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          py: 4,
         }}
       >
         <Table className="sleepy-table" id="table-width">
@@ -81,7 +83,7 @@ const Norms = () => {
               : null}
           </tbody>
         </Table>
-      </div>
+      </Container>
     ),
     [n]
   );

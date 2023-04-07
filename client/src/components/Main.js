@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container, Button, Typography } from "@mui/material";
+import { Container, Button, Typography, styled } from "@mui/material";
 import { fetchFunFact } from "../actions";
 import { MdAccessibilityNew } from "react-icons/md";
-import { styled } from "@mui/material/styles";
 import Footer from "./Footer";
 
 const CustomButton = styled(Button)(({ theme }) => ({
@@ -56,7 +55,7 @@ export default function Main({ user, companyData }) {
       <Typography variant="h2" align="center" gutterBottom sx={{ mt: -10 }}>
         Hello, {renderStringName()}
       </Typography>
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography variant="h5" align="center" gutterBottom>
         We're on a mission to help new moms get the sleep they deserve. Let us
         help you create a peaceful and restful environment for you and your
         little one.
