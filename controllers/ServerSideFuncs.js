@@ -10,6 +10,7 @@ const funFacts = require('../utils/funFacts');
 
 
 exports.addSleepyDoc = function (req, res) {
+  console.log(req.body)
   User.findOne({ _id: req.user._id }, (err, user) => {
     const { sleepData } = req.body
     const { calculateAge } = helpingFuncs;
@@ -19,7 +20,6 @@ exports.addSleepyDoc = function (req, res) {
     const { findNorm } = helpingFuncs;
     const bd = req.user.kidBD.getTime()
     const dt = new Date(sleepData.date).getTime()
-
 
     if (bd > dt) {
       res.status(400).send("Kid's BD appeared to be after the date of sleepy doc, which is forbidden by the laws of physics, you need to revise the form and sleep more")
@@ -146,7 +146,7 @@ exports.getDoc = function (req, res,next) {
         return next(err);
       } else {
         console.log(doc)
-        res.status(200).send(doc).end();
+        res.status(200).send(doc);
       }
   })
 }
@@ -166,7 +166,7 @@ exports.deleteDoc = async function (req, res) {
       new: true,
     }
   );
-  return res.status(200).send(updateUser).end();
+  return res.status(200).send(updateDocs);
 };
 exports.getFunFacts = function (req,res) {
   const random0to12 = _.random(12);
@@ -188,7 +188,7 @@ exports.getNorms = function (req, res) {
     });
     return items;
   };
-  res.send(func()).end();
+  res.send(func());
 };
 
 

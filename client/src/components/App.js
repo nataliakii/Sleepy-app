@@ -31,6 +31,11 @@ const theme = createTheme({
       light: "#7D803C",
       dark: "#d7a8b6",
     },
+    error: {
+      main: "#cb4587",
+      light: "#7D803C",
+      dark: "#cb4587",
+    },
     text: {
       main: "#3C7D80",
       light: "whitesmoke",

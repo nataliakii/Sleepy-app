@@ -22,6 +22,7 @@ export default function AllDocsDisplay() {
     navigate("/personal/all-docs-display");
   };
   const allDocs = useSelector((state) => state.allDocs);
+  console.log(allDocs);
 
   const allDocsMap = allDocs.map((doc) => {
     const ww1R = doc.result.ww1R.message;

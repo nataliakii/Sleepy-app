@@ -41,7 +41,7 @@ const Signup = () => {
   };
 
   const handleSignUpButton = () => {
-    window.location.href = "/personal";
+    useNavigate("/personal");
   };
 
   const errorRender = () => {

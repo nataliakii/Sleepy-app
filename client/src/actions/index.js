@@ -1,9 +1,10 @@
 import axios from "axios";
 import _ from "lodash";
+import dayjs from "dayjs";
 import { artRandomURL, payloadToReturn } from "../hooks/artFuncs";
 
-// const url = "http://localhost:8000";
-const url = "";
+const url = "http://localhost:8000";
+// const url = "";
 
 export const fetchUser = (token) => async (dispatch) => {
   const { userId } = localStorage;
@@ -64,8 +65,8 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-  console.log(`${localStorage.getItem("token")}`);
-  console.log("sleepData that is sending to server", sleepData);
+
+  console.log(sleepData);
   try {
     const response = await axios.post(
       `${url}/user/sleepy_post`,
@@ -89,6 +90,7 @@ export const fetchAllDocs = () => async (dispatch) => {
   };
   try {
     const response = await axios.get(`${url}/user/sleepy_get_all`, config);
+    console.log(response);
     dispatch({ type: "ALL_DOCS", payload: response.data.allDocs });
   } catch (error) {
     console.log(error);
@@ -159,7 +161,8 @@ export const deleteDoc = (docId) => async (dispatch) => {
   };
   try {
     const response = await axios.delete(`${url}/user/${docId}`, config);
-    dispatch({ type: "DELETE_DOC" });
+    console.log(response);
+    dispatch({ type: "DELETE_DOC", payload: response.data });
   } catch (error) {
     console.log(error);
   }

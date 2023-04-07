@@ -19,10 +19,10 @@ function Copyright({ name, url }) {
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        fontSize: fontSize, // Use the fontSize variable
+        fontSize: fontSize,
       }}
     >
-      <Box sx={{ mr: "1rem" }}>Copyright © </Box>
+      <Box sx={{ mr: "0.45rem" }}>Copyright © </Box>
       <Link color="inherit" href={url}>
         {name}
       </Link>{" "}

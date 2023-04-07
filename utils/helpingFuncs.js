@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const norms = require("./norms");
+const dayjs = require('dayjs');
 
 const helpingFuncs = {
   calculateAge: (calculateAge = (kidBD, date) => {
@@ -153,6 +154,7 @@ const helpingFuncs = {
     const { sumNap } = sleep;
     const { numberOfNaps } = sleep;
     const { lastNap } = sleep;
+    console.log("sleep from create ResultObject",sleep)
 
     const compareData = (normMax, normMin, input) => {
       if (input > normMin && input < normMax) {
@@ -196,7 +198,6 @@ const helpingFuncs = {
           message: `Try to make it at least ${normMin} naps `,
         };
     };
-
     return {
       ww1R: {
         message: compareData(norms.wwMax, norms.wwMin, ww1).message,
@@ -237,7 +238,11 @@ const helpingFuncs = {
   findNorm: (findNorm = (age) => {
     const ages = norms.agesNorms;
     const schedules = norms.schedulesNorms;
+    console.log("ages",ages)
+    console.log("schedules",schedules)
+    console.log(age)
     const findAge = _.findKey(ages, (a) => age > a.from && age < a.till);
+    console.log(findAge)
     return schedules[findAge];
   }),
 

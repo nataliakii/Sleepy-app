@@ -129,12 +129,12 @@ label {
   background: #bf1650 !important;
 } */
 
-button:active {
+/* button:active {
   transition: 0.3s all !important;
   transform: translateY(3px) !important;
   border: 1px solid transparent !important;
   opacity: 0.8 !important;
-}
+} */
 
 /* input[type="button"]:hover {
   transition: 0.3s all;

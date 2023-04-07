@@ -14,7 +14,7 @@ exports.agesNorms = {
     age12: { from: 52, till: 57 },
     age13: { from: 56, till: 79 },
     age14: { from: 78, till: 105 },
-    age15: { from: 104, till: 157 },
+    age15: { from: 104, till: 500 },
   };
   
   exports.schedulesNorms = {
