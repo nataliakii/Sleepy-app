@@ -4,20 +4,21 @@ import { Route, Routes } from "react-router-dom";
 import { fetchUser } from "../actions";
 import Main from "./Main";
 import Nav from "./Nav";
-import Bar from "./Bar";
-import Personal from "./Personal";
+import Personal from "./Personal/Personal";
 import Signup from "./auth/Signup";
 import Signin from "./auth/Signin";
-import SleepyForm from "./SleepyForm";
+import SleepyForm from "./Personal/SleepyForm";
 import TipsSleep from "./TipsSleep";
-import SleepyResults from "./SleepyResults";
-import AllDocsDisplay from "./AllDocsDisplay";
-import EditProfile from "./EditProfile";
+import SleepyResults from "./Personal/SleepyResults";
+import AllDocsDisplay from "./Personal/AllDocsDisplay";
+import EditProfile from "./Personal/EditProfile";
 import FindRestaurant from "./FindRestaurant";
-import OneDocDisplay from "./OneDocDisplay";
+import OneDocDisplay from "./Personal/OneDocDisplay";
 import Map from "./Map/Map";
 import Norms from "./Norms";
 import { createTheme, ThemeProvider } from "@mui/material/";
+import ResultNonAuth from "./ResultNonAuth";
+import FormNonAuth from "./FormNonAuth";
 
 const theme = createTheme({
   palette: {
@@ -34,7 +35,7 @@ const theme = createTheme({
     error: {
       main: "#cb4587",
       light: "#7D803C",
-      dark: "#cb4587",
+      dark: "#bf1650",
     },
     text: {
       main: "#3C7D80",
@@ -68,7 +69,7 @@ const companyData = {
 const pages = [
   { page: "Tips", to: "/tips-sleep" },
   { page: "Norms", to: "/norms" },
-  { page: "Search Playground", to: "/map" },
+  { page: "Playgrounds", to: "/map" },
   { page: "Entertainment", to: "/find-restaurant" },
 ];
 
@@ -98,7 +99,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       {navElement}
-      {/* {barElement} */}
       <Routes>
         <Route exact path="/" element={mainElement} />
         <Route path="/signup" element={<Signup />} />
@@ -113,6 +113,8 @@ const App = () => {
         <Route path="/find-restaurant" element={<FindRestaurant />} />
         <Route path="/personal/:docId" element={<OneDocDisplay />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/result-non-auth" element={<ResultNonAuth />} />
+        <Route path="/form-non-auth" element={<FormNonAuth />} />
       </Routes>
     </ThemeProvider>
   );

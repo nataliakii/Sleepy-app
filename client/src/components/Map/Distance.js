@@ -6,7 +6,7 @@ export default function Distance({ leg, children }) {
   if (!leg.distance || !leg.duration) return null;
   const endAddress = shortAddress(leg.end_address);
   return (
-    <div>
+    <div style={{ marginBottom: "10px" }}>
       Distance to playground at {endAddress} -{" "}
       <a className="art-color">{leg.distance.text}</a>
       <div>

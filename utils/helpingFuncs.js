@@ -184,7 +184,7 @@ const helpingFuncs = {
         };
     };
     const compareNumberNaps = (normMax, normMin, input) => {
-      if (input >= normMin || input <= normMax) {
+      if (input >= normMin && input <= normMax) {
         return { code: 200, message: "Ok" };
       }
       if (input > normMax) {
@@ -238,11 +238,8 @@ const helpingFuncs = {
   findNorm: (findNorm = (age) => {
     const ages = norms.agesNorms;
     const schedules = norms.schedulesNorms;
-    console.log("ages",ages)
-    console.log("schedules",schedules)
-    console.log(age)
     const findAge = _.findKey(ages, (a) => age > a.from && age < a.till);
-    console.log(findAge)
+    console.log('A norm for this case', schedules[findAge])
     return schedules[findAge];
   }),
 

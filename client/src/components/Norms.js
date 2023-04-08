@@ -1,12 +1,35 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+// import { Table } from "react-bootstrap";
 import _ from "lodash";
 import { fetchNorms } from "../actions";
 import displayTime from "../hooks/displayTime";
 import { calculateAge } from "../hooks/calculateAge";
-import { Container } from "@mui/material";
+import {
+  Container,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Link,
+  styled,
+} from "@mui/material";
+
+const StyledTable = styled(Table)({
+  "& .row": {
+    height: "10px",
+  },
+});
+
+const StyledTableCell = styled(TableCell)({
+  padding: "10px",
+  color: "white",
+  backgroundColor: "rgb(76, 125, 128)",
+  textAlign: "center",
+  whiteSpace: "nowrap",
+});
 
 const sorting = (arr) => {
   const sorted = _.sortBy(arr, [
@@ -28,138 +51,82 @@ const Norms = () => {
     dispatch(fetchNorms());
   }, []);
 
-  return useMemo(
-    () => (
-      <Container
-        maxWidth="xl"
-        sx={{
-          backgroundColor: "#ecebeb",
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          py: 4,
-        }}
-      >
-        <Table className="sleepy-table" id="table-width">
-          <thead className="table-head">
-            <tr>
-              <th>Age</th>
-              <th>
-                <Link className="link-tips" to="/tips-sleep">
+  return (
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "auto",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "32px",
+        margin: "auto",
+        textAlign: "center",
+      }}
+    >
+      <div className="table-container">
+        <StyledTable
+          sx={{
+            color: "text.light",
+            overflowX: "auto",
+            ml: "6%",
+          }}
+          // className="sleepy-table"
+          id="table-width"
+        >
+          <TableHead
+            sx={{
+              textTransform: "uppercase",
+              backgroundColor: "rgb(128, 60, 125)",
+              color: "white",
+              textAlign: "center",
+              minWidth: "60rem",
+            }}
+          >
+            <TableRow className="row">
+              <StyledTableCell>Age</StyledTableCell>
+              <StyledTableCell>
+                <Link
+                  sx={{ color: "text.light" }}
+                  className="link-hover"
+                  to="/tips-sleep"
+                >
                   Wake Window
                 </Link>
-              </th>
-              <th>Sum Nap</th>
-              <th>Number of naps</th>
-              <th>Last Nap</th>
-            </tr>
-          </thead>
-          <tbody>
+              </StyledTableCell>
+              <StyledTableCell>Sum Nap</StyledTableCell>
+              <StyledTableCell>Number of naps</StyledTableCell>
+              <StyledTableCell>Last Nap</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {n
-              ? sorting(n).map((norm) => (
-                  <tr key={norm._id}>
-                    <td>{norm.age}</td>
-                    <td>
+              ? n.map((norm) => (
+                  <TableRow className="row" key={norm._id}>
+                    <StyledTableCell>{norm.age}</StyledTableCell>
+                    <StyledTableCell>
                       {displayTime(norm.content.wwMin)} -{" "}
                       {displayTime(norm.content.wwMax)}
-                    </td>
-                    <td>
-                      {" "}
+                    </StyledTableCell>
+                    <StyledTableCell>
                       {displayTime(norm.content.napSumMin)} -{" "}
                       {displayTime(norm.content.napSumMax)}
-                    </td>
-                    <td>
+                    </StyledTableCell>
+                    <StyledTableCell>
                       {norm.content.napMin == norm.content.napMax
                         ? ""
                         : norm.content.napMin + " - "}
                       {norm.content.napMax}
-                    </td>
-
-                    <td>{norm.content.lastNap}</td>
-                  </tr>
+                    </StyledTableCell>
+                    <StyledTableCell>{norm.content.lastNap}</StyledTableCell>
+                  </TableRow>
                 ))
               : null}
-          </tbody>
-        </Table>
-      </Container>
-    ),
-    [n]
+          </TableBody>
+        </StyledTable>
+      </div>
+    </Container>
   );
 };
 
 export default React.memo(Norms);
-
-// import React, { useEffect, useState, useMemo, useCallback } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { fetchNorms } from "../actions";
-// import { Table } from "react-bootstrap";
-// import displayTime from "../hooks/displayTime";
-// import { calculateAge } from "../hooks/calculateAge";
-
-// const Norms = React.memo(function () {
-//   const dispatch = useDispatch();
-//   const callback = useCallback(() => {
-//     dispatch(fetchNorms()), [n];
-//   });
-//   useEffect(() => {
-//     const unsubscribe = callback();
-//     return unsubscribe;
-//   }, []);
-//   const n = useSelector((state) => state.norms);
-//   let norms;
-//   n ? (norms = Object.entries(n)) : null;
-
-//   // if (!n) return <Error />;
-//   return (
-//     <div
-//       className="h-auto p-5 text-white bg-dark"
-//       style={{
-//         position: "absolute",
-//         display: "inline-block",
-//         width: "auto",
-//         marginTop: "5%",
-//         minWidth: "85%",
-//         minHeight: "100%",
-//       }}
-//     >
-//       <Table bordered className="sleepy-table" id="table-width">
-//         <thead className="table-head">
-//           <tr>
-//             <th>Age</th>
-//             <th>Wake Window</th>
-//             <th>Number of naps</th>
-//             <th>Sum Nap</th>
-//             <th>Last Nap</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {norms
-//             ? norms.map((norm, i) => (
-//                 <tr key={i}>
-//                   <td>{norm[0]}</td>
-//                   <td>
-//                     {displayTime(norm[1].wwMin)} - {displayTime(norm[1].wwMax)}
-//                   </td>
-//                   <td>
-//                     {norm[1].napMin == norm[1].napMax
-//                       ? ""
-//                       : norm[1].napMin + " - "}
-//                     {norm[1].napMax}
-//                   </td>
-//                   <td>
-//                     {" "}
-//                     {displayTime(norm[1].napSumMin)} -{" "}
-//                     {displayTime(norm[1].napSumMax)}
-//                   </td>
-//                   <td>{norm[1].lastNap}</td>
-//                 </tr>
-//               ))
-//             : null}
-//         </tbody>
-//       </Table>
-//     </div>
-//   );
-// });
-// export default Norms;

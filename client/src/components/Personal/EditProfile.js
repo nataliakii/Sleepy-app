@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Button, Form, Modal } from "react-bootstrap";
-import { updateProfile } from "../actions";
+import { updateProfile } from "../../actions";
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email(),

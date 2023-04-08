@@ -75,6 +75,51 @@ exports.addSleepyDoc = function (req, res) {
   });
 };
 
+//the same endpoint as postSleepyDoc but for non-authorised, not saving the data anywhere
+exports.postForm = function (req, res) {
+    const { sleepData } = req.body
+    const { calculateAge } = helpingFuncs;
+    const { calculateWw } = helpingFuncs;
+    const { calculateSumNap } = helpingFuncs;
+    const { createResultObject } = helpingFuncs;
+    const { findNorm } = helpingFuncs;
+    const sleep = {
+      date: sleepData.date,
+      wakeUp: sleepData.wakeUp,
+      bedTime: sleepData.bedTime,
+      age: calculateAge(sleepData.bd, sleepData.date),
+      nap1: {
+        start: sleepData.nap1Start,
+        end: sleepData.nap1End,
+      },
+      nap2: {
+        start: sleepData.nap2Start,
+        end: sleepData.nap2End,
+      },
+      nap3: {
+        start: sleepData.nap3Start,
+        end: sleepData.nap3End,
+      },
+      nap4: {
+        start: sleepData.nap4Start,
+        end: sleepData.nap4End,
+      },
+      ww1: calculateWw(sleepData).ww1,
+      ww2: calculateWw(sleepData).ww2,
+      ww3: calculateWw(sleepData).ww3,
+      ww4: calculateWw(sleepData).ww4,
+      ww5: calculateWw(sleepData).ww5,
+      sumNap: calculateSumNap(sleepData),
+      lastNap: calculateWw(sleepData).lastNap,
+      numberOfNaps: calculateWw(sleepData).numberOfNaps,
+      norms: findNorm(
+        calculateAge(sleepData.bd, sleepData.date).ageInWeeks
+      ),
+    };
+    sleep.result = createResultObject(sleep); 
+    res.send(sleep)
+};
+
 exports.getAllDocs = function (req, res) {
 
   User.findOne({ _id: req.user._id }, (err, user) => {
@@ -168,32 +213,32 @@ exports.deleteDoc = async function (req, res) {
   );
   return res.status(200).send(updateDocs);
 };
+
 exports.getFunFacts = function (req,res) {
   const random0to12 = _.random(12);
   const arrayOfFacts=funFacts.funFacts
   res.send(arrayOfFacts[random0to12])
 }
-exports.getNorms = function (req, res) {
-  const ages = norms.agesNorms;
-  const schedules = norms.schedulesNorms;
-  const func = () => {
-    let items = {};
-    Object.entries(schedules).map(([key, value]) => {
-      for (let [key1, value1] of Object.entries(ages)) {
-        value1 = `${value1.from < 0 ? 0 : value1.from} - ${value1.till -2} weeks`;
-        if (key1 == key) {
-          items[value1] = value;
-        }
-      }
-    });
-    return items;
-  };
-  res.send(func());
-};
-
 
 exports.getNorms =async  function (req, res) {
-  console.log("/getNorms route hit")
   const n = await Norm.find({})
   res.send(n)
 };
+
+//function to add norms to db
+// exports.postNormsToDB = function (req, res) {
+//   const ages = norms.agesNorms;
+//   const schedules = norms.schedulesNorms;
+//   const func = () => {
+//     let items = {};
+//     Object.entries(schedules).map(([key, value]) => {
+//       for (let [key1, value1] of Object.entries(ages)) {
+//         value1 = `${value1.from < 0 ? 0 : value1.from} - ${value1.till -2} weeks`;
+//         if (key1 == key) {
+//           items[value1] = value;
+//         }
+//       }
+//     });
+//     return items;
+//   };
+// };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
-import dayjs from "dayjs";
+import timeZone from "../hooks/timeZone";
 import { artRandomURL, payloadToReturn } from "../hooks/artFuncs";
 
 const url = "http://localhost:8000";
@@ -42,6 +42,8 @@ export const signin = (formProps, callback) => async (dispatch) => {
 };
 
 export const signup = (formProps, callback) => async (dispatch) => {
+  formProps.kidBD = timeZone(formProps.kidBD).localDate;
+
   axios
     .post(`${url}/auth/signup`, formProps)
     .then((response) => {
@@ -66,7 +68,6 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
     },
   };
 
-  console.log(sleepData);
   try {
     const response = await axios.post(
       `${url}/user/sleepy_post`,
@@ -77,8 +78,24 @@ export const postForm = (sleepData, callback) => async (dispatch) => {
     dispatch({ type: "POST_SLEEP", payload: response.data.sleepyDoc });
     callback();
   } catch (error) {
-    dispatch({ type: "POST_ERROR", payload: error.response?.data });
+    dispatch({ type: "POST_ERROR", payload: error.response?.data || error });
     console.log(error.response?.data);
+  }
+};
+
+export const postFormNoAuth = (sleepData, callback) => async (dispatch) => {
+  console.log(sleepData);
+  try {
+    const response = await axios.post(`${url}/api/postForm`, { sleepData });
+    console.log("response from post form", response);
+    dispatch({ type: "POST_SLEEP_NON_AUTH", payload: response.data });
+    callback();
+  } catch (error) {
+    dispatch({
+      type: "ERROR_POST_SLEEP_NON_AUTH",
+      payload: error.response?.data || error,
+    });
+    console.log(error);
   }
 };
 

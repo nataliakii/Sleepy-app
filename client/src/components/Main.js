@@ -39,6 +39,31 @@ export default function Main({ user, companyData }) {
     return (str = "this is SleepyApp");
   };
 
+  const renderButton = () => {
+    if (name) {
+      return (
+        <CustomButton
+          variant="contained"
+          size="large"
+          onClick={() => navigate("/sleepy-form-post")}
+          sx={{ mt: 2 }}
+        >
+          I love sleeping more than anything! I want to submit a form.
+        </CustomButton>
+      );
+    } else
+      return (
+        <CustomButton
+          variant="contained"
+          size="large"
+          onClick={() => navigate("/form-non-auth")}
+          sx={{ mt: 2 }}
+        >
+          I love sleeping more than anything! I want to submit a form.
+        </CustomButton>
+      );
+  };
+
   return (
     <Container
       maxWidth="xl"
@@ -60,14 +85,8 @@ export default function Main({ user, companyData }) {
         help you create a peaceful and restful environment for you and your
         little one.
       </Typography>
-      <CustomButton
-        variant="contained"
-        size="large"
-        onClick={() => navigate("/sleepy-form-post")}
-        sx={{ mt: 2 }}
-      >
-        I love sleeping more than anything! I want to submit a form.
-      </CustomButton>
+
+      {renderButton()}
       <CustomButton
         variant="contained"
         size="large"

@@ -8,11 +8,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 function Copyright({ name, url }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const fontSize = isSmallScreen ? "0.8rem" : "1rem";
-
+  const fontSize = isSmallScreen ? "0.4rem" : "0.7rem";
   return (
     <Typography
-      variant="body2"
       color="text.light"
       sx={{
         display: "flex",
@@ -33,6 +31,9 @@ function Copyright({ name, url }) {
 }
 
 function Footer(props) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const fontSize = isSmallScreen ? "0.4rem" : "0.8rem";
   const { name, url } = props.companyData;
   return (
     <Box
@@ -48,16 +49,15 @@ function Footer(props) {
         position: "fixed",
         bottom: 0,
         width: "100%",
-        height: "60px",
+        height: "50px",
         textAlign: "center",
       }}
     >
       <Container maxWidth="lg">
         <Typography
-          variant="subtitle1"
           align="center"
           color="text.light"
-          component="p"
+          sx={{ fontSize: fontSize }}
         >
           Made with{" "}
           <FavoriteIcon

@@ -1,21 +1,35 @@
-import React from "react";
-import _ from "lodash";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Table, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Container, Button, Typography, styled } from "@mui/material";
+import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import displayAge from "../hooks/displayAge";
-import displayTime from "../hooks/displayTime";
 import { cellCol } from "../hooks/tableRenders";
+import displayTime from "../hooks/displayTime";
 import icons from "../hooks/renderResultIcons";
+import Error from "./Error";
 
-export default function OneDocDisplay() {
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.8 ",
+  },
+}));
+
+export default function ResultNonAuth() {
   const navigate = useNavigate();
   const convDate = (d) => new Date(d).toDateString();
-  const docs = useSelector((state) => state.allDocs);
-  const { docId } = useParams();
-
-  const doc = _.find(docs, { _id: docId });
-
+  const doc = useSelector((state) => state.noAuthForm);
   const ww1R = doc.result.ww1R.message;
   const ww2R = doc.result.ww2R.message;
   const ww3R = doc.result.ww3R?.message;
@@ -59,20 +73,23 @@ export default function OneDocDisplay() {
       return { message: "Cool! ", rowColor: "" };
     }
   };
-
+  if (!doc) return <Error />;
   return (
-    <div
-      className="h-auto p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        width: "auto",
-        marginTop: "5%",
-        minWidth: "85%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <h5>Your sleepy doc from {convDate(doc.date)}</h5>
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        Your sleepy doc from {convDate(doc.date)}
+      </Typography>
       <Table bordered className="sleepy-table" id="table-width">
         <thead className="table-head">
           <tr>
@@ -94,14 +111,12 @@ export default function OneDocDisplay() {
           </tr>
           <tr>
             <td>
-              {" "}
               <Link className="link-tips" to="/tips-sleep">
                 Wake window 1
               </Link>
             </td>
             <td>{displayTime(ww1)}</td>
             <td className={cellCol(ww1Rcode)}>
-              {" "}
               {icons(ww1Rcode)} {ww1R}
             </td>
           </tr>
@@ -111,21 +126,18 @@ export default function OneDocDisplay() {
               {doc.nap1.start} - {doc.nap1.end}
             </td>
             <td className={rendNapMessage(ww1Rcode).rowColor}>
-              {" "}
-              {icons(ww1Rcode)} {rendNapMessage(ww1Rcode).message}{" "}
+              {icons(ww1Rcode)} {rendNapMessage(ww1Rcode).message}
             </td>
           </tr>
           <tr>
             <td>
-              {" "}
               <Link className="link-tips" to="/tips-sleep">
                 Wake window 2
               </Link>
             </td>
             <td>{displayTime(ww2)}</td>
             <td className={cellCol(ww2Rcode)}>
-              {icons(ww2Rcode)}
-              {ww2R}
+              {icons(ww2Rcode)} {ww2R}
             </td>
           </tr>
           {ww3 !== null ? (
@@ -136,14 +148,11 @@ export default function OneDocDisplay() {
                   {doc.nap2.start} - {doc.nap2.end}
                 </td>
                 <td className={rendNapMessage(ww2Rcode).rowColor}>
-                  {" "}
-                  {icons(ww2Rcode)}
-                  {rendNapMessage(ww2Rcode).message}
+                  {icons(ww2Rcode)} {rendNapMessage(ww2Rcode).message}
                 </td>
-              </tr>{" "}
+              </tr>
               <tr>
                 <td>
-                  {" "}
                   <Link className="link-tips" to="/tips-sleep">
                     Wake window 3
                   </Link>
@@ -244,14 +253,13 @@ export default function OneDocDisplay() {
           </tr>
         </tbody>
       </Table>
-      <Button
-        type="button"
-        variant="primary"
-        className="main-button personal padding-button"
-        onClick={() => navigate("/personal/all-docs-display")}
+      <CustomButton
+        variant="contained"
+        size="large"
+        onClick={() => navigate("/")}
       >
-        Back to all your sleepy docs
-      </Button>
-    </div>
+        Back to main
+      </CustomButton>
+    </Container>
   );
 }

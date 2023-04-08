@@ -46,7 +46,7 @@ export default function Locate({ panTo, loc, leg }) {
         Find nearby playgrounds
       </CustomButton>
       {string ? (
-        <Typography sx={{ mt: 4 }}>
+        <Typography sx={{ mt: 4, color: "error.dark" }}>
           Here are {playgrounds.length} playgrounds we found nearby :
         </Typography>
       ) : null}

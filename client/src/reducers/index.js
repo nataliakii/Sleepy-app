@@ -10,6 +10,7 @@ import ErrorReducer from "./error-reducer";
 import funFactReducer from "./funFact-reducer";
 import DistanceReducer from "./distance-reducer";
 import NormsReducer from "./norms-reducer";
+import NoAuthFormReducer from "./noauth-form-reducer";
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -23,5 +24,6 @@ const rootReducer = combineReducers({
   error: ErrorReducer,
   funFact: funFactReducer,
   norms: NormsReducer,
+  noAuthForm: NoAuthFormReducer,
 });
 export default rootReducer;

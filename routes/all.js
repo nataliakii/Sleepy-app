@@ -10,5 +10,6 @@ router.post("/getLocation", getLocation.getLocation);
 router.post("/getDistances", getLocation.getDistances);
 router.get("/getFunFacts", ServerSideFuncs.getFunFacts);
 router.get("/getNorms", ServerSideFuncs.getNorms);
+router.post("/postForm", ServerSideFuncs.postForm);
 
 module.exports = router;

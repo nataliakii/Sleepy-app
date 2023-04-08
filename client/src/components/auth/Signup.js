@@ -96,6 +96,7 @@ const Signup = () => {
         className="form-signup"
         onSubmit={handleSubmit(handleFormSubmit)}
         sx={{
+          ...styles,
           display: "flex",
           flexDirection: "column",
           ml: 2,
@@ -161,7 +162,7 @@ const Signup = () => {
           <TextField
             fullWidth
             id="kidBD"
-            label="Kid's Birthday"
+            label="Kid's Birthday YYYY-MM-DD"
             variant="outlined"
             sx={{ mb: 2 }}
             {...register("kidBD", { required: true })}
@@ -196,19 +197,16 @@ const Signup = () => {
           </CustomButton>
         </DialogActions>
       </Dialog>
-      {/* <Modal show={show} onHide={handleClose} centered>
-        <Modal.Body className="modal-title">
-          {name}, welcome to SleepyApp! Thanks for signing up
-        </Modal.Body>
-        <Modal.Footer>
-          <CustomButton className="modal-signup" onClick={handleSignUpButton}>
-            Woohoo! The best thing that ever happened to me was sleeping more!
-            Where is a sofa here ?
-          </CustomButton>
-        </Modal.Footer>
-      </Modal> */}
     </Container>
   );
 };
 
 export default Signup;
+
+const styles = {
+  position: "relative",
+  marginLeft: "22%",
+  marginTop: "1%",
+  display: "inline-block",
+  width: "43%",
+};

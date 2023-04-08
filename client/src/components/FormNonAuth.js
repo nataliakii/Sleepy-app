@@ -5,11 +5,13 @@ import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { postForm } from "../actions";
-import { DatePicker } from "@mui/x-date-pickers-pro/";
+import { postFormNoAuth } from "../actions";
+import {
+  DatePicker,
+  SingleInputTimeRangeField,
+} from "@mui/x-date-pickers-pro/";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, MobileTimePicker } from "@mui/x-date-pickers/";
-import { SingleInputTimeRangeField } from "@mui/x-date-pickers-pro/SingleInputTimeRangeField";
 import sleepyFormHelper from "../hooks/sleepyFormHelper";
 
 const CustomButton = styled(Button)(({ theme }) => ({
@@ -39,14 +41,18 @@ const CustomError = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export default function SleepyForm({ user }) {
-  const { kidBD } = user;
-  const kidBDdays = dayjs(kidBD);
+export default function FormNonAuth() {
   const startTime = dayjs("11:00", "HH:mm");
   const endTime = dayjs("11:45", "HH:mm");
   const [selectedNap1, setSelectedNap1] = useState([startTime, endTime]);
   const sleepySchema = Yup.object().shape({
-    date: Yup.date().required("Date is required"),
+    bd: Yup.date().required("Birthday of your kid is required"),
+    date: Yup.date()
+      .min(
+        Yup.ref("bd"),
+        "Kid's BD appeared to be after the date of sleepy doc, which is forbidden by the laws of physics, you need to revise the form and sleep more"
+      )
+      .required("Date is required"),
     wakeUp: Yup.string().required("Wake up time is required"),
     nap1TimeRange: Yup.mixed().test(
       "nap1TimeRange",
@@ -183,152 +189,136 @@ export default function SleepyForm({ user }) {
     onSubmit: (values) => {
       console.log(sleepyFormHelper(values));
       const newValues = sleepyFormHelper(values);
-      dispatch(
-        postForm(newValues, () => navigate("/personal/sleepy-form-get"))
-      );
+      dispatch(postFormNoAuth(newValues, () => navigate("/result-non-auth")));
     },
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.sleepy?.errorMessage || "");
-  const { nameKid } = user;
+  const error = useSelector((state) => state.noAuthForm?.errorMessage);
 
-  const renderFormDisplay = () => {
-    if (nameKid) {
-      return (
-        <Container
-          maxWidth="xl"
-          sx={{
-            backgroundColor: "#ecebeb",
-            minHeight: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            py: 4,
-          }}
-        >
-          <Typography variant="h3" align="center" sx={{ mt: 2 }}>
-            Submit Sleepy Form
-          </Typography>
-          <Typography variant="body1" paragraph sx={{ mt: 1 }}>
-            Please provide some information about the time of {nameKid}'s wake
-            up, naps, etc.
-          </Typography>
-          {error ? <CustomError>{error}</CustomError> : null}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <form onSubmit={handleSubmit}>
-              <Stack
-                spacing={1}
-                direction="column"
-                alignItems="center"
-                sx={{ width: "100%" }}
-              >
-                <DatePicker
-                  required
-                  label="Date"
-                  maxDate={dayjs()}
-                  minDate={kidBDdays}
-                  value={formik.values.date}
-                  onChange={(date) => formik.setFieldValue("date", date)}
-                />
-                {formik.errors.date && formik.touched.date && (
-                  <CustomError>{formik.errors.date} </CustomError>
-                )}
-                <MobileTimePicker
-                  required
-                  label="Wake Up Time"
-                  name="wakeUp"
-                  value={formik.values.wakeUp}
-                  onChange={(time) => formik.setFieldValue("wakeUp", time)}
-                />
-                {formik.errors.wakeUp && formik.touched.wakeUp && (
-                  <CustomError>{formik.errors.wakeUp}</CustomError>
-                )}
-                <SingleInputTimeRangeField
-                  required
-                  label="Nap1 Start - End"
-                  value={formik.values.nap1TimeRange}
-                  onChange={handleNap1}
-                />
-                {formik.errors.nap1TimeRange &&
-                  formik.touched.nap1TimeRange && (
-                    <CustomError>{formik.errors.nap1TimeRange}</CustomError>
-                  )}
-                <SingleInputTimeRangeField
-                  label="Nap2 Start - End"
-                  value={formik.values.nap2TimeRange}
-                  onChange={handleNap2}
-                />
-                {formik.errors.nap2TimeRange &&
-                  formik.touched.nap2TimeRange && (
-                    <CustomError>{formik.errors.nap2TimeRange}</CustomError>
-                  )}
-                <SingleInputTimeRangeField
-                  label="Nap3 Start - End"
-                  value={formik.values.nap3TimeRange}
-                  onChange={handleNap3}
-                />
-                {formik.errors.nap3TimeRange &&
-                  formik.touched.nap3TimeRange && (
-                    <CustomError>{formik.errors.nap3TimeRange}</CustomError>
-                  )}
-                <SingleInputTimeRangeField
-                  label="Nap4 Start - End"
-                  value={formik.values.nap4TimeRange}
-                  onChange={handleNap4}
-                />
-                {formik.errors.nap4TimeRange &&
-                  formik.touched.nap4TimeRange && (
-                    <CustomError>{formik.errors.nap4TimeRange}</CustomError>
-                  )}
-                <MobileTimePicker
-                  required
-                  label="BedTime"
-                  name="bedTime"
-                  value={formik.values.bedTime}
-                  onChange={(date) => {
-                    formik.setFieldValue("bedTime", date);
-                  }}
-                  sx={{ mb: 2 }}
-                />
-                {formik.errors.bedTime && formik.touched.bedTime && (
-                  <CustomError>{formik.errors.bedTime}</CustomError>
-                )}
-                <CustomButton
-                  variant="primary"
-                  type="submit"
-                  className="centered-button-form"
-                >
-                  Send schedule
-                </CustomButton>
-              </Stack>
-            </form>
-          </LocalizationProvider>
-        </Container>
-      );
-    }
-    return (
-      <Container
-        maxWidth="xl"
-        sx={{
-          backgroundColor: "#ecebeb",
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          py: 4,
-        }}
-      >
-        <h6 className="art-color margin-top">
-          Please, sign in for being able to get your personal recommendations on
-          your baby's sleep schedule.
-        </h6>
-      </Container>
-    );
-  };
-
-  return <>{renderFormDisplay()}</>;
+  return (
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
+      }}
+    >
+      <Typography variant="h3" align="center" sx={{ mt: 2 }}>
+        Submit Sleepy Form
+      </Typography>
+      <Typography variant="body1" paragraph sx={{ mt: 1 }}>
+        Please provide some information about the time of your kid's wake up,
+        naps, etc.
+      </Typography>
+      {error ? <CustomError>{error}</CustomError> : null}
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <form onSubmit={handleSubmit}>
+          <Stack
+            spacing={1}
+            direction="column"
+            alignItems="center"
+            sx={{ width: "100%" }}
+          >
+            <DatePicker
+              required
+              sx={{ width: "20rem" }}
+              label="Kid's Birthday"
+              maxDate={dayjs()}
+              value={formik.values.bd}
+              onChange={(date) => formik.setFieldValue("bd", date)}
+            />
+            {formik.errors.bd && formik.touched.bd && (
+              <CustomError>{formik.errors.bd} </CustomError>
+            )}
+            <DatePicker
+              required
+              sx={{ width: "20rem" }}
+              label="Date"
+              maxDate={dayjs()}
+              value={formik.values.date}
+              onChange={(date) => formik.setFieldValue("date", date)}
+            />
+            {formik.errors.date && formik.touched.date && (
+              <CustomError>{formik.errors.date} </CustomError>
+            )}
+            <MobileTimePicker
+              required
+              sx={{ width: "20rem" }}
+              label="Wake Up Time"
+              name="wakeUp"
+              value={formik.values.wakeUp}
+              onChange={(time) => formik.setFieldValue("wakeUp", time)}
+            />
+            {formik.errors.wakeUp && formik.touched.wakeUp && (
+              <CustomError>{formik.errors.wakeUp}</CustomError>
+            )}
+            <SingleInputTimeRangeField
+              required
+              sx={{ width: "20rem" }}
+              label="Nap1 Start - End"
+              value={formik.values.nap1TimeRange}
+              onChange={handleNap1}
+            />
+            {formik.errors.nap1TimeRange && formik.touched.nap1TimeRange && (
+              <CustomError>{formik.errors.nap1TimeRange}</CustomError>
+            )}
+            <SingleInputTimeRangeField
+              label="Nap2 Start - End"
+              sx={{ width: "20rem" }}
+              value={formik.values.nap2TimeRange}
+              onChange={handleNap2}
+            />
+            {formik.errors.nap2TimeRange && formik.touched.nap2TimeRange && (
+              <CustomError>{formik.errors.nap2TimeRange}</CustomError>
+            )}
+            <SingleInputTimeRangeField
+              label="Nap3 Start - End"
+              sx={{ width: "20rem" }}
+              value={formik.values.nap3TimeRange}
+              onChange={handleNap3}
+            />
+            {formik.errors.nap3TimeRange && formik.touched.nap3TimeRange && (
+              <CustomError>{formik.errors.nap3TimeRange}</CustomError>
+            )}
+            <SingleInputTimeRangeField
+              label="Nap4 Start - End"
+              sx={{ width: "20rem" }}
+              value={formik.values.nap4TimeRange}
+              onChange={handleNap4}
+            />
+            {formik.errors.nap4TimeRange && formik.touched.nap4TimeRange && (
+              <CustomError>{formik.errors.nap4TimeRange}</CustomError>
+            )}
+            <MobileTimePicker
+              required
+              label="BedTime"
+              name="bedTime"
+              value={formik.values.bedTime}
+              onChange={(date) => {
+                formik.setFieldValue("bedTime", date);
+              }}
+              sx={{ mb: 2, width: "20rem" }}
+            />
+            {formik.errors.bedTime && formik.touched.bedTime && (
+              <CustomError>{formik.errors.bedTime}</CustomError>
+            )}
+            <CustomButton
+              variant="primary"
+              type="submit"
+              className="centered-button-form"
+            >
+              Send schedule
+            </CustomButton>
+          </Stack>
+        </form>
+      </LocalizationProvider>
+    </Container>
+  );
 }

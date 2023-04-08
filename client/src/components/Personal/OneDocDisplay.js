@@ -1,16 +1,21 @@
 import React from "react";
+import _ from "lodash";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import displayAge from "../hooks/displayAge";
-import { cellCol } from "../hooks/tableRenders";
-import displayTime from "../hooks/displayTime";
-import icons from "../hooks/renderResultIcons";
-import Error from "./Error";
+import displayAge from "../../hooks/displayAge";
+import displayTime from "../../hooks/displayTime";
+import { cellCol } from "../../hooks/tableRenders";
+import icons from "../../hooks/renderResultIcons";
 
-export default function SleepyResults() {
+export default function OneDocDisplay() {
+  const navigate = useNavigate();
   const convDate = (d) => new Date(d).toDateString();
-  const doc = useSelector((state) => state.sleepy);
+  const docs = useSelector((state) => state.allDocs);
+  const { docId } = useParams();
+
+  const doc = _.find(docs, { _id: docId });
+
   const ww1R = doc.result.ww1R.message;
   const ww2R = doc.result.ww2R.message;
   const ww3R = doc.result.ww3R?.message;
@@ -55,7 +60,6 @@ export default function SleepyResults() {
     }
   };
 
-  if (!doc) return <Error />;
   return (
     <div
       className="h-auto p-5 text-white bg-dark"
@@ -241,12 +245,12 @@ export default function SleepyResults() {
         </tbody>
       </Table>
       <Button
-        type="link"
+        type="button"
         variant="primary"
-        className="main-button personal display-block"
-        href="/personal/all-docs-display"
+        className="main-button personal padding-button"
+        onClick={() => navigate("/personal/all-docs-display")}
       >
-        All your sleepy docs
+        Back to all your sleepy docs
       </Button>
     </div>
   );

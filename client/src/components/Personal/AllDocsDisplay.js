@@ -3,12 +3,12 @@ import _ from "lodash";
 import { OverlayTrigger, Tooltip, Table, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import displayAge from "../hooks/displayAge";
-import { conditionalCellColor } from "../hooks/tableRenders";
-import displayTime from "../hooks/displayTime";
-import checkColForRender from "../hooks/checkColForRender";
-import { fetchAllDocs, deleteDoc } from "../actions";
-import Error from "./Error";
+import displayAge from "../../hooks/displayAge";
+import { conditionalCellColor } from "../../hooks/tableRenders";
+import displayTime from "../../hooks/displayTime";
+import checkColForRender from "../../hooks/checkColForRender";
+import { fetchAllDocs, deleteDoc } from "../../actions";
+import Error from "../Error";
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();

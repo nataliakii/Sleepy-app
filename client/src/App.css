@@ -170,24 +170,17 @@ label {
   font-weight: 100;
 }
 .sleepy-table {
-  font-size: 9px;
+  font-size: 11px;
   color: white !important;
-  vertical-align: middle !important;
+  vertical-align: middle;
   text-align: center !important;
   width: 60rem !important;
-  font-weight: 10 !important;
+  font-weight: 500 !important;
   /* text-transform: uppercase; */
 }
 td {
-  font-size: 10px;
+  font-size: 12px;
   color: #403e3f;
-}
-.form-signup {
-  position: relative;
-  margin-left: 22%;
-  margin-top: 1%;
-  display: inline-block;
-  width: 43%;
 }
 
 .form-nap-start {
@@ -218,6 +211,7 @@ td {
 }
 .no-ok-cell {
   background-color: rgb(125, 128, 60) !important;
+  color: white;
 }
 .margin-top {
   margin-top: 5%;
@@ -234,12 +228,12 @@ td {
 .nav-link:active,
 .nav-link:hover,
 .white:hover {
-  color: #e83e8c !important;
+  color: #bf1650 !important;
   text-decoration: none !important;
 }
 h6,
 h5 {
-  color: #e83e8c;
+  color: #bf1650;
   font-weight: 300 !important;
 }
 .row > * {
@@ -322,6 +316,18 @@ span .footer {
   margin: 5px;
 }
 
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .table-container {
+    overflow-x: hidden;
+  }
+}
+
 #hover-color:hover {
   background: rgb(125, 128, 60) !important;
 }
@@ -329,7 +335,7 @@ span .footer {
   background: rgb(128, 60, 125) !important;
 }
 #table-width {
-  width: 50rem !important;
+  width: 60rem;
 }
 .anchor {
   font-size: 10px !important;
@@ -347,7 +353,7 @@ span .footer {
   z-index: 10;
 }
 .middle-vertical {
-  /* margin-top: 9% !important; */
+  margin-top: 9% !important;
   vertical-align: middle !important;
 }
 p {
@@ -355,10 +361,14 @@ p {
   font-size: 17px;
 }
 .link-tips {
-  color: whitesmoke !important;
-  font-size: 10px !important;
+  color: #403e3f !important;
+  font-size: 12px !important;
 }
 .link-tips:hover {
+  color: #bf1650 !important;
+  text-decoration: none !important;
+}
+.link-hover:hover {
   color: #bf1650 !important;
   text-decoration: none !important;
 }

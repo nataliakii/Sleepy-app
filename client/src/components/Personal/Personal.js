@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Modal, Container } from "react-bootstrap";
-import { deleteProfile, signout } from "../actions";
+import { deleteProfile, signout } from "../../actions";
 
 export default function Personal() {
   const dispatch = useDispatch();
