@@ -7,13 +7,11 @@ import {
   styled,
   TextField,
   Button,
-  Modal,
   Dialog,
   DialogContent,
   DialogActions,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { signup } from "../../actions";
@@ -53,7 +51,6 @@ const Signup = () => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const error = useSelector((state) => state.auth.errorMessage);
   const name = useSelector((state) => state.auth.name);
   const [show, setShow] = useState(false);
@@ -101,6 +98,7 @@ const Signup = () => {
           flexDirection: "column",
           ml: 2,
           mt: -10,
+          width: "20rem",
         }}
       >
         <Typography

@@ -1,8 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Modal, Container } from "react-bootstrap";
-import { deleteProfile, signout } from "../../actions";
+import { deleteProfile } from "../../actions";
+import {
+  Container,
+  Typography,
+  styled,
+  Button,
+  Box,
+  Dialog,
+  DialogContent,
+  Stack,
+  Grid,
+} from "@mui/material";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "14px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.2 ",
+  },
+}));
 
 export default function Personal() {
   const dispatch = useDispatch();
@@ -20,80 +46,107 @@ export default function Personal() {
 
   return (
     <Container
-      className="h-100 p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        marginTop: "5%",
-        float: "left",
-        fontWeight: "200",
-        minWidth: "89%",
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <div className="container-fluid py-4">
-        <h1 className="display-5 fw-bold">
-          {name}'s and {kidName}'s personal page
-        </h1>
-        <p className="col-ms-1 fs">
-          {" "}
-          To get your personal recommendations, please provide {kidName}'s
-          sleeping schedule.{" "}
-        </p>
-        <Button
-          type="button"
-          variant="primary"
-          className="main-button personal display-block padding-button"
-          onClick={() => navigate("/sleepy-form-post")}
+      <Grid container spacing={2}>
+        <Grid
+          item
+          xs={6}
+          sx={{
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "left",
+          }}
         >
-          Check if {kidName} sleeps enough (so you do!)
-        </Button>
-        <Button
-          type="button"
-          variant="primary"
-          className="main-button personal display-block padding-button"
-          onClick={() => navigate("/personal/all-docs-display")}
-        >
-          All your sleepy docs
-        </Button>
-        <Button
-          type="button"
-          variant="primary"
-          className="main-button personal display-block padding-button"
-          onClick={() => navigate("/personal/edit")}
-        >
-          Edit personal info
-        </Button>
-        <Button
-          type="button"
-          variant="primary"
-          className="main-button personal display-block delete-btn"
-          onClick={handleShow}
-        >
-          Delete Profile
-        </Button>
+          <Typography variant="h6">
+            {name}'s and {kidName}'s personal page
+          </Typography>
+          <CustomButton
+            sx={{ mt: 5, mb: 2, width: "20rem" }}
+            type="button"
+            variant="contained"
+            size="large"
+            className="main-button personal display-block padding-button"
+            onClick={() => navigate("/sleepy-form-post")}
+          >
+            Check if {kidName} sleeps enough (so you do!)
+          </CustomButton>
+          <CustomButton
+            sx={{ mb: 2, width: "20rem" }}
+            type="button"
+            variant="contained"
+            size="large"
+            className="main-button personal display-block padding-button"
+            onClick={() => navigate("/personal/all-docs-display")}
+          >
+            All your sleepy docs
+          </CustomButton>
+          <CustomButton
+            sx={{ mb: 2, width: "20rem" }}
+            type="button"
+            variant="contained"
+            size="large"
+            className="main-button personal display-block padding-button"
+            onClick={() => navigate("/personal/edit")}
+          >
+            Edit personal info
+          </CustomButton>
+          <CustomButton
+            sx={{ width: "20rem" }}
+            variant="contained"
+            size="large"
+            className="main-button personal display-block delete-btn"
+            onClick={handleShow}
+          >
+            Delete Profile
+          </CustomButton>
+        </Grid>
+        <Grid item xs="6">
+          <img
+            src="/panda.jpg"
+            alt="panda"
+            style={{ width: "103.6%", heigh: "auto" }}
+          />
+        </Grid>
+      </Grid>
 
-        <Modal show={show} onHide={handleClose} centered>
-          <Modal.Body className="modal-title">
+      <Dialog open={show} onClose={handleClose} centered>
+        <DialogContent sx={{ p: 3, textAlign: "center" }}>
+          <Typography
+            variant="body1"
+            component="p"
+            color="error.dark"
+            marginBottom={5}
+          >
             {name}, do you really want to delete your profile?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              className="modal-button"
-              variant="primary"
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <CustomButton
+              variant="contained"
+              size="large"
               onClick={handleClose}
             >
               No, it's just that I want to sleep more.
-            </Button>
-            <Button
-              className="modal-button"
-              variant="primary"
+            </CustomButton>
+            <CustomButton
+              variant="contained"
+              size="large"
               onClick={handleDeleteButton}
             >
               Yes, delete it.
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+            </CustomButton>
+          </Stack>
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 }

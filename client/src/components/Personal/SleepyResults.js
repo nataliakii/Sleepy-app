@@ -1,16 +1,35 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import displayAge from "../../hooks/displayAge";
 import { cellCol } from "../../hooks/tableRenders";
 import displayTime from "../../hooks/displayTime";
 import icons from "../../hooks/renderResultIcons";
 import Error from "../Error";
+import { Container, Button, Typography, styled } from "@mui/material";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.8 ",
+  },
+}));
 
 export default function SleepyResults() {
   const convDate = (d) => new Date(d).toDateString();
   const doc = useSelector((state) => state.sleepy);
+  const navigate = useNavigate();
   const ww1R = doc.result.ww1R.message;
   const ww2R = doc.result.ww2R.message;
   const ww3R = doc.result.ww3R?.message;
@@ -57,15 +76,16 @@ export default function SleepyResults() {
 
   if (!doc) return <Error />;
   return (
-    <div
-      className="h-auto p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        width: "auto",
-        marginTop: "5%",
-        minWidth: "85%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-Start",
+        alignItems: "center",
+        py: 4,
       }}
     >
       <h5>Your sleepy doc from {convDate(doc.date)}</h5>
@@ -240,14 +260,13 @@ export default function SleepyResults() {
           </tr>
         </tbody>
       </Table>
-      <Button
-        type="link"
-        variant="primary"
-        className="main-button personal display-block"
-        href="/personal/all-docs-display"
+      <CustomButton
+        variant="contained"
+        size="large"
+        onClick={() => navigate("/personal/all-docs-display")}
       >
         All your sleepy docs
-      </Button>
-    </div>
+      </CustomButton>
+    </Container>
   );
 }

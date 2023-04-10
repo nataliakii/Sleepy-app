@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const dayjs = require('dayjs');
 const { SleepyModel } = require('../models/sleep');
 const User = require('../models/user');
 const Article = require('../models/article');
@@ -18,6 +19,7 @@ exports.addSleepyDoc = function (req, res) {
     const { calculateSumNap } = helpingFuncs;
     const { createResultObject } = helpingFuncs;
     const { findNorm } = helpingFuncs;
+    const {convTimeToAm} = helpingFuncs
     const bd = req.user.kidBD.getTime()
     const dt = new Date(sleepData.date).getTime()
 
@@ -58,7 +60,27 @@ exports.addSleepyDoc = function (req, res) {
         calculateAge(req.user.kidBD, sleepData.date).ageInWeeks
       ),
     };
-    sleep.result = createResultObject(sleep);
+    sleep.result = createResultObject(sleep)
+    sleep.wakeUp=convTimeToAm(sleep.wakeUp)
+    sleep.bedTime=convTimeToAm(sleep.bedTime)
+    sleep.lastNap=convTimeToAm(sleep.lastNap)
+    sleep.nap1.start=convTimeToAm(sleep.nap1.start)
+    sleep.nap1.end=convTimeToAm(sleep.nap1.end)
+    if (sleep.nap2.start) {
+      sleep.nap2.start = convTimeToAm(sleep.nap2.start);
+      sleep.nap2.end = convTimeToAm(sleep.nap2.end);
+    }
+    
+    if (sleep.nap3.start) {
+      sleep.nap3.start = convTimeToAm(sleep.nap3.start);
+      sleep.nap3.end = convTimeToAm(sleep.nap3.end);
+    }
+    
+    if(sleep.nap4.start){
+      sleep.nap4.start=convTimeToAm(sleep.nap4.start)
+      sleep.nap4.end=convTimeToAm(sleep.nap4.end)
+    }
+
     const sleepyDoc = new SleepyModel(sleep);
 
     sleepyDoc.save((err, sleepyDoc) => {
@@ -83,6 +105,7 @@ exports.postForm = function (req, res) {
     const { calculateSumNap } = helpingFuncs;
     const { createResultObject } = helpingFuncs;
     const { findNorm } = helpingFuncs;
+    const {convTimeToAm} = helpingFuncs
     const sleep = {
       date: sleepData.date,
       wakeUp: sleepData.wakeUp,
@@ -117,6 +140,25 @@ exports.postForm = function (req, res) {
       ),
     };
     sleep.result = createResultObject(sleep); 
+    sleep.wakeUp=convTimeToAm(sleep.wakeUp)
+    sleep.bedTime=convTimeToAm(sleep.bedTime)
+    sleep.lastNap=convTimeToAm(sleep.lastNap)
+    sleep.nap1.start=convTimeToAm(sleep.nap1.start)
+    sleep.nap1.end=convTimeToAm(sleep.nap1.end)
+    if (sleep.nap2.start) {
+      sleep.nap2.start = convTimeToAm(sleep.nap2.start);
+      sleep.nap2.end = convTimeToAm(sleep.nap2.end);
+    }
+    
+    if (sleep.nap3.start) {
+      sleep.nap3.start = convTimeToAm(sleep.nap3.start);
+      sleep.nap3.end = convTimeToAm(sleep.nap3.end);
+    }
+    
+    if(sleep.nap4.start){
+      sleep.nap4.start=convTimeToAm(sleep.nap4.start)
+      sleep.nap4.end=convTimeToAm(sleep.nap4.end)
+    }
     res.send(sleep)
 };
 

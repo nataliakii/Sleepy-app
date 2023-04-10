@@ -1,11 +1,28 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { updateProfile } from "../../actions";
+import { Container, Typography, Box, styled, Button } from "@mui/material";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.01 ",
+  },
+}));
 
 const userSchema = Yup.object().shape({
   email: Yup.string().email(),
@@ -23,7 +40,6 @@ export default function EditProfile({ user }) {
     resolver: yupResolver(userSchema),
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -52,21 +68,40 @@ export default function EditProfile({ user }) {
   };
 
   return (
-    <div
-      className="h-100 p-5 text-white bg-dark main-container-center"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        width: "auto",
-        marginTop: "5%",
-        minWidth: "82%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "flex-start",
+        justifyContent: "center",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}>
-        <h3 className="centered">Edit Profile</h3>
+      <Box
+        component="form"
+        className="form-signup"
+        onSubmit={handleSubmit(handleFormSubmit)}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          ml: 2,
+          mt: -10,
+          width: "20rem",
+        }}
+      >
+        {/* <Form className="form-signup" onSubmit={handleSubmit(handleFormSubmit)}> */}
+        <Typography
+          sx={{ textTransform: "uppercase", letterSpacing: "2px" }}
+          variant="h5"
+          align="center"
+        >
+          Edit Profile
+        </Typography>
         <Form.Group className="mb-2" controlId="formBasicEmail">
-          <Form.Label>Update email</Form.Label>
+          <Form.Label className="art-color">Update email</Form.Label>
           <Form.Control
             type="email"
             value={email1}
@@ -76,7 +111,7 @@ export default function EditProfile({ user }) {
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="formBasicName">
-          <Form.Label>Update name</Form.Label>
+          <Form.Label className="art-color">Update name</Form.Label>
           <Form.Control
             type="text"
             value={name1}
@@ -86,7 +121,7 @@ export default function EditProfile({ user }) {
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="formBasicNameKid">
-          <Form.Label>Update kid's name</Form.Label>
+          <Form.Label className="art-color">Update kid's name</Form.Label>
           <Form.Control
             type="text"
             value={nameKid1}
@@ -96,7 +131,7 @@ export default function EditProfile({ user }) {
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="formBasicDate">
-          <Form.Label>Update kid's birthday</Form.Label>
+          <Form.Label className="art-color">Update kid's birthday</Form.Label>
           <Form.Control
             type="date"
             value={kidBD1}
@@ -105,25 +140,30 @@ export default function EditProfile({ user }) {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className="centered-button">
+        <CustomButton
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
           Update
-        </Button>
+        </CustomButton>
 
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Body className="modal-title">
             {name1}, your profile was updated successfully.
           </Modal.Body>
           <Modal.Footer>
-            <Button
+            <CustomButton
               className="modal-update"
-              variant="primary"
+              sx={{ backgroundColor: "primary.main" }}
               onClick={handleUpdateButton}
             >
               Woohoo! As much as anything, I love to sleep!
-            </Button>
+            </CustomButton>
           </Modal.Footer>
         </Modal>
-      </Form>
-    </div>
+      </Box>
+    </Container>
   );
 }

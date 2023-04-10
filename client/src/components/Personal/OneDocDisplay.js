@@ -2,11 +2,28 @@ import React from "react";
 import _ from "lodash";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
+import { Container, Button, Typography, styled } from "@mui/material";
 import displayAge from "../../hooks/displayAge";
 import displayTime from "../../hooks/displayTime";
 import { cellCol } from "../../hooks/tableRenders";
 import icons from "../../hooks/renderResultIcons";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.8 ",
+  },
+}));
 
 export default function OneDocDisplay() {
   const navigate = useNavigate();
@@ -61,18 +78,21 @@ export default function OneDocDisplay() {
   };
 
   return (
-    <div
-      className="h-auto p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        width: "auto",
-        marginTop: "5%",
-        minWidth: "85%",
-        minHeight: "100%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        py: 4,
       }}
     >
-      <h5>Your sleepy doc from {convDate(doc.date)}</h5>
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        Your sleepy doc from {convDate(doc.date)}
+      </Typography>
       <Table bordered className="sleepy-table" id="table-width">
         <thead className="table-head">
           <tr>
@@ -244,14 +264,13 @@ export default function OneDocDisplay() {
           </tr>
         </tbody>
       </Table>
-      <Button
-        type="button"
-        variant="primary"
-        className="main-button personal padding-button"
+      <CustomButton
+        variant="contained"
+        size="large"
         onClick={() => navigate("/personal/all-docs-display")}
       >
         Back to all your sleepy docs
-      </Button>
-    </div>
+      </CustomButton>
+    </Container>
   );
 }

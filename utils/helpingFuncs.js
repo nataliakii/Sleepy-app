@@ -297,6 +297,16 @@ const helpingFuncs = {
       arrToReturn.push(o)
     }
     return arrToReturn
+  },
+  convTimeToAm: convTimeToAm=(time)=>{
+    console.log(time)
+    const [hour, minute, second] = time.split(':');
+    const dayjsObj = dayjs()
+    .hour(hour)
+    .minute(minute)
+    .second(second);
+    const timeToReturn = dayjsObj.format("h:m A");
+    return timeToReturn
   }
 };
 

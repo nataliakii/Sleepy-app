@@ -64,15 +64,16 @@ const Norms = () => {
         textAlign: "center",
       }}
     >
-      <div className="table-container">
+      <div
+        className="table-container"
+        style={{ position: "relative", display: "inline-block" }}
+      >
         <StyledTable
           sx={{
             color: "text.light",
             overflowX: "auto",
-            ml: "6%",
+            width: "60rem",
           }}
-          // className="sleepy-table"
-          id="table-width"
         >
           <TableHead
             sx={{

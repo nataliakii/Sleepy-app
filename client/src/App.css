@@ -176,6 +176,7 @@ label {
   text-align: center !important;
   width: 60rem !important;
   font-weight: 500 !important;
+  vertical-align: middle !important;
   /* text-transform: uppercase; */
 }
 td {
@@ -201,10 +202,12 @@ td {
   background-color: rgb(128, 60, 125) !important;
   vertical-align: middle !important;
   font-size: 11px !important;
+  color: white;
 }
 .table-head {
   text-transform: uppercase !important;
   background-color: rgb(76, 125, 128);
+  vertical-align: middle !important;
 }
 .ok-cell {
   background-color: rgb(128, 60, 125) !important;
@@ -330,9 +333,11 @@ span .footer {
 
 #hover-color:hover {
   background: rgb(125, 128, 60) !important;
+  color: white;
 }
 #hover-delete:hover {
   background: rgb(128, 60, 125) !important;
+  color: white;
 }
 #table-width {
   width: 60rem;
@@ -361,7 +366,7 @@ p {
   font-size: 17px;
 }
 .link-tips {
-  color: #403e3f !important;
+  color: white !important;
   font-size: 12px !important;
 }
 .link-tips:hover {
@@ -376,7 +381,7 @@ p {
   text-align: center;
 }
 .art-color {
-  color: #cb4472 !important;
+  color: #bf1650 !important;
 }
 .margin-top {
   margin-top: 5%;

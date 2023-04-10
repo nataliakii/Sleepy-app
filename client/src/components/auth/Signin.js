@@ -97,9 +97,12 @@ const Signin = () => {
         >
           Signin
         </Typography>
-        <Box mt={2}>{errorRender()}</Box>
+        <Box mt={2} sx={{ width: "20rem" }}>
+          {errorRender()}
+        </Box>
         <Box mt={2}>
           <TextField
+            sx={{ width: "20rem" }}
             fullWidth
             id="email"
             label="Email"
@@ -112,6 +115,7 @@ const Signin = () => {
         </Box>
         <Box mt={2}>
           <TextField
+            sx={{ width: "20rem" }}
             fullWidth
             id="password"
             label="Password"

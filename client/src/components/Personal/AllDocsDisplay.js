@@ -1,14 +1,32 @@
 import React, { useEffect, useRef } from "react";
 import _ from "lodash";
-import { OverlayTrigger, Tooltip, Table, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import { Container, styled, Button, Stack } from "@mui/material";
+
 import displayAge from "../../hooks/displayAge";
 import { conditionalCellColor } from "../../hooks/tableRenders";
 import displayTime from "../../hooks/displayTime";
 import checkColForRender from "../../hooks/checkColForRender";
 import { fetchAllDocs, deleteDoc } from "../../actions";
 import Error from "../Error";
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  fontSize: "16px",
+  color: theme.palette.text.light,
+  fontWeight: 100,
+  "&:hover": {
+    color: "#bf1650",
+    backgroundColor: "transparent",
+  },
+  "&:active": {
+    transition: "0.3s all ",
+    transform: "translateY(3px) ",
+    border: "1px solid transparent",
+    opacity: "0.01 ",
+  },
+}));
 
 export default function AllDocsDisplay() {
   const dispatch = useDispatch();
@@ -22,7 +40,6 @@ export default function AllDocsDisplay() {
     navigate("/personal/all-docs-display");
   };
   const allDocs = useSelector((state) => state.allDocs);
-  console.log(allDocs);
 
   const allDocsMap = allDocs.map((doc) => {
     const ww1R = doc.result.ww1R.message;
@@ -110,9 +127,19 @@ export default function AllDocsDisplay() {
     );
   });
   const conditionalDisplay = () => {
-    if (allDocs.length > 0) {
+    if (allDocs) {
       return (
-        <Table bordered className="sleepy-table">
+        <Table
+          bordered
+          // className="sleepy-table"
+          style={{
+            position: "relative",
+            display: "inline-block",
+            width: "80rem",
+            fontSize: "11px",
+            color: "white",
+          }}
+        >
           <thead>
             <tr className="table-head">
               <th>Actions</th>
@@ -174,33 +201,36 @@ export default function AllDocsDisplay() {
   };
 
   return (
-    <div
-      className="h-auto  p-5 text-white bg-dark"
-      style={{
-        position: "absolute",
-        display: "inline-block",
-        minHeight: "100%",
-        minWidth: "85%",
-        marginTop: "5%",
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#ecebeb",
+        height: "100vh",
+        display: "flex", // Use Flexbox
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        padding: "32px",
+        textAlign: "center",
       }}
     >
       {conditionalDisplay()}
-      <Button
-        variant="primary"
-        className="main-button personal padding-button"
-        type="button"
-        onClick={() => navigate("/sleepy-form-post")}
-      >
-        Fill in sleepy form
-      </Button>
-      <Button
-        variant="primary"
-        className="main-button personal padding-button"
-        type="button"
-        onClick={() => navigate("/personal")}
-      >
-        Back to profile
-      </Button>
-    </div>
+      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        <CustomButton
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/personal")}
+        >
+          Back to profile
+        </CustomButton>
+        <CustomButton
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/sleepy-form-post")}
+        >
+          Fill in sleepy form
+        </CustomButton>
+      </Stack>
+    </Container>
   );
 }
