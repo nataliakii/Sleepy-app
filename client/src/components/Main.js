@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Container, Button, Typography, styled } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { fetchFunFact } from "../actions";
 import { MdAccessibilityNew } from "react-icons/md";
 import Footer from "./Footer";
@@ -23,6 +24,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Main({ user, companyData }) {
+  const theme = useTheme();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchFunFact());
@@ -74,13 +76,44 @@ export default function Main({ user, companyData }) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        py: 4,
+        py: theme.spacing(4),
       }}
     >
-      <Typography variant="h2" align="center" gutterBottom sx={{ mt: -10 }}>
+      <Typography
+        variant="h2"
+        align="center"
+        gutterBottom
+        sx={{
+          mt: -10,
+          [theme.breakpoints.down("md")]: {
+            fontSize: "3rem",
+          },
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "2.5rem",
+          },
+          [theme.breakpoints.down("xs")]: {
+            fontSize: "1rem",
+          },
+        }}
+      >
         Hello, {renderStringName()}
       </Typography>
-      <Typography variant="h5" align="center" gutterBottom>
+      <Typography
+        variant="h5"
+        align="center"
+        gutterBottom
+        sx={{
+          [theme.breakpoints.down("md")]: {
+            fontSize: "1.5rem",
+          },
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "1.2rem",
+          },
+          [theme.breakpoints.down("xs")]: {
+            fontSize: "0.5rem",
+          },
+        }}
+      >
         We're on a mission to help new moms get the sleep they deserve. Let us
         help you create a peaceful and restful environment for you and your
         little one.

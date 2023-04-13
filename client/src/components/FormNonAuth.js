@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { postFormNoAuth } from "../actions";
+import { useTheme } from "@mui/material/styles";
 import {
   DatePicker,
   SingleInputTimeRangeField,
@@ -42,6 +43,7 @@ const CustomError = styled(Typography)(({ theme }) => ({
 }));
 
 export default function FormNonAuth() {
+  const theme = useTheme();
   const startTime = dayjs("11:00", "HH:mm");
   const endTime = dayjs("11:45", "HH:mm");
   const [selectedNap1, setSelectedNap1] = useState([startTime, endTime]);
@@ -202,7 +204,7 @@ export default function FormNonAuth() {
       maxWidth="xl"
       sx={{
         backgroundColor: "#ecebeb",
-        height: "100vh",
+        height: "auto",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -210,7 +212,27 @@ export default function FormNonAuth() {
         py: 4,
       }}
     >
-      <Typography variant="h3" align="center" sx={{ mt: 2 }}>
+      <Typography
+        variant="h4"
+        marginTop={1}
+        align="center"
+        sx={{
+          [theme.breakpoints.down("md")]: {
+            fontSize: "1.5rem",
+          },
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "1.2rem",
+          },
+          [theme.breakpoints.down("xs")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.down("1024")]: {
+            [theme.breakpoints.down("600")]: {
+              fontSize: "1rem",
+            },
+          },
+        }}
+      >
         Submit Sleepy Form
       </Typography>
       <Typography variant="body1" paragraph sx={{ mt: 1 }}>

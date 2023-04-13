@@ -319,18 +319,6 @@ span .footer {
   margin: 5px;
 }
 
-@media (max-width: 768px) {
-  .table-container {
-    overflow-x: auto;
-  }
-}
-
-@media (min-width: 768px) {
-  .table-container {
-    overflow-x: hidden;
-  }
-}
-
 #hover-color:hover {
   background: rgb(125, 128, 60) !important;
   color: white;

@@ -47,7 +47,7 @@ export default function FindRestaurant() {
       maxWidth="xl"
       sx={{
         backgroundColor: "#ecebeb",
-        height: "100vh",
+        height: "auto",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

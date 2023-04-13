@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
-// import { Table } from "react-bootstrap";
 import _ from "lodash";
 import { fetchNorms } from "../actions";
 import displayTime from "../hooks/displayTime";
@@ -14,6 +12,7 @@ import {
   TableCell,
   TableBody,
   Link,
+  Box,
   styled,
 } from "@mui/material";
 
@@ -64,14 +63,11 @@ const Norms = () => {
         textAlign: "center",
       }}
     >
-      <div
-        className="table-container"
-        style={{ position: "relative", display: "inline-block" }}
-      >
+      <Box sx={{ overflowX: "auto" }}>
         <StyledTable
           sx={{
             color: "text.light",
-            overflowX: "auto",
+            display: "inline-block",
             width: "60rem",
           }}
         >
@@ -125,7 +121,7 @@ const Norms = () => {
               : null}
           </TableBody>
         </StyledTable>
-      </div>
+      </Box>
     </Container>
   );
 };
