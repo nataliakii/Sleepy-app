@@ -36,7 +36,7 @@ exports.currentUser = function (req, res, next) {
       res.status(400).send(err);
       return next(err);
     } else {
-      res.status(200).send(user).end();
+      res.status(200).send(user);
     }
   });
 };

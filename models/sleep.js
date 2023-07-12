@@ -20,7 +20,7 @@ const sleepySchema = new Schema({
   sumNap: String,
   lastNap: String,
   numberOfNaps:Number,
-  result: Object
+  result: Object  
 });
 
 const SleepyModel = mongoose.model("sleep", sleepySchema);

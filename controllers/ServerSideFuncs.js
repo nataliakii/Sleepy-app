@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const dayjs = require('dayjs');
 const { SleepyModel } = require('../models/sleep');
 const User = require('../models/user');
 const Article = require('../models/article');
@@ -8,7 +7,6 @@ const articles = require('../utils/articles')
 const helpingFuncs = require('../utils/helpingFuncs')
 const norms = require('../utils/norms');
 const funFacts = require('../utils/funFacts');
-
 
 exports.addSleepyDoc = function (req, res) {
   console.log(req.body)

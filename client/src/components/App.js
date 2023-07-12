@@ -63,7 +63,7 @@ const theme = createTheme({
 
 const companyData = {
   name: "SleepyApp",
-  url: "https://protected-beach-44415.herokuapp.com/",
+  url: "https://github.com/nataliakii/Sleepy-app",
 };
 
 const pages = [
