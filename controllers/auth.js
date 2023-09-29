@@ -47,9 +47,33 @@ exports.signup = function (req, res, next) {
   const password = req.body.password;
   const name = req.body.name;
   const nameKid = req.body.nameKid;
-  const kidBD = req.body.kidBD;
+  const kidBDString = req.body.kidBD; 
 
-  if (!email || !password || !name || !nameKid || !kidBD) {
+  const dateComponents = kidBDString.split(', ');
+  if (dateComponents.length !== 2) {
+    return res.status(422).send({ error: "Invalid date format for kidBD" });
+  }
+  
+  const dateString = dateComponents[0];
+  const timeZone = dateComponents[1];
+  
+  // Parse the date components
+  const [day, month, year] = dateString.split('/').map(Number);
+  
+  // Check if the date components are valid
+  if (isNaN(day) || isNaN(month) || isNaN(year)) {
+    return res.status(422).send({ error: "Invalid date format for kidBD" });
+  }
+  
+  // Create a new Date object with the parsed components
+  const parsedKidBD = new Date(year, month - 1, day); // Subtract 1 from month since it's 0-based in JavaScript
+  
+  // Check if the date is valid
+  if (isNaN(parsedKidBD)) {
+    return res.status(422).send({ error: "Invalid date format for kidBD" });
+  }
+
+  if (!email || !password || !name || !nameKid || !kidBDString) {
     return res
       .status(422)
       .send({ error: "You must provide all necessary fields" });
@@ -65,7 +89,7 @@ exports.signup = function (req, res, next) {
         .status(422)
         .send({
           error:
-            "This email is in use. Please, try another one or sign in with existing email.",
+            "This email is in use. Please, try another one or sign in with an existing email.",
         });
     }
 
@@ -74,23 +98,23 @@ exports.signup = function (req, res, next) {
     user.email = email;
     user.name = name;
     user.nameKid = nameKid;
-    user.kidBD = kidBD;
+    user.kidBD = parsedKidBD; // Use the parsed date object here
 
     user.setPassword(password);
 
-    user.save(function (err, user) {
+    user.save(function (err, savedUser) {
       if (err) {
         return next(err);
       }
       const msg = {
-        to: user.email,
+        to: savedUser.email,
         from: "nataliaki@icloud.com",
         subject: "Welcome to SleepyApp! This is a confirmation email",
-        text: `Hi ${user.name},
+        text: `Hi ${savedUser.name},
         We are reaching out to say hello! We are SleepyApp, and we're excited to welcome you to our community.
         If you have any questions or need assistance, don't hesitate to reach out. We’re here to help.
         Best regards, SleepyApp`,
-        html: `Hi ${user.name},
+        html: `Hi ${savedUser.name},
         We are reaching out to say hello! We are SleepyApp, and we're excited to welcome you to our community.
         If you have any questions or need assistance, don't hesitate to reach out. We’re here to help.
         Best regards, SleepyApp`,
@@ -107,12 +131,12 @@ exports.signup = function (req, res, next) {
       );
 
       res.send({
-        token: tokenForUser(user),
-        name: user.name,
-        nameKid: user.nameKid,
-        kidBD: user.kidBD,
-        email: user.email,
-        userId: user._id,
+        token: tokenForUser(savedUser),
+        name: savedUser.name,
+        nameKid: savedUser.nameKid,
+        kidBD: savedUser.kidBD,
+        email: savedUser.email,
+        userId: savedUser._id,
       });
     });
   });

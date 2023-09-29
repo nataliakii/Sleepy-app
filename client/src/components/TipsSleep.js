@@ -47,7 +47,8 @@ export default function TipsSleep() {
       maxWidth="xl"
       sx={{
         backgroundColor: "#ecebeb",
-        height: "100vh",
+        height: "100%",
+        minHeight: "50rem",
         alignItems: "center",
         py: 4,
       }}
@@ -55,7 +56,7 @@ export default function TipsSleep() {
       {tips.length > 0 ? (
         <Accordion defaultActiveKey={["1"]} alwaysOpen>
           {tips.map((tip, i) => (
-            <Accordion.Item style={{ width: "75%" }} eventKey={i} key={i}>
+            <Accordion.Item style={{ width: "98%" }} eventKey={i} key={i}>
               <Accordion.Header>{tip.name}</Accordion.Header>
               <Accordion.Body>{loopingTip(tip.content)}</Accordion.Body>
             </Accordion.Item>

@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const CustomButton = styled(Button)(({ theme }) => ({
   fontSize: "16px",
@@ -35,10 +36,23 @@ const CustomButton = styled(Button)(({ theme }) => ({
 }));
 
 const Nav = ({ user, companyData, pages }) => {
-  console.log("name from Nav", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { name } = user;
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+  const linkStyle = {
+    mr: isSmallScreen ? 1 : 2,
+    mt: isSmallScreen ? -1 : "auto",
+    mb: isSmallScreen ? -1 : "auto",
+    fontSize: isSmallScreen ? "14px" : "16px",
+  };
+
+  const flexContainerStyle = {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  };
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -57,21 +71,22 @@ const Nav = ({ user, companyData, pages }) => {
   const renderLinks = () => {
     if (name) {
       return (
-        <div sx={{ display: "flex", alignItems: "center" }}>
-          <CustomButton component={Link} to="/personal" sx={{ mr: 2 }}>
+        <div sx={{ ...flexContainerStyle }}>
+          <CustomButton component={Link} to="/personal" sx={linkStyle}>
             Hello, {name}
           </CustomButton>
-          <CustomButton onClick={handleSignOutClick}>Sign Out</CustomButton>
+          <CustomButton onClick={handleSignOutClick} sx={linkStyle}>
+            Sign Out
+          </CustomButton>
         </div>
       );
     }
-
     return (
-      <div sx={{ display: "flex", alignItems: "center" }}>
-        <CustomButton component={Link} sx={{ mr: 2 }} to="/signup">
+      <div sx={{ ...flexContainerStyle }}>
+        <CustomButton component={Link} sx={linkStyle} to="/signup">
           Sign Up
         </CustomButton>
-        <CustomButton component={Link} to="/signin">
+        <CustomButton component={Link} sx={linkStyle} to="/signin">
           Sign In
         </CustomButton>
       </div>

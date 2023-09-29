@@ -36,10 +36,12 @@ export default function AllDocsDisplay() {
     dispatch(fetchAllDocs());
   }, []);
   const handleDeleteDoc = (docId) => {
+    console.log("delete", docId);
     dispatch(deleteDoc(docId));
     navigate("/personal/all-docs-display");
   };
   const allDocs = useSelector((state) => state.allDocs);
+  console.log(allDocs.length == 0);
 
   const allDocsMap = allDocs.map((doc) => {
     const ww1R = doc.result.ww1R.message;
@@ -127,69 +129,76 @@ export default function AllDocsDisplay() {
     );
   });
   const conditionalDisplay = () => {
-    if (allDocs) {
+    if (!allDocs) {
       return (
-        <Table
-          bordered
-          // className="sleepy-table"
+        <div
           style={{
             position: "relative",
             display: "inline-block",
-            width: "80rem",
-            fontSize: "11px",
-            color: "white",
+            width: "100%",
+            height: "auto",
+            overflow: "auto",
           }}
         >
-          <thead>
-            <tr className="table-head">
-              <th>Actions</th>
-              <th>Date</th>
-              <th>Age</th>
-              <th>Wake-up</th>
-              <th>Bed-time</th>
-              <th>
-                <Link className="link-tips" to="/tips-sleep">
-                  Ww1
-                </Link>
-              </th>
-              <th>
-                {" "}
-                <Link className="link-tips" to="/tips-sleep">
-                  {" "}
-                  Ww 2{" "}
-                </Link>
-              </th>
-              {checkColForRender(allDocs).w3.length !== 0 ? (
+          <Table
+            bordered
+            style={{
+              width: "100%",
+              fontSize: "11px",
+              color: "white",
+            }}
+          >
+            <thead>
+              <tr className="table-head">
+                <th>Actions</th>
+                <th>Date</th>
+                <th>Age</th>
+                <th>Wake-up</th>
+                <th>Bed-time</th>
+                <th>
+                  <Link className="link-tips" to="/tips-sleep">
+                    Ww1
+                  </Link>
+                </th>
                 <th>
                   {" "}
                   <Link className="link-tips" to="/tips-sleep">
-                    Ww 3{" "}
+                    {" "}
+                    Ww 2{" "}
                   </Link>
                 </th>
-              ) : null}
-              {checkColForRender(allDocs).w4.length !== 0 ? (
-                <th>
-                  {" "}
-                  <Link className="link-tips" to="/tips-sleep">
-                    Ww 4
-                  </Link>
-                </th>
-              ) : null}
-              {checkColForRender(allDocs).w5.length !== 0 ? (
-                <th>
-                  {" "}
-                  <Link className="link-tips" to="/tips-sleep">
-                    Ww 5
-                  </Link>
-                </th>
-              ) : null}
-              <th>Sum Nap</th>
-              <th>Last Nap</th>
-              <th>Number of naps</th>
-            </tr>
-          </thead>
-          {allDocsMap}
-        </Table>
+                {checkColForRender(allDocs).w3.length !== 0 ? (
+                  <th>
+                    {" "}
+                    <Link className="link-tips" to="/tips-sleep">
+                      Ww 3{" "}
+                    </Link>
+                  </th>
+                ) : null}
+                {checkColForRender(allDocs).w4.length !== 0 ? (
+                  <th>
+                    {" "}
+                    <Link className="link-tips" to="/tips-sleep">
+                      Ww 4
+                    </Link>
+                  </th>
+                ) : null}
+                {checkColForRender(allDocs).w5.length !== 0 ? (
+                  <th>
+                    {" "}
+                    <Link className="link-tips" to="/tips-sleep">
+                      Ww 5
+                    </Link>
+                  </th>
+                ) : null}
+                <th>Sum Nap</th>
+                <th>Last Nap</th>
+                <th>Number of naps</th>
+              </tr>
+            </thead>
+            {allDocsMap}
+          </Table>
+        </div>
       );
     }
     return (
@@ -205,8 +214,9 @@ export default function AllDocsDisplay() {
       maxWidth="xl"
       sx={{
         backgroundColor: "#ecebeb",
-        height: "100vh",
-        display: "flex", // Use Flexbox
+        minHeight: "50rem",
+        height: "100%",
+        display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",

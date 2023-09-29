@@ -56,6 +56,7 @@ const Norms = () => {
       sx={{
         backgroundColor: "#ecebeb",
         height: "auto",
+        minHeight: "100hv",
         justifyContent: "center",
         alignItems: "center",
         padding: "32px",
@@ -64,63 +65,107 @@ const Norms = () => {
       }}
     >
       <Box sx={{ overflowX: "auto" }}>
-        <StyledTable
-          sx={{
-            color: "text.light",
-            display: "inline-block",
-            width: "60rem",
-          }}
-        >
-          <TableHead
-            sx={{
-              textTransform: "uppercase",
-              backgroundColor: "rgb(128, 60, 125)",
-              color: "white",
-              textAlign: "center",
-              minWidth: "60rem",
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              //overflowX: "auto",
+              maxWidth: "180px",
             }}
           >
-            <TableRow className="row">
-              <StyledTableCell>Age</StyledTableCell>
-              <StyledTableCell>
-                <Link
-                  sx={{ color: "text.light" }}
-                  className="link-hover"
-                  to="/tips-sleep"
-                >
-                  Wake Window
-                </Link>
-              </StyledTableCell>
-              <StyledTableCell>Sum Nap</StyledTableCell>
-              <StyledTableCell>Number of naps</StyledTableCell>
-              <StyledTableCell>Last Nap</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {n
-              ? n.map((norm) => (
-                  <TableRow className="row" key={norm._id}>
-                    <StyledTableCell>{norm.age}</StyledTableCell>
-                    <StyledTableCell>
-                      {displayTime(norm.content.wwMin)} -{" "}
-                      {displayTime(norm.content.wwMax)}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      {displayTime(norm.content.napSumMin)} -{" "}
-                      {displayTime(norm.content.napSumMax)}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      {norm.content.napMin == norm.content.napMax
-                        ? ""
-                        : norm.content.napMin + " - "}
-                      {norm.content.napMax}
-                    </StyledTableCell>
-                    <StyledTableCell>{norm.content.lastNap}</StyledTableCell>
-                  </TableRow>
-                ))
-              : null}
-          </TableBody>
-        </StyledTable>
+            <StyledTable
+              sx={{
+                color: "text.light",
+                display: "inline-block",
+                minWidth: "60rem",
+              }}
+            >
+              <TableHead
+                sx={{
+                  textTransform: "uppercase",
+                  backgroundColor: "rgb(128, 60, 125)",
+                  color: "white",
+                  textAlign: "center",
+                  minWidth: "60rem",
+                }}
+              >
+                <TableRow className="row">
+                  <StyledTableCell>Age</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {n
+                  ? n.map((norm) => (
+                      <TableRow className="row" key={norm._id}>
+                        <StyledTableCell>{norm.age}</StyledTableCell>
+                      </TableRow>
+                    ))
+                  : null}
+              </TableBody>
+            </StyledTable>
+          </div>
+          <div
+            style={{
+              overflowX: "auto",
+              flex: 1,
+            }}
+          >
+            <StyledTable
+              sx={{
+                color: "text.light",
+                display: "inline-block",
+              }}
+            >
+              <TableHead
+                sx={{
+                  textTransform: "uppercase",
+                  backgroundColor: "rgb(128, 60, 125)",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                <TableRow>
+                  <StyledTableCell>
+                    <Link
+                      sx={{ color: "text.light" }}
+                      className="link-hover"
+                      to="/tips-sleep"
+                    >
+                      Wake Window
+                    </Link>
+                  </StyledTableCell>
+                  <StyledTableCell>Sum Nap</StyledTableCell>
+                  <StyledTableCell>Number of naps</StyledTableCell>
+                  <StyledTableCell>Last Nap</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {n
+                  ? n.map((norm) => (
+                      <TableRow className="row" key={norm._id}>
+                        <StyledTableCell>
+                          {displayTime(norm.content.wwMin)} -{" "}
+                          {displayTime(norm.content.wwMax)}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {displayTime(norm.content.napSumMin)} -{" "}
+                          {displayTime(norm.content.napSumMax)}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {norm.content.napMin == norm.content.napMax
+                            ? ""
+                            : norm.content.napMin + " - "}
+                          {norm.content.napMax}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {norm.content.lastNap}
+                        </StyledTableCell>
+                      </TableRow>
+                    ))
+                  : null}
+              </TableBody>
+            </StyledTable>
+          </div>
+        </div>
       </Box>
     </Container>
   );

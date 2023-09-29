@@ -203,6 +203,7 @@ export default function SleepyForm({ user }) {
             // backgroundImage: url("../../../public/panda.jpg"),
             backgroundColor: "#ecebeb",
             minHeight: "100%",
+            height: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",

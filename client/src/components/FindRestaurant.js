@@ -48,11 +48,13 @@ export default function FindRestaurant() {
       sx={{
         backgroundColor: "#ecebeb",
         height: "auto",
+        minHeight: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         py: 4,
+        overflow: "auto",
       }}
     >
       <Typography sx={{ color: "primary.main" }}>

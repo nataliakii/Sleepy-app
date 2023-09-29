@@ -57,19 +57,21 @@ export default function Personal() {
         py: 4,
       }}
     >
+      <Typography variant="h6" marginBottom="36px">
+        {name}'s and {kidName}'s personal page
+      </Typography>
+
       <Grid container spacing={2}>
         <Grid
           item
-          xs={6}
+          xs={12}
+          sm={6}
           sx={{
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "left",
           }}
         >
-          <Typography variant="h6">
-            {name}'s and {kidName}'s personal page
-          </Typography>
           <CustomButton
             sx={{ mt: 5, mb: 2, width: "20rem" }}
             type="button"
@@ -110,11 +112,16 @@ export default function Personal() {
             Delete Profile
           </CustomButton>
         </Grid>
-        <Grid item xs="6">
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
           <img
             src="/panda.jpg"
             alt="panda"
-            style={{ width: "103.6%", heigh: "auto" }}
+            style={{ maxWidth: "100%", height: "auto" }}
           />
         </Grid>
       </Grid>
